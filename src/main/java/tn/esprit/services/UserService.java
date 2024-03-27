@@ -2,6 +2,7 @@ package tn.esprit.services;
 
 
 import tn.esprit.models.Role;
+import tn.esprit.models.Session;
 import tn.esprit.models.User;
 import tn.esprit.util.DBconnection;
 
@@ -122,6 +123,52 @@ return user;
             pstm.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());        }
+
+    }
+    public User login(String email, String password) {
+
+        // check if the mail exist
+        String reqMail = " SELECT * FROM `user` WHERE `email` = ?" ;
+        User user = new User();
+        try {
+            PreparedStatement pstm = cnx.prepareStatement(reqMail);
+            pstm.setString(1, email);
+            ResultSet resultSet = pstm.executeQuery();
+            if (resultSet.next()) {
+                user.setId(resultSet.getInt(1));
+                user.setFirst_name(resultSet.getString(2));
+                user.setLast_name(resultSet.getString(3));
+                user.setEmail(resultSet.getString(4));
+                user.setPassword(resultSet.getString(5));
+                user.setPhone_number(resultSet.getFloat(6));
+                user.setPicture(resultSet.getString(7));
+                String roleName = resultSet.getString(8);
+                Role role = Role.valueOf(roleName);
+                user.setRole(role);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        //check if the passord correct
+
+        if (password.equals(user.getPassword())) {
+            System.out.println("connected");
+
+            Session.id = user.getId();
+            Session.first_name = user.getFirst_name();
+            Session.last_name = user.getLast_name();
+            Session.email = user.getEmail();
+            Session.password = user.getPassword();
+            Session.picture = user.getPicture();
+            Session.phone_number = user.getPhone_number();
+            Session.role = user.getRole();
+
+        }
+        else {
+            System.out.println("password incorrect ");
+        }
+        //return role of the user
+        return user;
 
     }
 }
