@@ -1,7 +1,9 @@
 package tn.esprit;
 
+import tn.esprit.util.DBconnection;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        DBconnection cnx = DBconnection.getInstance();
     }
 }
