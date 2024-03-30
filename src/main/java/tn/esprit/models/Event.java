@@ -6,15 +6,15 @@ import java.util.Date;
 public class Event {
     // attribut
     private int id ;
-    private String eventName , adress , location , objective , image, description;
+    private String eventName , address , location , objective , image, description;
     private Date date;
     private Time time;
 
     // constructor
-    public Event(int id, String eventName, String adress, String location, String objective, String image, String description, Date date, Time time) {
+    public Event(int id, String eventName, String address, String location, String objective, String image, String description, Date date, Time time) {
         this.id = id;
         this.eventName = eventName;
-        this.adress = adress;
+        this.address = address;
         this.location = location;
         this.objective = objective;
         this.image = image;
@@ -22,9 +22,9 @@ public class Event {
         this.date = date;
         this.time = time;
     }
-    public Event(String eventName, String adress, String location, String objective, String image, String description, Date date, Time time) {
+    public Event(String eventName, String address, String location, String objective, String image, String description, Date date, Time time) {
         this.eventName = eventName;
-        this.adress = adress;
+        this.address = address;
         this.location = location;
         this.objective = objective;
         this.image = image;
@@ -32,6 +32,11 @@ public class Event {
         this.date = date;
         this.time = time;
     }
+
+    public Event() {
+
+    }
+
     // getters & setters
     public int getId() {
         return id;
@@ -49,12 +54,12 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getLocation() {
@@ -89,9 +94,7 @@ public class Event {
         this.description = description;
     }
 
-    public Date getDate() {
-        return date;
-    }
+    public Date getDate() { return date; }
 
     public void setDate(Date date) {
         this.date = date;
@@ -111,7 +114,7 @@ public class Event {
         return "Event{" +
                 "id=" + id +
                 ", eventName='" + eventName + '\'' +
-                ", adress='" + adress + '\'' +
+                ", address='" + address + '\'' +
                 ", location='" + location + '\'' +
                 ", objective='" + objective + '\'' +
                 ", image='" + image + '\'' +
