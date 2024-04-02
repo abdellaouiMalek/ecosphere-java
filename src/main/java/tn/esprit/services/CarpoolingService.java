@@ -53,7 +53,7 @@ public class CarpoolingService implements IService<Carpooling> {
             statement.executeUpdate();
         }
     }
-
+    // get all carpoolings available on the db
     @Override
     public List<Carpooling> getAll()   {
         List<Carpooling> carpoolings = new ArrayList<>();
@@ -76,4 +76,29 @@ public class CarpoolingService implements IService<Carpooling> {
         }
         return carpoolings;
     }
+
+    // search for a carpooling
+    public List<Carpooling> search(String departure, String destination, Date arrivalDate) throws SQLException {
+        List<Carpooling> carpoolings = new ArrayList<>();
+        String req = "SELECT * FROM carpooling WHERE departure = ? AND destination = ? AND arrival_date = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(req)) {
+            ps.setString(1, departure);
+            ps.setString(2, destination);
+            ps.setDate(3, arrivalDate);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                Carpooling carpooling = new Carpooling();
+                carpooling.setId(resultSet.getInt("id"));
+                carpooling.setDeparture(resultSet.getString("departure"));
+                carpooling.setDestination(resultSet.getString("destination"));
+                carpooling.setDepartureDate(resultSet.getDate("departure_date"));
+                carpooling.setArrivalDate(resultSet.getDate("arrival_date"));
+                carpooling.setTime(resultSet.getTime("time"));
+                carpooling.setPrice(resultSet.getDouble("price"));
+                carpoolings.add(carpooling);
+            }
+        }
+        return carpoolings;
+    }
+
 }

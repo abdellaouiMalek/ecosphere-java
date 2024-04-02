@@ -3,10 +3,11 @@ package tn.esprit;
 import tn.esprit.models.Carpooling;
 import tn.esprit.services.CarpoolingService;
 import tn.esprit.util.DBconnection;
+
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -103,7 +104,7 @@ public class Main {
         } catch (ParseException e) {
             System.out.println("Error parsing the date/time. Please ensure you're using the correct format.");
         } */
-        // get all carpoolings
+      /*  // get all carpoolings
         try {
             List<Carpooling> carpoolings = carpoolingService.getAll();
 
@@ -113,6 +114,38 @@ public class Main {
             }
 
         } catch (Exception e) {
+            System.out.println("An error occurred while communicating with the database.");
+            e.printStackTrace();
+        }
+        */
+
+        // search for a carpooling
+        System.out.println("Enter departure:");
+        String departure = scanner.nextLine();
+
+        System.out.println("Enter destination:");
+        String destination = scanner.nextLine();
+
+        System.out.println("Enter arrival date (YYYY-MM-DD):");
+        Date arrivalDate;
+        try {
+            arrivalDate = new java.sql.Date(dateFormat.parse(scanner.nextLine()).getTime());
+        } catch (ParseException e) {
+            System.out.println("Invalid date format. Please enter date in the format YYYY-MM-DD.");
+            return;
+        }
+
+        try {
+            List<Carpooling> matchingCarpoolings = carpoolingService.search(departure, destination, arrivalDate);
+            if (matchingCarpoolings.isEmpty()) {
+                System.out.println("No carpoolings found matching the specified criteria.");
+            } else {
+                System.out.println("Carpoolings matching the specified criteria:");
+                for (Carpooling carpooling : matchingCarpoolings) {
+                    System.out.println(carpooling);
+                }
+            }
+        } catch (SQLException e) {
             System.out.println("An error occurred while communicating with the database.");
             e.printStackTrace();
         }
