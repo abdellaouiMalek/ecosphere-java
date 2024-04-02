@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -70,7 +71,7 @@ public class Main {
             e.printStackTrace();
         }*/
 
-        // Updating a carpooling
+       /* // Updating a carpooling
         try {
             System.out.println("Enter the ID of the carpooling to update:");
             int carpoolingId = scanner.nextInt();
@@ -101,6 +102,19 @@ public class Main {
 
         } catch (ParseException e) {
             System.out.println("Error parsing the date/time. Please ensure you're using the correct format.");
+        } */
+        // get all carpoolings
+        try {
+            List<Carpooling> carpoolings = carpoolingService.getAll();
+
+            System.out.println("All carpooling available:");
+            for (Carpooling carpooling : carpoolings) {
+                System.out.println(carpooling);
+            }
+
+        } catch (Exception e) {
+            System.out.println("An error occurred while communicating with the database.");
+            e.printStackTrace();
         }
     }
     }

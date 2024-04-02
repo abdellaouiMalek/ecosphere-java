@@ -5,6 +5,7 @@ import tn.esprit.models.Carpooling;
 import tn.esprit.util.DBconnection;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarpoolingService implements IService<Carpooling> {
@@ -54,7 +55,25 @@ public class CarpoolingService implements IService<Carpooling> {
     }
 
     @Override
-    public List<Carpooling> getAll() {
-        return null;
+    public List<Carpooling> getAll()   {
+        List<Carpooling> carpoolings = new ArrayList<>();
+        String req = "SELECT * FROM carpooling";
+        try (Statement statement = cnx.createStatement();
+             ResultSet result = statement.executeQuery(req)) {
+            while (result.next()) {
+                Carpooling carpooling = new Carpooling();
+                carpooling.setId(result.getInt("id"));
+              //  carpooling.setDepartureDate(result.getDate("departure_date"));
+               // carpooling.setArrivalDate(result.getDate("arrival_date"));
+                carpooling.setDeparture(result.getString("departure"));
+                carpooling.setDestination(result.getString("destination"));
+                carpooling.setPrice(result.getDouble("price"));
+                carpooling.setTime(result.getTime("time"));
+                carpoolings.add(carpooling);
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return carpoolings;
     }
 }
