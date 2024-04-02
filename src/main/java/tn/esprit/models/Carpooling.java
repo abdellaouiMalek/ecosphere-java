@@ -22,6 +22,9 @@ public class Carpooling {
         this.price = price;
     }
 
+    public Carpooling() {
+    }
+
     public Carpooling(String departure, String destination, Date departureDate, Date arrivalDate, Time time, double price) {
         this.departure = departure;
         this.destination = destination;
