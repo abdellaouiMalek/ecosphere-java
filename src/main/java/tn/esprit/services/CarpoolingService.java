@@ -26,9 +26,22 @@ public class CarpoolingService implements IService<Carpooling> {
             ps.executeUpdate();
         }
     }
-
+    // update an existing carpooling
     @Override
-    public void update(Carpooling carpooling) {
+    public void update(Carpooling carpooling)  {
+        String req = "UPDATE `carpooling` SET departure_date = ?, arrival_date = ?, departure = ?, destination = ?, price = ?, time = ? WHERE id = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(req)) {
+            ps.setDate(1, new Date(carpooling.getDepartureDate().getTime()));
+            ps.setDate(2, new Date(carpooling.getArrivalDate().getTime()));
+            ps.setString(3, carpooling.getDeparture());
+            ps.setString(4, carpooling.getDestination());
+            ps.setDouble(5, carpooling.getPrice());
+            ps.setTime(6, carpooling.getTime());
+            ps.setInt(7, carpooling.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     // Delete an existing carpooling
     @Override
