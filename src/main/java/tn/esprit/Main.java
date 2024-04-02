@@ -16,9 +16,11 @@ public class Main {
 
         DBconnection cnx = DBconnection.getInstance();
         Scanner scanner = new Scanner(System.in);
+        CarpoolingService carpoolingService = new CarpoolingService();
+
+        /* // Adding a new carpooling
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-
         try {
             System.out.println("Enter departure location:");
             String departure = scanner.nextLine();
@@ -38,15 +40,6 @@ public class Main {
             System.out.println("Enter price:");
             double price = scanner.nextDouble();
 
-          /*  in case u want to add the carpooling using an empty constructor
-            Carpooling carpooling = new Carpooling();
-            carpooling.setDeparture(departure);
-            carpooling.setDestination(destination);
-            carpooling.setDepartureDate(departureDate);
-            carpooling.setArrivalDate(arrivalDate);
-            carpooling.setTime(time);
-            carpooling.setPrice(price); */
-
             Carpooling carpooling = new Carpooling(0, departure, destination, departureDate, arrivalDate, time, price);
 
             CarpoolingService carpoolingService = new CarpoolingService();
@@ -55,6 +48,23 @@ public class Main {
 
         } catch (ParseException e) {
             System.out.println("Error parsing the date/time. Please ensure you're using the correct format.");
+        } catch (SQLException e) {
+            System.out.println("An error occurred while communicating with the database.");
+            e.printStackTrace();
+        }
+        */
+        // Delete an existing carpooling
+        try {
+            System.out.println("Enter the ID of the carpooling to delete:");
+            int carpoolingId = scanner.nextInt();
+            scanner.nextLine();
+
+            Carpooling carpooling = new Carpooling();
+            carpooling.setId(carpoolingId);
+
+            carpoolingService.delete(carpooling);
+            System.out.println("Carpooling with ID " + carpoolingId + " deleted successfully!");
+
         } catch (SQLException e) {
             System.out.println("An error occurred while communicating with the database.");
             e.printStackTrace();
