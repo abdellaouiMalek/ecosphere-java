@@ -24,23 +24,44 @@ public class Main {
         //***********add
         // Prompt the user to enter event details
         System.out.println("Enter event details:");
-        System.out.print("Event Name: ");
-        String eventName = scanner.nextLine();
+        // Input validation for Event Name
+        String eventName;
+        do {
+            System.out.print("Event Name: ");
+            eventName = scanner.nextLine().trim();
+        } while (eventName.isEmpty());
 
-        System.out.print("Address: ");
-        String address = scanner.nextLine();
+        // Input validation for Address
+        String address;
+        do {
+            System.out.print("Address: ");
+            address = scanner.nextLine().trim();
+        } while (address.isEmpty());
 
-        System.out.print("Location: ");
-        String location = scanner.nextLine();
+        // Input validation for Location
+        String location;
+        do {
+            System.out.print("Location: ");
+            location = scanner.nextLine().trim();
+        } while (location.isEmpty());
 
-        System.out.print("Objective: ");
-        String objective = scanner.nextLine();
+        // Input validation for Objective
+        String objective;
+        do {
+            System.out.print("Objective: ");
+            objective = scanner.nextLine().trim();
+        } while (objective.isEmpty());
 
+        // Input validation for Image (can be empty)
         System.out.print("Image: ");
-        String image = scanner.nextLine();
+        String image = scanner.nextLine().trim(); // No validation needed for this field
 
-        System.out.print("Description: ");
-        String description = scanner.nextLine();
+        // Input validation for Description
+        String description;
+        do {
+            System.out.print("Description: ");
+            description = scanner.nextLine().trim();
+        } while (description.isEmpty());
 
         // Assuming you want to enter date and time manually as well
         System.out.print("Date (YYYY-MM-DD): ");
@@ -66,7 +87,7 @@ public class Main {
             return;
         }
 
-        //*************delete
+
         // Create a new Event object with user-entered data
         Event event = new Event(eventName, address, location, objective, image, description, date, time);
 
@@ -78,6 +99,8 @@ public class Main {
             System.err.println("Error occurred while adding the event: " + e.getMessage());
         }
 
+
+//*************delete
         // Prompt the user to enter the ID of the event they want to delete
         System.out.print("Enter the ID of the event you want to delete: ");
         int eventId = scanner.nextInt();
@@ -93,10 +116,6 @@ public class Main {
         } catch (SQLException e) {
             System.err.println("Error occurred while deleting the event: " + e.getMessage());
         }
-
-        // Close the Scanner
-        scanner.close();
-
 
         //*********show all
         // Retrieve the list of events
@@ -124,6 +143,49 @@ public class Main {
         // Initialize the DBconnection
         DBconnection cnx = DBconnection.getInstance();
 
+        //********* update
 
+        try {
+            System.out.println("Enter the ID of the event to update:");
+            int eventIdToUpdate = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            System.out.println("Enter updated event name:");
+            String updatedEventName = scanner.nextLine();
+
+            System.out.println("Enter updated event address:");
+            String updatedAddress = scanner.nextLine();
+
+            System.out.println("Enter updated event date (YYYY-MM-DD):");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date updatedDate = dateFormat.parse(scanner.nextLine());
+
+            System.out.println("Enter updated event time (HH:MM:SS):");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+            Time updatedTime = new Time(timeFormat.parse(scanner.nextLine()).getTime());
+
+            System.out.println("Enter updated event location:");
+            String updatedLocation = scanner.nextLine();
+
+            System.out.println("Enter updated event objective:");
+            String updatedObjective = scanner.nextLine();
+
+            System.out.println("Enter updated event description:");
+            String updatedDescription = scanner.nextLine();
+
+            // Create an Event object with the updated details
+            Event updatedEvent = new Event(eventIdToUpdate, updatedEventName, updatedAddress, updatedLocation, updatedObjective, null, updatedDescription, updatedDate, updatedTime);
+
+            // Call the update method of your EventService to update the event
+            es.update(updatedEvent);
+            System.out.println("Event with ID " + eventIdToUpdate + " updated successfully!");
+
+        } catch (ParseException e) {
+            System.out.println("Error parsing the date/time. Please ensure you're using the correct format.");
+        }
     }
+
+
 }
+
+

@@ -5,7 +5,10 @@ import tn.esprit.models.Event;
 import tn.esprit.util.DBconnection;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class EventService implements IService<Event> {
@@ -14,23 +17,39 @@ public class EventService implements IService<Event> {
 
     @Override
     public void add(Event event) throws SQLException {
-        String req = "INSERT INTO `event`(`event_name`, `address`, `date`, `time`, `location`, `objective`, `description`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement ps = cnx.prepareStatement(req);
-        ps.setString(1, event.getEventName());
-        ps.setString(2, event.getAddress());
-        ps.setDate(3, new java.sql.Date(event.getDate().getTime()));
-        ps.setTime(4, event.getTime());
-        ps.setString(5, event.getLocation());
-        ps.setString(6, event.getObjective());
-        ps.setString(7, event.getDescription());
 
-        ps.executeUpdate();
-        ps.close();
+
+        // Get the current date
+        java.util.Date currentDateUtil = new java.util.Date();
+        java.sql.Date currentDateSql = new java.sql.Date(currentDateUtil.getTime());
+
+        // Validate date to ensure it's not before the current date
+        if (event.getDate().before(currentDateSql)) {
+            throw new IllegalArgumentException("Date cannot be before the current date.");
+        }
+
+        // Insert the event into the database
+        String req = "INSERT INTO `event`(`event_name`, `address`, `date`, `time`, `location`, `objective`, `description`) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = cnx.prepareStatement(req)) {
+            ps.setString(1, event.getEventName());
+            ps.setString(2, event.getAddress());
+            ps.setDate(3, new java.sql.Date(event.getDate().getTime()));
+            ps.setTime(4, event.getTime());
+            ps.setString(5, event.getLocation());
+            ps.setString(6, event.getObjective());
+            ps.setString(7, event.getDescription());
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error occurred while adding the event: " + e.getMessage(), e);
+        }
     }
+
 
     @Override
     public void update(Event event) {
-        String req = "UPDATE `event` SET event_name= ?, address = ?, date = ?, time = ?, location= ?, objective = ?, description = ? WHERE id = ?";
+        String req = "UPDATE `event` SET event_name = ?, address = ?, date = ?, time = ?, location = ?, objective = ?, description = ? WHERE id = ?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, event.getEventName());
@@ -40,12 +59,13 @@ public class EventService implements IService<Event> {
             ps.setString(5, event.getLocation());
             ps.setString(6, event.getObjective());
             ps.setString(7, event.getDescription());
+            ps.setInt(8, event.getId());  // Set the value for the id parameter
             ps.executeUpdate();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public void delete(Event t) throws SQLException {

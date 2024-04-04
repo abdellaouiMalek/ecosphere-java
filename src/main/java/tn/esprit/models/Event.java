@@ -37,6 +37,9 @@ public class Event {
 
     }
 
+    public Event(int eventId, String eventName, String address, Date date, Time time, String location, String objective, String description) {
+    }
+
     // getters & setters
     public int getId() {
         return id;
