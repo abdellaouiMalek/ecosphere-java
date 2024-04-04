@@ -12,4 +12,7 @@ public interface IService<T> {
     void delete(T t) throws SQLException;
 
     List<T> getAll();
+
+    List<T> search(String searchTerm) throws SQLException;
+
 }

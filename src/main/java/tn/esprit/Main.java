@@ -21,6 +21,7 @@ public class Main {
         // Create a Scanner object to read input from the terminal
         Scanner scanner = new Scanner(System.in);
 
+/*
         //***********add
         // Prompt the user to enter event details
         System.out.println("Enter event details:");
@@ -185,7 +186,32 @@ public class Main {
         }
     }
 
+*/
+        // Prompt user to enter search term
+        System.out.print("Enter search term: ");
+        String searchTerm = scanner.nextLine().trim();
 
+        try {
+            // Call search method to search events
+            List<Event> searchResults = es.search(searchTerm);
+
+            if (searchResults.isEmpty()) {
+                System.out.println("No events found matching the search criteria.");
+            } else {
+                System.out.println("Search Results:");
+                System.out.println("----------------");
+                for (Event event : searchResults) {
+                    System.out.println(event);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error occurred during event search: " + e.getMessage());
+        } finally {
+            scanner.close();
+        }
+
+
+    }
 }
 
 

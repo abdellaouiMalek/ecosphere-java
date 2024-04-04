@@ -109,4 +109,29 @@ public class EventService implements IService<Event> {
         return events;
     }
 
+
+    @Override
+    public List<Event> search(String searchTerm) throws SQLException {
+        List<Event> filteredEvents = new ArrayList<>();
+        String sql = "SELECT * FROM event WHERE event_name LIKE ?";
+        PreparedStatement ps = cnx.prepareStatement(sql);
+        ps.setString(1, "%" + searchTerm + "%");
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Event event = new Event();
+            event.setId(rs.getInt("id"));
+            event.setEventName(rs.getString("event_name"));
+            event.setAddress(rs.getString("address"));
+            event.setLocation(rs.getString("location"));
+            event.setObjective(rs.getString("objective"));
+            event.setImage(rs.getString("image"));
+            event.setDescription(rs.getString("description"));
+            event.setDate(rs.getDate("date"));
+            event.setTime(rs.getTime("time"));
+            filteredEvents.add(event);
+        }
+        return filteredEvents;
+    }
+
+
 }
