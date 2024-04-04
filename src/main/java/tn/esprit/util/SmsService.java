@@ -3,14 +3,21 @@ package tn.esprit.util;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class SmsService {
 
-    public static final String ACCOUNT_SID = "AC90d7491497b0fb786a9922f7975b6318";
-    public static final String AUTH_TOKEN = "1bd640336ca7487bc42e33eb2f74ca9c";
-    private static final String TWILIO_NUMBER = "+19497103991";
+    public static String ACCOUNT_SID;
+    public static String AUTH_TOKEN;
+    public static String TWILIO_NUMBER;
 
     static {
+        Dotenv dotenv = Dotenv.configure().load();
+
+        ACCOUNT_SID = dotenv.get("TWILIO_ACCOUNT_SID");
+        AUTH_TOKEN = dotenv.get("TWILIO_AUTH_TOKEN");
+        TWILIO_NUMBER = dotenv.get("TWILIO_PHONE_NUMBER");
+
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
     }
 
