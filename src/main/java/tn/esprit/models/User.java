@@ -6,11 +6,11 @@ public class User {
     private String last_name;
     private String email;
     private  String password;
-    private  float phone_number;
+    private  String phone_number;
     private  String picture;
     private Role role;
 
-    public User(int id, String first_name, String last_name, String email, String password, float phone_number, String picture, Role role) {
+    public User(int id, String first_name, String last_name, String email, String password, String phone_number, String picture, Role role) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -66,11 +66,11 @@ public class User {
         this.password = password;
     }
 
-    public float getPhone_number() {
+    public String getPhone_number() {
         return phone_number;
     }
 
-    public void setPhone_number(float phone_number) {
+    public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
     }
 

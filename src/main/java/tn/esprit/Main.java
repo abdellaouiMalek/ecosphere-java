@@ -1,8 +1,17 @@
 package tn.esprit;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import tn.esprit.models.Carpooling;
+import tn.esprit.models.Reservation;
 import tn.esprit.services.CarpoolingService;
+import tn.esprit.services.ReservationService;
+import tn.esprit.services.UserService;
 import tn.esprit.util.DBconnection;
+import tn.esprit.util.SmsService;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -16,11 +25,33 @@ public class Main {
 
         DBconnection cnx = DBconnection.getInstance();
         Scanner scanner = new Scanner(System.in);
+
+        UserService userService = new UserService();
+        ReservationService reservationService = new ReservationService();
         CarpoolingService carpoolingService = new CarpoolingService();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
+        try {
+            System.out.println("Enter your user ID: ");
+            int userId = Integer.parseInt(scanner.nextLine());
+            System.out.println("Enter the carpooling ID you wish to reserve: ");
+            int carpoolingId = Integer.parseInt(scanner.nextLine());
+            Reservation newReservation = new Reservation(0, userId, carpoolingId);
+            reservationService.add(newReservation);
+
+            String userPhoneNumber = userService.getUserPhoneNumber(userId);
+
+            String message = "Your reservation has been successfully added!";
+            SmsService.sendReservationConfirmationSMS(userPhoneNumber, message);
+
+            System.out.println("Reservation added successfully!");
+        } catch (SQLException e) {
+            System.out.println("A database error occurred: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
         /* // Adding a new carpooling
         try {
             System.out.println("Enter departure location:");
@@ -119,7 +150,7 @@ public class Main {
         }
         */
 
-        // search for a carpooling
+        /* // search for a carpooling
         System.out.println("Enter departure:");
         String departure = scanner.nextLine();
 
@@ -148,7 +179,10 @@ public class Main {
         } catch (SQLException e) {
             System.out.println("An error occurred while communicating with the database.");
             e.printStackTrace();
-        }
+        }*/
+
+
     }
-    }
+
+}
 

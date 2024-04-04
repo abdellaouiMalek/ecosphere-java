@@ -25,7 +25,7 @@ public class UserService implements IUserService<User>{
             stm.setString(2,user.getLast_name());
             stm.setString(3,user.getEmail());
             stm.setString(4,user.getPassword());
-            stm.setFloat(5,user.getPhone_number());
+            stm.setString(5,user.getPhone_number());
             stm.setString(6,user.getPicture());
             stm.setString(7,user.getRole().toString());
             stm.executeUpdate();
@@ -51,7 +51,7 @@ public class UserService implements IUserService<User>{
                 user.setLast_name(resultSet.getString(3));
                 user.setEmail(resultSet.getString(4));
                 user.setPassword(resultSet.getString(5));
-                user.setPhone_number(resultSet.getFloat(6));
+                user.setPhone_number(resultSet.getString(6));
                 user.setPicture(resultSet.getString(7));
                 String roleName = resultSet.getString(8);
                 Role role = Role.valueOf(roleName);
@@ -79,7 +79,7 @@ public class UserService implements IUserService<User>{
                 user.setLast_name(resultSet.getString(3));
                 user.setEmail(resultSet.getString(4));
                 user.setPassword(resultSet.getString(5));
-                user.setPhone_number(resultSet.getFloat(6));
+                user.setPhone_number(resultSet.getString(6));
                 user.setPicture(resultSet.getString(7));
                 String roleName = resultSet.getString(8);
                 Role role = Role.valueOf(roleName);
@@ -103,7 +103,7 @@ return user;
             stm.setString(2,user.getLast_name());
             stm.setString(3,user.getEmail());
             stm.setString(4,user.getPassword());
-            stm.setFloat(5,user.getPhone_number());
+            stm.setString(5,user.getPhone_number());
             stm.setString(6,user.getPicture());
             stm.setString(7,user.getRole().toString());
             stm.setInt(8,user.getId());
@@ -123,5 +123,21 @@ return user;
         } catch (SQLException e) {
             System.out.println(e.getMessage());        }
 
+    }
+
+    public String getUserPhoneNumber(int userId) {
+        String phoneNumber = null;
+        try {
+            String sql = "SELECT phone_number FROM `user` WHERE id = ?";
+            PreparedStatement pstm = cnx.prepareStatement(sql);
+            pstm.setInt(1, userId);
+            ResultSet resultSet = pstm.executeQuery();
+            if (resultSet.next()) {
+                phoneNumber = resultSet.getString("phone_number");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return phoneNumber;
     }
 }
