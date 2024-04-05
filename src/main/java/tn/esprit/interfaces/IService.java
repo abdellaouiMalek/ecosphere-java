@@ -15,4 +15,9 @@ public interface IService<T> {
 
     List<T> search(String searchTerm) throws SQLException;
 
+    void addEventRating(int eventId, int rating) throws SQLException;
+
+    double calculateAverageRating(int eventId) throws SQLException;
+
+
 }

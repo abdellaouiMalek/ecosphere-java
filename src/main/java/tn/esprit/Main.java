@@ -186,7 +186,7 @@ public class Main {
         }
     }
 
-*/
+
         // Prompt user to enter search term
         System.out.print("Enter search term: ");
         String searchTerm = scanner.nextLine().trim();
@@ -206,12 +206,39 @@ public class Main {
             }
         } catch (SQLException e) {
             System.err.println("Error occurred during event search: " + e.getMessage());
-        } finally {
-            scanner.close();
-        }
 
+*/
+        try {
+            // Prompt user to rate an event
+            System.out.print("Enter event ID to rate: ");
+            int eventId = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character after nextInt()
+
+            System.out.print("Enter rating (1-5): ");
+            int rating = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character after nextInt()
+
+            // Add event rating
+            es.addEventRating(eventId, rating);
+
+            // Calculate and display the updated average rating
+            double updatedAverageRating = es.calculateAverageRating(eventId);
+            System.out.println("Event rated successfully!");
+            System.out.println("Updated Average Rating for Event ID " + eventId + ": " + updatedAverageRating);
+
+        } catch (SQLException sqlException) {
+            System.err.println("Error occurred while rating the event: " + sqlException.getMessage());
+        } catch (Exception e) {
+            System.err.println("Error occurred: " + e.getMessage());
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
+        }
 
     }
 }
+
+
 
 
