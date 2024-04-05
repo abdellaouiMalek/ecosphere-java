@@ -144,21 +144,6 @@ public class EventService implements IService<Event> {
         }
     }
 
-    public List<EventRating> getEventRatings(int eventId) throws SQLException {
-        List<EventRating> ratings = new ArrayList<>();
-        String req = "SELECT * FROM event_rating WHERE event_id = ?";
-        try (PreparedStatement ps = cnx.prepareStatement(req)) {
-            ps.setInt(1, eventId);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    EventRating rating = new EventRating(rs.getInt("id"), rs.getInt("rating"));
-                    ratings.add(rating);
-                }
-            }
-        }
-        return ratings;
-    }
-
     public double calculateAverageRating(int eventId) throws SQLException {
         String sql = "SELECT AVG(rating) AS average_rating FROM event_rating WHERE event_id = ?";
         try (PreparedStatement ps = cnx.prepareStatement(sql)) {
