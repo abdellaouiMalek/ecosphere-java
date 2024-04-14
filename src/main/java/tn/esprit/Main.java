@@ -1,11 +1,5 @@
 package tn.esprit;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import tn.esprit.models.Carpooling;
 import tn.esprit.models.Reservation;
 import tn.esprit.services.CarpoolingService;
 import tn.esprit.services.ReservationService;
@@ -33,6 +27,7 @@ public class Main {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
+/*
         try {
             System.out.println("Enter your user ID: ");
             int userId = Integer.parseInt(scanner.nextLine());
@@ -182,7 +177,8 @@ public class Main {
         }*/
 
 
-    }
 
+
+    }
 }
 
