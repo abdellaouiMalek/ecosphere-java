@@ -101,4 +101,24 @@ public class CarpoolingService implements IService<Carpooling> {
         return carpoolings;
     }
 
+    // Get a carpooling by ID
+    public Carpooling getById(int id) throws SQLException {
+        String req = "SELECT * FROM carpooling WHERE id = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(req)) {
+            ps.setInt(1, id);
+            ResultSet resultSet = ps.executeQuery();
+            if (resultSet.next()) {
+                Carpooling carpooling = new Carpooling();
+                carpooling.setId(resultSet.getInt("id"));
+                carpooling.setDeparture(resultSet.getString("departure"));
+                carpooling.setDestination(resultSet.getString("destination"));
+                carpooling.setDepartureDate(resultSet.getDate("departure_date"));
+                carpooling.setArrivalDate(resultSet.getDate("arrival_date"));
+                carpooling.setTime(resultSet.getTime("time"));
+                carpooling.setPrice(resultSet.getDouble("price"));
+                return carpooling;
+            }
+        }
+        return null;
+    }
 }

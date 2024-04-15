@@ -1,5 +1,6 @@
 package tn.esprit;
 
+import tn.esprit.models.Carpooling;
 import tn.esprit.models.Reservation;
 import tn.esprit.services.CarpoolingService;
 import tn.esprit.services.ReservationService;
@@ -27,7 +28,27 @@ public class Main {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
-/*
+        try {
+            System.out.println("Enter the carpooling ID: ");
+            int carpoolingId = Integer.parseInt(scanner.nextLine());
+
+            Carpooling carpooling = carpoolingService.getById(carpoolingId);
+            if (carpooling != null) {
+                System.out.println("Carpooling Details:");
+                System.out.println("Departure: " + carpooling.getDeparture());
+                System.out.println("Destination: " + carpooling.getDestination());
+            } else {
+                System.out.println("No carpooling found with ID " + carpoolingId);
+            }
+        } catch (SQLException e) {
+            System.out.println("A database error occurred: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid carpooling ID format");
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+
+        /*// Search for carpooling
         try {
             System.out.println("Enter your user ID: ");
             int userId = Integer.parseInt(scanner.nextLine());
