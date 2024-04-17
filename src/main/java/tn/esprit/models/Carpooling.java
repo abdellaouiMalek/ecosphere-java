@@ -22,6 +22,10 @@ public class Carpooling {
         this.price = price;
     }
 
+    public Carpooling(int id) {
+        this.id = id;
+    }
+
     public Carpooling() {
     }
 

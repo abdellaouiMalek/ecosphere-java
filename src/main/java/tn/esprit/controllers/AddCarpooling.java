@@ -38,7 +38,7 @@ public class AddCarpooling {
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
     @FXML
-    void add(ActionEvent event) {
+    void add() {
         if (validateInput()) {
             try {
                 String departureText = departure.getText();
