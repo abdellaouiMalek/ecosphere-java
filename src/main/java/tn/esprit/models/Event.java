@@ -9,9 +9,11 @@ public class Event {
     private String eventName , address , location , objective , image, description;
     private Date date;
     private Time time;
+    private Category category;
+
 
     // constructor
-    public Event(int id, String eventName, String address, String location, String objective, String image, String description, Date date, Time time) {
+    public Event(int id, String eventName, String address, String location, String objective, String image, String description, Category category, Date date, Time time) {
         this.id = id;
         this.eventName = eventName;
         this.address = address;
@@ -21,8 +23,9 @@ public class Event {
         this.description = description;
         this.date = date;
         this.time = time;
+        this.category = category;
     }
-    public Event(String eventName, String address, String location, String objective, String image, String description, Date date, Time time) {
+    public Event(String eventName, String address, String location, String objective, String image, String description, Category category, Date date, Time time) {
         this.eventName = eventName;
         this.address = address;
         this.location = location;
@@ -31,13 +34,15 @@ public class Event {
         this.description = description;
         this.date = date;
         this.time = time;
+        this.category = category;
+
     }
 
     public Event() {
 
     }
 
-    public Event(int eventId, String eventName, String address, Date date, Time time, String location, String objective, String description) {
+    public Event(int eventId, String eventName, String address, Date date, Time time, String location, String objective, String description, Category category) {
     }
 
     // getters & setters
@@ -95,6 +100,14 @@ public class Event {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Date getDate() { return date; }

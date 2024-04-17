@@ -1,0 +1,23 @@
+/* Example styling for labels */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+/* Example styling for buttons */
+.button {
+    -fx-background-color: #4CAF50; /* Green background */
+    -fx-text-fill: white; /* White text */
+    -fx-font-size: 14px;
+}
+
+/* Hover effect for buttons */
+.button:hover {
+    -fx-background-color: #45A049; /* Darker green on hover */
+}
+
+/* Styling for text field */
+.text-field {
+    -fx-background-color: #f0f0f0; /* Light gray background */
+    -fx-font-size: 14px;
+}

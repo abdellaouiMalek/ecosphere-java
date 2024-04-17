@@ -1,6 +1,7 @@
 package tn.esprit.services;
 
 import tn.esprit.interfaces.IService;
+import tn.esprit.models.Category;
 import tn.esprit.models.Event;
 import tn.esprit.models.EventRating;
 import tn.esprit.util.DBconnection;
@@ -30,8 +31,8 @@ public class EventService implements IService<Event> {
         }
 
         // Insert the event into the database
-        String req = "INSERT INTO `event`(`event_name`, `address`, `date`, `time`, `location`, `objective`, `description`) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO `event`(`event_name`, `address`, `date`, `time`, `location`, `objective`, `description`,`image`, `category_id`) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = cnx.prepareStatement(req)) {
             ps.setString(1, event.getEventName());
             ps.setString(2, event.getAddress());
@@ -40,6 +41,9 @@ public class EventService implements IService<Event> {
             ps.setString(5, event.getLocation());
             ps.setString(6, event.getObjective());
             ps.setString(7, event.getDescription());
+            ps.setString(8, event.getImage());
+            ps.setInt(9, event.getCategory().getId());
+
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -50,7 +54,7 @@ public class EventService implements IService<Event> {
 
     @Override
     public void update(Event event) {
-        String req = "UPDATE `event` SET event_name = ?, address = ?, date = ?, time = ?, location = ?, objective = ?, description = ? WHERE id = ?";
+        String req = "UPDATE `event` SET event_name = ?, address = ?, date = ?, time = ?, location = ?, objective = ?, description = ?, category_id = ? WHERE id = ?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, event.getEventName());
@@ -60,7 +64,8 @@ public class EventService implements IService<Event> {
             ps.setString(5, event.getLocation());
             ps.setString(6, event.getObjective());
             ps.setString(7, event.getDescription());
-            ps.setInt(8, event.getId());  // Set the value for the id parameter
+            ps.setInt(8, event.getCategory().getId());
+            ps.setInt(9, event.getId());  // Set the value for the id parameter
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -80,6 +85,21 @@ public class EventService implements IService<Event> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private Category getCategoryById(int categoryId) throws SQLException {
+        String req = "SELECT * FROM category WHERE id = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(req)) {
+            ps.setInt(1, categoryId);
+            ResultSet res = ps.executeQuery();
+            if (res.next()) {
+                Category category = new Category();
+                category.setId(res.getInt("id"));
+                category.setName(res.getString("name"));
+                return category;
+            }
+        }
+        return null; // Return null if category not found
     }
 
     @Override
@@ -102,6 +122,11 @@ public class EventService implements IService<Event> {
                 event.setDate(res.getDate("date"));
                 event.setTime(res.getTime("time"));
 
+                // Retrieve category for the event
+                int categoryId = res.getInt("category_id");
+                Category category = getCategoryById(categoryId);
+                event.setCategory(category);
+
                 events.add(event);
             }
         } catch (SQLException e) {
@@ -112,9 +137,25 @@ public class EventService implements IService<Event> {
 
 
     @Override
-    public List<Event> search(String searchTerm) throws SQLException {
+    public List<Event> search(String searchTerm, String sortBy) throws SQLException {
         List<Event> filteredEvents = new ArrayList<>();
         String sql = "SELECT * FROM event WHERE event_name LIKE ?";
+        if (sortBy != null) {
+            switch (sortBy) {
+                case "event name":
+                    sql += " ORDER BY event_name ASC";
+                    break;
+                case "category":
+                    sql += " ORDER BY category ASC";
+                    break;
+                case "Start Date":
+                    sql += " ORDER BY date ASC";
+                    break;
+                default:
+                    // No sorting
+                    break;
+            }
+            }
         PreparedStatement ps = cnx.prepareStatement(sql);
         ps.setString(1, "%" + searchTerm + "%");
         ResultSet rs = ps.executeQuery();
@@ -129,6 +170,10 @@ public class EventService implements IService<Event> {
             event.setDescription(rs.getString("description"));
             event.setDate(rs.getDate("date"));
             event.setTime(rs.getTime("time"));
+            // Retrieve category for the event
+            int categoryId = rs.getInt("category_id");
+            Category category = getCategoryById(categoryId);
+            event.setCategory(category);
             filteredEvents.add(event);
         }
         return filteredEvents;

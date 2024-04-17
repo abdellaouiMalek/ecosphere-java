@@ -13,7 +13,7 @@ public interface IService<T> {
 
     List<T> getAll();
 
-    List<T> search(String searchTerm) throws SQLException;
+    List<T> search(String searchTerm, String sortBy) throws SQLException;
 
     void addEventRating(int eventId, int rating) throws SQLException;
 
