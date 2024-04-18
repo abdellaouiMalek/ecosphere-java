@@ -1,18 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.CarpoolingDetails">
    <children>
-      <VBox layoutX="111.0" layoutY="49.0" prefHeight="200.0" prefWidth="341.0">
+      <VBox layoutX="129.0" layoutY="63.0" prefHeight="200.0" prefWidth="341.0">
 
          <children>
-            <Label fx:id="destination" prefHeight="18.0" prefWidth="366.0" text="Label" />
+            <Label fx:id="date" alignment="CENTER" prefHeight="43.0" prefWidth="342.0" text="Date" textAlignment="CENTER" textFill="#3c2e99">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></Label>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="88.0" prefWidth="78.0">
+                     <children>
+                        <Circle fill="#0ad13c" radius="8.0" stroke="#0ad13c" strokeType="INSIDE">
+                           <VBox.margin>
+                              <Insets left="45.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Separator orientation="VERTICAL" prefHeight="88.0" prefWidth="0.0">
+                           <padding>
+                              <Insets left="50.0" />
+                           </padding>
+                        </Separator>
+                        <Circle fill="#0ad13c" radius="8.0" stroke="#0ad13c" strokeType="INSIDE">
+                           <VBox.margin>
+                              <Insets left="45.0" />
+                           </VBox.margin>
+                        </Circle>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label fx:id="departure" prefHeight="18.0" prefWidth="103.0" text="Departure" />
+                        <Label fx:id="destination" prefHeight="18.0" prefWidth="102.0" text="Destination">
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Line endX="127.39998626708984" endY="9.15527380129788E-6" startX="-100.0" stroke="#7a7f81" strokeLineCap="ROUND" strokeWidth="4.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="50.0" top="15.0" />
+               </VBox.margin>
+            </Line>
+            <Label fx:id="price" text="Price">
+               <VBox.margin>
+                  <Insets left="150.0" />
+               </VBox.margin>
+            </Label>
+            <Line endX="127.39998626708984" endY="9.15527380129788E-6" startX="-100.0" stroke="#7a7f81" strokeLineCap="ROUND" strokeWidth="4.0">
+               <VBox.margin>
+                  <Insets left="50.0" top="10.0" />
+               </VBox.margin>
+            </Line>
          </children>
       </VBox>
-      <Button layoutX="92.0" layoutY="310.0" mnemonicParsing="false" onAction="#delete" text="Delete" />
+      <HBox alignment="CENTER" layoutX="170.0" layoutY="285.0" prefHeight="70.0" prefWidth="258.0" spacing="20.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#delete" prefHeight="26.0" prefWidth="83.0" text="Delete">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#reservation" text="Make reservation" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

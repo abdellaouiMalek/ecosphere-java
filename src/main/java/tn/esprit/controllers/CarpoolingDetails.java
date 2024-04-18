@@ -10,23 +10,38 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import tn.esprit.models.Carpooling;
+import tn.esprit.models.Reservation;
 import tn.esprit.services.CarpoolingService;
+import tn.esprit.services.ReservationService;
+import tn.esprit.services.UserService;
+import tn.esprit.util.SmsService;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
-public class CarpoolingDetails  {
+public class CarpoolingDetails {
+
+    @FXML
+    private Label date;
+
+    @FXML
+    private Label departure;
 
     @FXML
     private Label destination;
+
+    @FXML
+    private Label price;
+
     private final CarpoolingService carpoolingService = new CarpoolingService();
     private int carpoolingId;
 
     public void getID(int carpoolingId) {
         this.carpoolingId = carpoolingId;
-        System.out.println("f init data"+ carpoolingId);
+        System.out.println("f init data" + carpoolingId);
         getDetails();
     }
 
@@ -37,6 +52,12 @@ public class CarpoolingDetails  {
 
             if (carpooling != null) {
                 destination.setText(carpooling.getDestination());
+                departure.setText(carpooling.getDeparture());
+                String priceText = String.valueOf(carpooling.getPrice());
+                price.setText(priceText + " DT");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String departureDateString = dateFormat.format(carpooling.getDepartureDate());
+                date.setText(departureDateString);
             } else {
                 destination.setText("Carpooling not found" + carpoolingId);
             }
@@ -54,7 +75,7 @@ public class CarpoolingDetails  {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setHeaderText(null);
-            alert.setContentText("Carpooling deleted successfully!" );
+            alert.setContentText("Carpooling deleted successfully!");
             alert.showAndWait();
 
             Stage stage = (Stage) destination.getScene().getWindow();
@@ -70,32 +91,30 @@ public class CarpoolingDetails  {
         }
     }
 
-
-
-    // Method to navigate to the "allCarpoolings" interface
-    private void navigateToAllCarpoolingsInterface() {
+    @FXML
+    void reservation(ActionEvent event) {
+        int userId = 1; // Default user id, change as needed
         try {
-            // Load the FXML file for the "allCarpoolings" interface
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/allCarpoolings.fxml"));
-            Parent root = loader.load();
+            Reservation reservation = new Reservation(userId, carpoolingId);
+            ReservationService reservationService = new ReservationService();
+            UserService userService = new UserService();
+            reservationService.add(reservation);
 
-            // Create a new scene
-            Scene scene = new Scene(root);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText(null);
+            alert.setContentText("Reservation successful!");
+            alert.showAndWait();
 
-            // Get the stage from the current window
-            Stage stage = (Stage) destination.getScene().getWindow();
-
-            // Set the scene and show the stage
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            // Handle any errors that occur during navigation
+            String userPhoneNumber = userService.getUserPhoneNumber(userId);
+            String message = "Your reservation was successful!";
+            SmsService.sendReservationConfirmationSMS(userPhoneNumber, message);
+        } catch (SQLException e) {
             e.printStackTrace();
-            // Show an error message
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Error navigating to allCarpoolings interface: " + e.getMessage());
+            alert.setContentText("Error creating reservation: " + e.getMessage());
             alert.showAndWait();
         }
     }

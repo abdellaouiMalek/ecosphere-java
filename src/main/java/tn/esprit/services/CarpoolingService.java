@@ -17,17 +17,31 @@ public class CarpoolingService implements IService<Carpooling> {
     // Add a new carpooling
     @Override
     public void add(Carpooling carpooling) throws SQLException {
-        String req = "INSERT INTO `carpooling` (`departure_date`, `arrival_date`, `departure`, `destination`, `price`, `time`) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement ps = cnx.prepareStatement(req)) {
-            ps.setDate(1, new Date(carpooling.getDepartureDate().getTime()));
-            ps.setDate(2, new Date(carpooling.getArrivalDate().getTime()));
-            ps.setString(3, carpooling.getDeparture());
-            ps.setString(4, carpooling.getDestination());
-            ps.setDouble(5, carpooling.getPrice());
-            ps.setTime(6, carpooling.getTime());
-            ps.executeUpdate();
+        String sql = "INSERT INTO carpooling (departure, destination, departure_date, arrival_date, time, price) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement st = cnx.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            st.setString(1, carpooling.getDeparture());
+            st.setString(2, carpooling.getDestination());
+            st.setDate(3, new java.sql.Date(carpooling.getDepartureDate().getTime()));
+            st.setDate(4, new java.sql.Date(carpooling.getArrivalDate().getTime()));
+            st.setTime(5, carpooling.getTime());
+            st.setDouble(6, carpooling.getPrice());
+
+            int affectedRows = st.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating carpooling failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = st.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int id = generatedKeys.getInt(1);
+                    carpooling.setId(id);
+                } else {
+                    throw new SQLException("Creating carpooling failed, no ID obtained.");
+                }
+            }
         }
     }
+
     // update an existing carpooling
     @Override
     public void update(Carpooling carpooling)  {
