@@ -1,0 +1,42 @@
+/* styles.css */
+
+/* Specific selector for buttons */
+.button {
+    -fx-background-color: #4CAF50; /* Green */
+    -fx-text-fill: white; /* Text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-padding: 10px 20px; /* Padding */
+    -fx-border-radius: 5px; /* Border radius */
+    -fx-cursor: hand; /* Cursor style */
+}
+
+.button:hover {
+    -fx-background-color: #45a049; /* Darker green when hovered */
+}
+
+.hbox-background {
+    -fx-background-color: rgba(169, 169, 169, 0.5); /* Grey with 50% transparency */
+}
+
+.text-field {
+    -fx-background-color: transparent; /* Transparent background color */
+    -fx-border-color: #ccc; /* Border color */
+    -fx-border-width: 1px; /* Border width */
+    -fx-border-radius: 5px; /* Border radius */
+    -fx-padding: 5px; /* Padding */
+}
+.visible-text-field {
+    -fx-background-color: white; /* White background color */
+}
+
+.text-field:focused {
+    -fx-border-color: #4CAF50; /* Green border color when focused */
+}
+
+.text-field:empty:focused {
+    -fx-background-color: #f2f2f2; /* Background color when empty and focused */
+}
+
+.text-field:filled:focused {
+    -fx-background-color: #4CAF50; /* Background color when filled and focused */
+}

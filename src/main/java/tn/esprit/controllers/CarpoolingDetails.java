@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -41,7 +42,7 @@ public class CarpoolingDetails {
 
     public void getID(int carpoolingId) {
         this.carpoolingId = carpoolingId;
-        System.out.println("f init data" + carpoolingId);
+        System.out.println("f get id mta details " + carpoolingId);
         getDetails();
     }
 
@@ -118,4 +119,18 @@ public class CarpoolingDetails {
             alert.showAndWait();
         }
     }
+    @FXML
+    void updateNavigation(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/updateCarpooling.fxml"));
+        Parent root = loader.load();
+
+        // Get the controller of the loaded FXML
+        UpdateCarpooling controller = loader.getController();
+        controller.getID(carpoolingId);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
 }

@@ -69,14 +69,15 @@
             </Line>
          </children>
       </VBox>
-      <HBox alignment="CENTER" layoutX="170.0" layoutY="285.0" prefHeight="70.0" prefWidth="258.0" spacing="20.0">
+      <HBox alignment="CENTER" layoutX="99.0" layoutY="282.0" prefHeight="70.0" prefWidth="402.0" spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#delete" prefHeight="26.0" prefWidth="83.0" text="Delete">
+            <Button mnemonicParsing="false" onAction="#delete" prefHeight="41.0" prefWidth="116.0" stylesheets="@../style.css" text="Delete">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#reservation" text="Make reservation" />
+            <Button mnemonicParsing="false" onAction="#updateNavigation" stylesheets="@../style.css" text="Update" />
+            <Button mnemonicParsing="false" onAction="#reservation" stylesheets="@../style.css" text="Make reservation" />
          </children>
       </HBox>
    </children>

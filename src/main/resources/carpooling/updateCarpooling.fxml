@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="496.0" prefWidth="600.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.UpdateCarpooling">
+    <children>
+        <VBox layoutX="201.0" layoutY="55.0" prefHeight="426.0" prefWidth="235.0">
+            <children>
+                <StackPane prefHeight="54.0" prefWidth="200.0">
+                    <children>
+                        <TextField fx:id="departure" promptText="Please enter the departure">
+                            <StackPane.margin>
+                                <Insets bottom="20.0" top="10.0" />
+                            </StackPane.margin>
+                        </TextField>
+                        <Label fx:id="departureLabel" styleClass="prompt-text" text="Departure" StackPane.alignment="TOP_LEFT">
+                            <padding>
+                                <Insets left="5" top="-10" />
+                            </padding>
+                        </Label>         </children>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </StackPane>
+                <StackPane layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="200.0">
+                    <children>
+                        <Label fx:id="departureLabel1" styleClass="prompt-text" text="Destination" StackPane.alignment="TOP_LEFT">
+                            <padding>
+                                <Insets left="5" top="-10" />
+                            </padding>
+                        </Label>
+                        <TextField fx:id="destination" promptText="Please enter the destination">
+                            <StackPane.margin>
+                                <Insets bottom="20.0" top="10.0" />
+                            </StackPane.margin>
+                        </TextField>
+                    </children>
+                </StackPane>
+                <StackPane layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="200.0">
+                    <children>
+                        <Label fx:id="departureLabel2" styleClass="prompt-text" text="Departure Date" StackPane.alignment="TOP_LEFT">
+                            <padding>
+                                <Insets left="5" top="-10" />
+                            </padding>
+                        </Label>
+                        <TextField fx:id="departureDate" promptText="Please enter the departure date">
+                            <StackPane.margin>
+                                <Insets bottom="20.0" top="10.0" />
+                            </StackPane.margin>
+                        </TextField>
+                    </children>
+                </StackPane>
+                <StackPane layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="200.0">
+                    <children>
+                        <Label fx:id="departureLabel3" styleClass="prompt-text" text="Arrival Date" StackPane.alignment="TOP_LEFT">
+                            <padding>
+                                <Insets left="5" top="-10" />
+                            </padding>
+                        </Label>
+                        <TextField fx:id="arrivalDate" promptText="Please enter the arrival date">
+                            <StackPane.margin>
+                                <Insets bottom="20.0" top="10.0" />
+                            </StackPane.margin>
+                        </TextField>
+                    </children>
+                </StackPane>
+                <StackPane layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="200.0">
+                    <children>
+                        <Label fx:id="departureLabel4" styleClass="prompt-text" text="Time" StackPane.alignment="TOP_LEFT">
+                            <padding>
+                                <Insets left="5" top="-10" />
+                            </padding>
+                        </Label>
+                        <TextField fx:id="time" promptText="Please enter the time">
+                            <StackPane.margin>
+                                <Insets bottom="20.0" top="10.0" />
+                            </StackPane.margin>
+                        </TextField>
+                    </children>
+                </StackPane>
+                <StackPane layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="200.0">
+                    <children>
+                        <Label fx:id="departureLabel5" styleClass="prompt-text" text="Price" StackPane.alignment="TOP_LEFT">
+                            <padding>
+                                <Insets left="5" top="-10" />
+                            </padding>
+                        </Label>
+                        <TextField fx:id="price" promptText="Please enter the price">
+                            <StackPane.margin>
+                                <Insets bottom="20.0" top="10.0" />
+                            </StackPane.margin>
+                        </TextField>
+                    </children>
+                </StackPane>
+                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#update" prefHeight="41.0" prefWidth="204.0" text="Update your carpooling">
+                    <VBox.margin>
+                        <Insets bottom="20.0" left="15.0" />
+                    </VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+      <HBox layoutX="48.0" layoutY="14.0" prefHeight="30.0" prefWidth="387.0" spacing="5.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="You are currently updating the carpooling number" />
+            <Label fx:id="id" text="carpooling ID" />
+         </children>
+      </HBox>
+    </children>
+</AnchorPane>
