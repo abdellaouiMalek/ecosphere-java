@@ -4,14 +4,14 @@ import tn.esprit.interfaces.IService;
 import tn.esprit.models.Category;
 import tn.esprit.models.Event;
 import tn.esprit.models.EventRating;
+import tn.esprit.models.EventRegistrations;
 import tn.esprit.util.DBconnection;
 
 import java.sql.*;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 public class EventService implements IService<Event> {
 
@@ -155,7 +155,7 @@ public class EventService implements IService<Event> {
                     // No sorting
                     break;
             }
-            }
+        }
         PreparedStatement ps = cnx.prepareStatement(sql);
         ps.setString(1, "%" + searchTerm + "%");
         ResultSet rs = ps.executeQuery();
@@ -180,11 +180,11 @@ public class EventService implements IService<Event> {
     }
 
     // Add event rating
-    public void addEventRating(int eventId, int rating) throws SQLException {
+    public void addEventRating(EventRating eventRating) throws SQLException {
         String req = "INSERT INTO event_rating(event_id, rating) VALUES (?, ?)";
         try (PreparedStatement ps = cnx.prepareStatement(req)) {
-            ps.setInt(1, eventId);
-            ps.setInt(2, rating);
+            ps.setInt(1, eventRating.getId()); // Extract eventId from EventRating
+            ps.setInt(2, eventRating.getRating()); // Extract rating from EventRating
             ps.executeUpdate();
         }
     }
@@ -202,4 +202,61 @@ public class EventService implements IService<Event> {
     }
 
 
+    public void saveRegistration(EventRegistrations registration) throws SQLException {
+        try {
+            String req = "INSERT INTO event_registrations (registration_date, registration_time, status, event_id) " +
+                    "VALUES (?, ?, ?, ?)";
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setDate(1, new java.sql.Date(registration.getRegistrationDate().getTime()));
+            ps.setTime(2, registration.getRegistrationTime());
+            ps.setString(3, registration.getStatus());
+            ps.setInt(4, registration.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean isInterested(int eventId, int userId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM event_registrations WHERE event_id = ? AND (user_id = ? OR user_id IS NULL)";
+        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
+            ps.setInt(1, eventId);
+            ps.setInt(2, userId);
+            try (ResultSet resultSet = ps.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void cancelInterest(int eventId, int userId) throws SQLException {
+        String sql = "DELETE FROM event_registrations WHERE event_id = ? AND (user_id = ? OR user_id IS NULL)";
+        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
+            ps.setInt(1, eventId);
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+        }
+    }
+
+    // Method to retrieve rating counts for a specific event
+    public Map<Integer, Integer> getRatingCounts(int eventId) throws SQLException {
+        Map<Integer, Integer> ratingCounts = new HashMap<>();
+
+        String sql = "SELECT rating, COUNT(*) AS count FROM event_rating WHERE event_id = ? GROUP BY rating";
+        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
+            ps.setInt(1, eventId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int rating = rs.getInt("rating");
+                int count = rs.getInt("count");
+                ratingCounts.put(rating, count);
+            }
+        }
+
+        return ratingCounts;
+    }
 }

@@ -1,5 +1,7 @@
 package tn.esprit.interfaces;
 
+import tn.esprit.models.EventRating;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public interface IService<T> {
 
     List<T> search(String searchTerm, String sortBy) throws SQLException;
 
-    void addEventRating(int eventId, int rating) throws SQLException;
+    void addEventRating(EventRating eventRating) throws SQLException;
 
     double calculateAverageRating(int eventId) throws SQLException;
 

@@ -207,7 +207,7 @@ public class Main {
         } catch (SQLException e) {
             System.err.println("Error occurred during event search: " + e.getMessage());
 
-*/
+
         try {
             // Prompt user to rate an event
             System.out.print("Enter event ID to rate: ");
@@ -235,7 +235,7 @@ public class Main {
                 scanner.close();
             }
         }
-
+*/
     }
 }
 
