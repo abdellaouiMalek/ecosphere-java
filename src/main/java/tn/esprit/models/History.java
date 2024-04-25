@@ -14,12 +14,20 @@ public class History {
         this.name = name;
         this.date = date;
     }
+    public History( String initialCondition, String name, Date date) {
 
-    public History(String initialCondition, String name, Date date) {
         this.initialCondition = initialCondition;
         this.name = name;
         this.date = date;
     }
+
+    public void add(History history) {
+    }
+
+    public History() {
+
+    }
+
 
     // getters & setters
     public int getId() {
@@ -46,8 +54,8 @@ public class History {
         this.name = name;
     }
 
-    public Date getDate() {
-        return date;
+    public java.sql.Date getDate() {
+        return (java.sql.Date) date;
     }
 
     public void setDate(Date date) {
@@ -64,4 +72,5 @@ public class History {
                 ", date=" + date +
                 '}';
     }
+
 }

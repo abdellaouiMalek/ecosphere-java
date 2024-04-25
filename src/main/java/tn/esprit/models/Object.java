@@ -1,19 +1,14 @@
 package tn.esprit.models;
 
+import java.util.Objects;
+
 public class Object {
     private int id , age ;
     private String type , picture , description , name ;
     private float price ;
 
-    // constructor
-    public Object(int id, int age, String type, String picture, String description, String name, float price) {
-        this.id = id;
-        this.age = age;
-        this.type = type;
-        this.picture = picture;
-        this.description = description;
-        this.name = name;
-        this.price = price;
+    public Object() {
+
     }
 
     public Object(int age, String type, String picture, String description, String name, float price) {
@@ -95,4 +90,17 @@ public class Object {
                 ", price=" + price +
                 '}';
     }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Object that = (Object) o;
+        return id == that.id;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
 }
