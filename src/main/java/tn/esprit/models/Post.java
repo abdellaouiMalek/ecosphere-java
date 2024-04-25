@@ -1,28 +1,42 @@
 package tn.esprit.models;
 
+import javafx.beans.value.ObservableValue;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Post {
     // attributs
     private int id;
-    private String title, auteur , image, content;
-    private Date createdat ;
+    private String title;
+    private String auteur;
+    //image;
+    private String content;
+    public Date createdat;
+
     // constructor
-    public Post(int id, String title, String auteur, String image, String content, Date createdat) {
+    public Post(int id, String title, String auteur, String content, Date createdat) {
         this.id = id;
         this.title = title;
         this.auteur = auteur;
-        this.image = image;
+        //this.image = image;
         this.content = content;
         this.createdat = createdat;
     }
-    public Post(String title, String auteur, String image, String content, Date createdat) {
+
+    public Post(String title, String auteur, String content, Date createdat) {
         this.title = title;
         this.auteur = auteur;
-        this.image = image;
+        //this.image = image;
         this.content = content;
         this.createdat = createdat;
     }
+
+    public Post() {
+    }
+
     // getters & setters
     public int getId() {
         return id;
@@ -48,13 +62,13 @@ public class Post {
         this.auteur = auteur;
     }
 
-    public String getImage() {
-        return image;
-    }
+    //public String getImage() {
+        //return image;
+    //}
 
-    public void setImage(String image) {
-        this.image = image;
-    }
+   // public void setImage(String image) {
+      //  this.image = image;
+    //}
 
     public String getContent() {
         return content;
@@ -64,8 +78,8 @@ public class Post {
         this.content = content;
     }
 
-    public Date getCreatedat() {
-        return createdat;
+    public java.sql.Date getCreatedat() {
+        return (java.sql.Date) createdat;
     }
 
     public void setCreatedat(Date createdat) {
@@ -79,9 +93,29 @@ public class Post {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", auteur='" + auteur + '\'' +
-                ", image='" + image + '\'' +
+                //", image='" + image + '\'' +
                 ", content='" + content + '\'' +
                 ", createdat=" + createdat +
                 '}';
+    }
+
+    public ObservableValue<String> titleProperty() {
+        return new SimpleStringProperty(title);
+    }
+
+    public ObservableValue<String> contentProperty() {
+        return new SimpleStringProperty(content);
+    }
+
+    public ObservableValue<String> AuteurProperty() {
+        return new SimpleStringProperty(auteur);
+    }
+
+    public ObservableValue<Date> DateProperty() {
+        return null;
+    }
+
+
+    public void setCreatedat(LocalDateTime now) {
     }
 }
