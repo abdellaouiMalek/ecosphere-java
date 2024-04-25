@@ -8,7 +8,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import tn.esprit.models.Carpooling;
 import tn.esprit.models.Reservation;
+import tn.esprit.models.Waitlist;
 import tn.esprit.services.ReservationService;
+import tn.esprit.services.WaitlistService;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -59,11 +61,20 @@ public class Reservations {
                 reservationService.delete(reservation);
                 showCancellationSuccessMessage();
                 updateReservationsListView(); // Update the ListView with the latest data
+
+                // Call getFirstUserOnWaitlist method after successful cancellation
+                WaitlistService waitlistService = new WaitlistService();
+                Waitlist firstUser = waitlistService.getFirstUserOnWaitlist(reservation.getCarpoolingID());
+                if (firstUser != null) {
+                    // Handle the first user on waitlist, for example, notify them or perform any other action
+                    System.out.println("First user on waitlist: " + firstUser.getUserID());
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
+
 
     private void showCancellationSuccessMessage() {
         Alert confirmationAlert = new Alert(Alert.AlertType.INFORMATION);

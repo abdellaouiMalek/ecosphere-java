@@ -48,6 +48,9 @@ public class ReservationService implements IService<Reservation> {
             while (result.next()) {
                 Reservation reservation = new Reservation();
                 reservation.setId(result.getInt("id"));
+                reservation.setUserID(result.getInt("user_id"));
+                reservation.setCarpoolingID(result.getInt("carpooling_id"));
+
                 reservations.add(reservation);
             }
         }catch (SQLException e) {

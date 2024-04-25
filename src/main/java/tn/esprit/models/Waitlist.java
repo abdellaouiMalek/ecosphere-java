@@ -19,6 +19,11 @@ public class Waitlist {
         this.carpoolingID = carpoolingID;
     }
 
+    public Waitlist(int userID, int carpoolingID) {
+        this.userID = userID;
+        this.carpoolingID = carpoolingID;
+    }
+
     // getters & setters
     public int getId() {
         return id;

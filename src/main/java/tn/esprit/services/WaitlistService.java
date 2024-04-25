@@ -6,6 +6,7 @@ import tn.esprit.util.DBconnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -40,4 +41,31 @@ public class WaitlistService implements IService<Waitlist> {
     public List<Waitlist> getAll() {
         return null;
     }
+
+
+    public Waitlist getFirstUserOnWaitlist(int carpoolingId) throws SQLException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Waitlist firstUser = null;
+
+        try {
+            connection = DBconnection.getInstance().getCnx();
+            String sql = "SELECT * FROM waitlist WHERE carpooling_id = ? ORDER BY id ASC LIMIT 1";
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, carpoolingId);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                int userId = resultSet.getInt("user_id");
+                firstUser = new Waitlist(userId, carpoolingId);
+            }
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+        }
+        return firstUser;
+    }
 }
+
