@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="365.0" prefWidth="845.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.NewComment">
+   <children>
+      <AnchorPane layoutX="-4.0" prefHeight="366.0" prefWidth="853.0" styleClass="header" stylesheets="@addFromDesign.css" AnchorPane.bottomAnchor="-0.8000000000000114" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane layoutX="-10.0" layoutY="28.0" prefHeight="87.0" prefWidth="222.0">
+               <children>
+                  <TextArea fx:id="ta_comment" layoutX="28.0" layoutY="14.0" prefHeight="137.0" prefWidth="210.0" />
+               </children>
+            </AnchorPane>
+            <DatePicker layoutX="35.0" layoutY="255.0" />
+            <Label layoutX="34.0" layoutY="10.0" prefHeight="26.0" prefWidth="127.0" text="EcoShpére">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="310.0" layoutY="34.0" prefHeight="246.0" prefWidth="462.0" stylesheets="@addFromDesign.css">
+               <styleClass>
+                  <String fx:value="white-bg" />
+                  <String fx:value="radius" />
+                  <String fx:value="shadow" />
+               </styleClass>
+               <children>
+                  <TableView fx:id="Comment_tableView" layoutX="19.2" layoutY="14.0" prefHeight="214.0" prefWidth="427.0" stylesheets="@addFromDesign.css" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="16.0">
+                     <columns>
+                        <TableColumn fx:id="comment_col_contenu" prefWidth="75.0" />
+                        <TableColumn fx:id="comment_col_date" prefWidth="75.0" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <Button layoutX="94.0" layoutY="200.0" mnemonicParsing="false" onAction="#AddComment" styleClass="btn" stylesheets="@addFromDesign.css" text="Add" />
+            <Button layoutX="44.0" layoutY="298.0" mnemonicParsing="false" onAction="#UpdateComment" styleClass="btn" stylesheets="@addFromDesign.css" text="Update" />
+            <Button layoutX="129.0" layoutY="298.0" mnemonicParsing="false" onAction="#DComment" styleClass="btn" stylesheets="@addFromDesign.css" text="Delete" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
