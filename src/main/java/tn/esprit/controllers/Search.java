@@ -6,10 +6,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import tn.esprit.models.Carpooling;
+import tn.esprit.models.Reservation;
 import tn.esprit.services.CarpoolingService;
+import tn.esprit.services.ReservationService;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -57,5 +61,27 @@ public class Search {
         }
     }
 
+    @FXML
+    void waitlistNavigation(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/updateCarpooling.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+    @FXML
+    void reservationNavigation(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/allReservations.fxml"));
+        Parent root = loader.load();
+
+        Reservations controller = loader.getController();
+
+        List<Reservation> reservations = new ReservationService().getAll();
+        controller.displayReservations(reservations);
+
+        Stage stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
     }
 

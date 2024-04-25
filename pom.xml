@@ -16,6 +16,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.mailersend</groupId>
+            <artifactId>java-sdk</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
@@ -30,6 +36,7 @@
             <artifactId>logback-classic</artifactId>
             <version>1.2.6</version>
         </dependency>
+
         <dependency>
             <groupId>io.github.cdimascio</groupId>
             <artifactId>dotenv-java</artifactId>
@@ -46,6 +53,7 @@
             <artifactId>javafx-controls</artifactId>
             <version>23-ea+3</version>
         </dependency>
+
     </dependencies>
     <build>
         <plugins>

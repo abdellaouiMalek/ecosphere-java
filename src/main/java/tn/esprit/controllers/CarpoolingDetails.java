@@ -8,19 +8,24 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import tn.esprit.models.Carpooling;
 import tn.esprit.models.Reservation;
+import tn.esprit.models.Waitlist;
 import tn.esprit.services.CarpoolingService;
 import tn.esprit.services.ReservationService;
 import tn.esprit.services.UserService;
+import tn.esprit.services.WaitlistService;
 import tn.esprit.util.SmsService;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CarpoolingDetails {
@@ -94,11 +99,39 @@ public class CarpoolingDetails {
 
     @FXML
     void reservation(ActionEvent event) {
-        int userId = 1; // Default user id, change as needed
+        int userId = 1;
+        int maxReservationsAllowed = 3;
+        ReservationService reservationService = new ReservationService();
+        UserService userService = new UserService();
+        WaitlistService waitlistService = new WaitlistService();
+
         try {
+            int currentReservations = reservationService.getReservationCountForCarpooling(carpoolingId);
+            if (currentReservations >= maxReservationsAllowed) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Waitlist Confirmation");
+                alert.setHeaderText("Maximum reservations reached");
+                alert.setContentText("Would you like to be put on the waitlist?");
+                ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+                ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+                alert.getButtonTypes().setAll(yesButton, noButton);
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == yesButton) {
+                    Waitlist waitlist = new Waitlist();
+                    waitlist.setUserID(userId);
+                    waitlist.setCarpoolingID(carpoolingId);
+                    waitlistService.add(waitlist);
+                    Alert waitlistAlert = new Alert(Alert.AlertType.INFORMATION);
+                    waitlistAlert.setTitle("Waitlist Confirmation");
+                    waitlistAlert.setHeaderText(null);
+                    waitlistAlert.setContentText("You have been added to the waitlist.");
+                    waitlistAlert.showAndWait();
+                    return;
+                } else {
+                    return;
+                }
+            }
             Reservation reservation = new Reservation(userId, carpoolingId);
-            ReservationService reservationService = new ReservationService();
-            UserService userService = new UserService();
             reservationService.add(reservation);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -119,6 +152,8 @@ public class CarpoolingDetails {
             alert.showAndWait();
         }
     }
+
+
     @FXML
     void updateNavigation(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/updateCarpooling.fxml"));

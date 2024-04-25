@@ -4,6 +4,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,9 +15,18 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.Search">
    <children>
-      <VBox prefHeight="400.0" prefWidth="600.0">
+      <VBox prefHeight="299.0" prefWidth="654.0">
          <children>
-            <ImageView fitHeight="440.0" fitWidth="706.0" pickOnBounds="true" preserveRatio="true">
+            <MenuButton mnemonicParsing="false" stylesheets="@../style.css" text="Profile">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#waitlistNavigation" text="Waitlist" />
+                <MenuItem mnemonicParsing="false" onAction="#reservationNavigation" text="Reservation" />
+              </items>
+               <VBox.margin>
+                  <Insets left="645.0" />
+               </VBox.margin>
+            </MenuButton>
+            <ImageView fitHeight="408.0" fitWidth="711.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@search.jpg" />
                </image>
