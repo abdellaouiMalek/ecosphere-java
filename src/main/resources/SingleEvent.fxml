@@ -56,7 +56,7 @@
                 </Pane>
                 <Pane prefHeight="114.0" prefWidth="160.0">
                <children>
-                        <Button fx:id="moreInfoBtn" layoutX="13.0" layoutY="29.0" mnemonicParsing="false" onAction="#showMoreInfo" prefHeight="52.0" prefWidth="110.0" styleClass="GeneralButton" text="Plus d'infos">
+                        <Button fx:id="moreInfoBtn" layoutX="13.0" layoutY="29.0" mnemonicParsing="false" onAction="#showMoreInfo" prefHeight="52.0" prefWidth="110.0" styleClass="GeneralButton" text="More infos">
                             <font>
                                 <Font name="Leelawadee UI Semilight" size="17.0" />
                             </font>

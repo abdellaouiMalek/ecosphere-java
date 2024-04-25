@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -12,7 +13,7 @@
 
 <ScrollPane fx:id="sPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.EventInfo">
     <content>
-        <AnchorPane id="Rating" prefHeight="954.0" prefWidth="1087.0" styleClass="Box">
+        <AnchorPane id="Rating" prefHeight="853.0" prefWidth="1070.0" styleClass="Box">
             <children>
                 <Text fx:id="startDateText" layoutX="705.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="startDate">
                     <font>
@@ -100,33 +101,55 @@
                   <Font name="Leelawadee UI Semilight" size="13.0" />
                </font>
             </Text>
-            <Text layoutX="60.0" layoutY="697.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating and Reviews">
+            <Text layoutX="60.0" layoutY="673.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating and Reviews">
                <font>
                   <Font name="Leelawadee UI Semilight" size="33.0" />
                </font>
             </Text>
-            <Button fx:id="Submitratingid" layoutX="60.0" layoutY="825.0" mnemonicParsing="false" onAction="#submitRating" prefHeight="30.0" prefWidth="115.0" text="Submit Rating" />
-            <Rating fx:id="rating" layoutX="60.0" layoutY="745.0" rating="0.0" />
+            <Button fx:id="Submitratingid" layoutX="781.0" layoutY="688.0" mnemonicParsing="false" onAction="#submitRating" prefHeight="30.0" prefWidth="115.0" text="Submit Rating" />
+            <Rating fx:id="rating" layoutX="104.0" layoutY="757.0" rating="0.0" />
 
-                <ProgressBar fx:id="progressBar5" layoutX="419.0" layoutY="685.0" prefWidth="150.0" progress="0.0" />
-                <Label fx:id="ratingCount5" layoutX="579.0" layoutY="685.0" text="0" />
+                <ProgressBar fx:id="progressBar5" layoutX="482.0" layoutY="676.0" prefWidth="150.0" progress="0.0">
+               <effect>
+                  <ColorAdjust hue="-0.24" />
+               </effect></ProgressBar>
+                <Label fx:id="ratingCount5" layoutX="642.0" layoutY="676.0" text="0" />
 
-                <ProgressBar fx:id="progressBar4" layoutX="419.0" layoutY="715.0" prefWidth="150.0" progress="0.0" />
-                <Label fx:id="ratingCount4" layoutX="579.0" layoutY="715.0" text="0" />
+                <ProgressBar fx:id="progressBar4" layoutX="482.0" layoutY="706.0" prefWidth="150.0" progress="0.0" />
+                <Label fx:id="ratingCount4" layoutX="642.0" layoutY="706.0" text="0" />
 
-                <ProgressBar fx:id="progressBar3" layoutX="419.0" layoutY="745.0" prefWidth="150.0" progress="0.0" />
-                <Label fx:id="ratingCount3" layoutX="579.0" layoutY="745.0" text="0" />
+                <ProgressBar fx:id="progressBar3" layoutX="482.0" layoutY="736.0" prefWidth="150.0" progress="0.0">
+               <effect>
+                  <ColorAdjust hue="0.47" />
+               </effect></ProgressBar>
+                <Label fx:id="ratingCount3" layoutX="642.0" layoutY="736.0" text="0" />
 
-                <ProgressBar fx:id="progressBar2" layoutX="419.0" layoutY="775.0" prefWidth="150.0" progress="0.0" />
-                <Label fx:id="ratingCount2" layoutX="579.0" layoutY="775.0" text="0" />
+                <ProgressBar fx:id="progressBar2" layoutX="482.0" layoutY="766.0" prefWidth="150.0" progress="0.0">
+               <effect>
+                  <ColorAdjust hue="-0.87" />
+               </effect></ProgressBar>
+                <Label fx:id="ratingCount2" layoutX="642.0" layoutY="766.0" text="0" />
 
-                <ProgressBar fx:id="progressBar1" layoutX="419.0" layoutY="805.0" prefWidth="150.0" progress="0.0" />
-                <Label fx:id="ratingCount1" layoutX="579.0" layoutY="805.0" text="0" />
-            <Label layoutX="398.0" layoutY="685.0" text="5" />
-            <Label layoutX="398.0" layoutY="716.0" text="4" />
-            <Label layoutX="398.0" layoutY="746.0" text="3" />
-            <Label layoutX="398.0" layoutY="776.0" text="2" />
-            <Label layoutX="398.0" layoutY="805.0" text="1" />
+                <ProgressBar fx:id="progressBar1" layoutX="482.0" layoutY="796.0" prefWidth="150.0" progress="0.0">
+               <effect>
+                  <ColorAdjust hue="-1.0" />
+               </effect></ProgressBar>
+                <Label fx:id="ratingCount1" layoutX="642.0" layoutY="796.0" text="0" />
+            <Label layoutX="456.0" layoutY="676.0" text="5 ★" />
+            <Label layoutX="455.0" layoutY="707.0" text="4 ★" />
+            <Label layoutX="456.0" layoutY="736.0" text="3 ★" />
+            <Label layoutX="455.0" layoutY="767.0" text="2 ★" />
+            <Label layoutX="455.0" layoutY="796.0" text="1 ★" />
+            <Label layoutX="204.0" layoutY="687.0" text="/5">
+               <font>
+                  <Font size="38.0" />
+               </font>
+            </Label>
+            <Label fx:id="avgrating" layoutX="153.0" layoutY="687.0" text="0.0">
+               <font>
+                  <Font size="38.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
     </content>

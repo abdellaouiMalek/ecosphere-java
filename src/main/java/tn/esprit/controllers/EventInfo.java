@@ -1,9 +1,11 @@
 package tn.esprit.controllers;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -109,11 +111,21 @@ public class EventInfo implements Initializable {
     @FXML
     private Label ratingCount1;
 
+    @FXML
+    private Label avgrating;
+
+    @FXML
+    private TableView<Event> eventTable;
+
+    private Event selectedEvent;
+
+
 
     EventService es = new EventService();
     private Event eventInfoStore;
     private boolean isInterested = false;
     private int eventId;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -122,7 +134,15 @@ public class EventInfo implements Initializable {
         updateInterestButton();
         initializeRatings(eventId);
 
+
     }
+
+    public void setSelectedEvent(Event event) {
+        this.selectedEvent = event;
+
+    }
+
+
 
     // Method to populate event information
     void sendEvent(Event eventInfo) {
@@ -154,6 +174,13 @@ public class EventInfo implements Initializable {
 
         // Initialize ratings for this event
         initializeRatings(eventId);
+
+        // Calculate and display average rating
+        calculateAndDisplayAverageRating(eventInfo.getId());
+
+        setSelectedEvent(eventInfo);
+
+
     }
 
     private void updateInterestButton() {
@@ -180,6 +207,30 @@ public class EventInfo implements Initializable {
             stage.setScene(new Scene(root));
         } catch (SQLException | IOException ex) {
             System.out.println("Error deleting event: " + ex.getMessage());
+        }
+    }
+
+    @FXML
+    void updateEvent(ActionEvent event) throws IOException {
+
+        try {
+            // Load the UpdateEvent.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UpdateEvent.fxml"));
+            Parent root = loader.load();
+
+            // Access the controller of the UpdateEvent view
+            UpdateEvent controller = loader.getController();
+
+            controller.setSelectedEvent(eventInfoStore);
+
+            // Set up the stage to display the UpdateEvent scene
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+
+        } catch (IOException ex) {
+            System.out.println("Error loading UpdateEvent.fxml: " + ex.getMessage());
         }
     }
 
@@ -252,16 +303,22 @@ public class EventInfo implements Initializable {
         ratingCountLabel.setText(String.valueOf(count));
     }
 
+    private void calculateAndDisplayAverageRating(int eventId) {
+        try {
+            // Retrieve average rating for the specified event ID using EventService
+            double averageRating = es.calculateAverageRating(eventId);
+
+            // Display the average rating in the avgrating label
+            avgrating.setText(String.format("%.1f", averageRating));
+
+        } catch (SQLException e) {
+            System.out.println("Error calculating average rating: " + e.getMessage());
+        }
+    }
 
 
 
 
-
-    // Event handler for updating an event
-    @FXML
-    void updateEvent(ActionEvent event) {
-
-}
 
     // Event handler for navigating back to the events list
     @FXML
