@@ -6,9 +6,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
+import tn.esprit.models.Carpooling;
 import tn.esprit.models.Reservation;
 import tn.esprit.models.User;
 import tn.esprit.models.Waitlist;
+import tn.esprit.services.CarpoolingService;
 import tn.esprit.services.ReservationService;
 import tn.esprit.services.UserService;
 import tn.esprit.services.WaitlistService;
@@ -26,6 +28,7 @@ public class Reservations {
     private final ReservationService reservationService = new ReservationService();
     private final EmailService emailService = new EmailService();
     private final UserService userService = new UserService();
+    private final CarpoolingService carpoolingService = new CarpoolingService();
 
     public void displayReservations(List<Reservation> reservations) {
         reservationsListView.getItems().clear();
@@ -72,9 +75,16 @@ public class Reservations {
                     int id = firstUser.getUserID();
                     String userEmail = userService.getUserEmailById(id);
                     System.out.println("First user on waitlist: " + userEmail);
+                    Carpooling carpooling = carpoolingService.getById(reservation.getCarpoolingID());
 
                     if (userEmail != null) {
-                        emailService.sendEmail(userEmail, "Carpooling Reservation Available", "A spot is available in the carpooling you are waitlisted for. Would you like to join?");
+                        String departure = carpooling.getDeparture();
+                        String destination = carpooling.getDestination();
+                        String date = String.valueOf(carpooling.getArrivalDate());
+                        String emailBody = "A spot is available in the carpooling you are waitlisted for, from " + departure + " to " + destination + " the " + date;
+                        emailBody += " <a href='" + id + "&carpoolingId=" + reservation.getCarpoolingID() + "'>Would you like to join?</a>";
+
+                        emailService.sendEmail(userEmail, "Carpooling Reservation Available", emailBody);
                         System.out.println("Email sent successfully to: " + userEmail);
                     } else {
                         System.err.println("Failed to retrieve user email for ID: " + id);
