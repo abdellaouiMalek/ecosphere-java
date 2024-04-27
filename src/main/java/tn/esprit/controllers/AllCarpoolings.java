@@ -7,6 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import tn.esprit.models.Carpooling;
 
@@ -18,6 +20,9 @@ public class AllCarpoolings {
     @FXML
     private ListView<String> carpoolingsListView;
     private List<Carpooling> searchResults;
+    @FXML
+    private ImageView icon;
+
 
     public void displaySearchResults(List<Carpooling> searchResults) {
         this.searchResults = searchResults;
@@ -70,6 +75,14 @@ public class AllCarpoolings {
 
         AddCarpooling controller = loader.getController();
 
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+    @FXML
+    void navigationBack(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/search.fxml"));
+        Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();

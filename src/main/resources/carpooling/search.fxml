@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
@@ -36,19 +37,25 @@
             </ImageView>
          </children>
       </VBox>
-      <HBox alignment="CENTER" layoutX="103.0" prefHeight="69.0" prefWidth="523.0" spacing="15.0" styleClass="hbox-background" AnchorPane.topAnchor="170.0">
+      <HBox alignment="CENTER" layoutX="103.0" prefHeight="70.0" prefWidth="549.0" spacing="15.0" styleClass="hbox-background" AnchorPane.topAnchor="170.0">
          <children>
             <TextField fx:id="departure" prefHeight="26.0" prefWidth="118.0" promptText="From">
                <styleClass>
                   <String fx:value="text-field" />
                   <String fx:value="visible-text-field" />
-               </styleClass></TextField>
-            <TextField fx:id="destination" prefHeight="26.0" prefWidth="115.0" promptText="To" styleClass="visible-text-field">
+               </styleClass>
+            </TextField>
+            <TextField fx:id="destination" prefHeight="26.0" prefWidth="122.0" promptText="To" styleClass="visible-text-field">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </TextField>
-            <TextField fx:id="date" prefHeight="26.0" prefWidth="117.0" promptText="When" styleClass="visible-text-field" />
+            <DatePicker fx:id="departureDate" prefHeight="30.0" prefWidth="126.0" stylesheets="@../style.css">
+               <styleClass>
+                  <String fx:value="text-field" />
+                  <String fx:value="visible-text-field" />
+               </styleClass>
+            </DatePicker>
             <Button mnemonicParsing="false" onAction="#search" text="Search" />
          </children>
          <padding>

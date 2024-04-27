@@ -11,6 +11,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import tn.esprit.models.Carpooling;
 import tn.esprit.models.Reservation;
@@ -41,6 +43,8 @@ public class CarpoolingDetails {
 
     @FXML
     private Label price;
+    @FXML
+    private ImageView icon;
 
     private final CarpoolingService carpoolingService = new CarpoolingService();
     private int carpoolingId;
@@ -159,7 +163,6 @@ public class CarpoolingDetails {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/updateCarpooling.fxml"));
         Parent root = loader.load();
 
-        // Get the controller of the loaded FXML
         UpdateCarpooling controller = loader.getController();
         controller.getID(carpoolingId);
 
@@ -168,4 +171,12 @@ public class CarpoolingDetails {
         stage.show();
     }
 
+    @FXML
+    void navigationBack(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/search.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 }

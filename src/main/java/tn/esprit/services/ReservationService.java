@@ -59,7 +59,6 @@ public class ReservationService implements IService<Reservation> {
         return reservations;
     }
 
-
     public int getReservationCountForCarpooling(int carpoolingId) throws SQLException {
         int reservationCount = 0;
             String sql = "SELECT COUNT(*) FROM reservation WHERE carpooling_id = ?";

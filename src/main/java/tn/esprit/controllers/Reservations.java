@@ -6,11 +6,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
-import tn.esprit.models.Carpooling;
 import tn.esprit.models.Reservation;
+import tn.esprit.models.User;
 import tn.esprit.models.Waitlist;
 import tn.esprit.services.ReservationService;
+import tn.esprit.services.UserService;
 import tn.esprit.services.WaitlistService;
+import tn.esprit.util.EmailService;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -22,6 +24,8 @@ public class Reservations {
     private ListView<String> reservationsListView;
 
     private final ReservationService reservationService = new ReservationService();
+    private final EmailService emailService = new EmailService();
+    private final UserService userService = new UserService();
 
     public void displayReservations(List<Reservation> reservations) {
         reservationsListView.getItems().clear();
@@ -60,14 +64,21 @@ public class Reservations {
             try {
                 reservationService.delete(reservation);
                 showCancellationSuccessMessage();
-                updateReservationsListView(); // Update the ListView with the latest data
-
-                // Call getFirstUserOnWaitlist method after successful cancellation
+                updateReservationsListView();
                 WaitlistService waitlistService = new WaitlistService();
                 Waitlist firstUser = waitlistService.getFirstUserOnWaitlist(reservation.getCarpoolingID());
                 if (firstUser != null) {
-                    // Handle the first user on waitlist, for example, notify them or perform any other action
                     System.out.println("First user on waitlist: " + firstUser.getUserID());
+                    int id = firstUser.getUserID();
+                    String userEmail = userService.getUserEmailById(id);
+                    System.out.println("First user on waitlist: " + userEmail);
+
+                    if (userEmail != null) {
+                        emailService.sendEmail(userEmail, "Carpooling Reservation Available", "A spot is available in the carpooling you are waitlisted for. Would you like to join?");
+                        System.out.println("Email sent successfully to: " + userEmail);
+                    } else {
+                        System.err.println("Failed to retrieve user email for ID: " + id);
+                    }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

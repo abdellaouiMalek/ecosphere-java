@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -19,28 +20,30 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 public class Search {
-    @FXML
-    private TextField date;
+
 
     @FXML
     private TextField departure;
 
     @FXML
     private TextField destination;
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    @FXML
+    private DatePicker departureDate;
 
     @FXML
     void search(ActionEvent event) throws ParseException {
         String dep = departure.getText();
         String dest = destination.getText();
-        String dateString = date.getText();
+        LocalDate selectedDate = departureDate.getValue();
 
         try {
-            java.util.Date utilDate = dateFormat.parse(dateString);
+            Date utilDate = java.sql.Date.valueOf(selectedDate);
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
             CarpoolingService carpoolingService = new CarpoolingService();

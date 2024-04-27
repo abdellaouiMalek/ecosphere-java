@@ -140,4 +140,21 @@ return user;
         }
         return phoneNumber;
     }
+
+    public String getUserEmailById(int id) {
+        String sql = "SELECT email FROM `user` WHERE `id` = ?";
+        String userEmail = null;
+        try {
+            PreparedStatement pstm = cnx.prepareStatement(sql);
+            pstm.setInt(1, id);
+            ResultSet resultSet = pstm.executeQuery();
+            if (resultSet.next()) {
+                userEmail = resultSet.getString("email");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return userEmail;
+    }
+
 }

@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,18 +24,29 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class AddCarpooling {
-    @FXML
-    private TextField arrivalDate;
+import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+
+public class AddCarpooling {
     @FXML
     private TextField departure;
 
     @FXML
-    private TextField departureDate;
+    private TextField destination;
 
     @FXML
-    private TextField destination;
+    private DatePicker departureDate;
+
+    @FXML
+    private DatePicker arrivalDate;
 
     @FXML
     private TextField price;
@@ -46,7 +58,6 @@ public class AddCarpooling {
     private ImageView icon;
 
     private final CarpoolingService carpoolingService = new CarpoolingService();
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
     @FXML
@@ -55,19 +66,20 @@ public class AddCarpooling {
             try {
                 String departureText = departure.getText();
                 String destinationText = destination.getText();
-                Date departureDateValue = dateFormat.parse(departureDate.getText());
-                Date arrivalDateValue = dateFormat.parse(arrivalDate.getText());
+                LocalDate departureDateValue = departureDate.getValue();
+                LocalDate arrivalDateValue = arrivalDate.getValue();
+                Date departureDate = java.sql.Date.valueOf(departureDateValue);
+                Date arrivalDate = java.sql.Date.valueOf(arrivalDateValue);
                 Time timeValue = new Time(timeFormat.parse(time.getText()).getTime());
                 double priceValue = Double.parseDouble(price.getText());
 
-                Carpooling carpooling = new Carpooling(departureText, destinationText, departureDateValue, arrivalDateValue, timeValue, priceValue);
+                Carpooling carpooling = new Carpooling(departureText, destinationText, departureDate, arrivalDate, timeValue, priceValue);
 
                 carpoolingService.add(carpooling);
 
                 int carpoolingId = carpooling.getId();
                 Image iconImage = new Image(getClass().getResourceAsStream("/carpooling/back.png"));
 
-                // Set the icon image for the ImageView
                 icon.setImage(iconImage);
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/carpoolingDetails.fxml"));
@@ -99,14 +111,12 @@ public class AddCarpooling {
 
     private boolean validateInput() {
         try {
-            dateFormat.setLenient(false);
-            dateFormat.parse(departureDate.getText());
-            dateFormat.parse(arrivalDate.getText());
             timeFormat.setLenient(false);
             timeFormat.parse(time.getText());
         } catch (ParseException ex) {
             return false;
         }
+
         try {
             Double.parseDouble(price.getText());
         } catch (NumberFormatException ex) {
@@ -115,13 +125,11 @@ public class AddCarpooling {
         return true;
     }
 
+
     @FXML
     void navigationBack(MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/search.fxml"));
         Parent root = loader.load();
-
-        Search controller = loader.getController();
-
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();

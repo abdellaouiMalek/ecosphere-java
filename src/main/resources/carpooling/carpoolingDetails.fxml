@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -80,5 +82,10 @@
             <Button mnemonicParsing="false" onAction="#reservation" stylesheets="@../style.css" text="Make reservation" />
          </children>
       </HBox>
+      <ImageView fx:id="icon" fitHeight="18.0" fitWidth="36.0" layoutX="27.0" layoutY="33.0" onMouseClicked="#navigationBack" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@back.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
