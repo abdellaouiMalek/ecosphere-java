@@ -11,24 +11,24 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.UpdateEvent">
+<AnchorPane prefHeight="900.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.UpdateEvent">
 
 
     <children>
-        <TextField fx:id="titleid" layoutX="29.0" layoutY="145.0" prefHeight="27.0" prefWidth="338.0" promptText="Title" />
-        <TextArea fx:id="descid" layoutX="29.0" layoutY="449.0" prefHeight="112.0" prefWidth="338.0" promptText="Description" />
-        <DatePicker fx:id="startDateDp" layoutX="473.0" layoutY="146.0" prefHeight="21.0" prefWidth="338.0" promptText="Date" />
-        <Button fx:id="uploadImgBtn" layoutX="475.0" layoutY="531.0" mnemonicParsing="false" onAction="#onUploadButtonClick" prefHeight="30.0" prefWidth="150.0" styleClass="GeneralButton" text="Import image" />
-        <Button fx:id="updateBtn" layoutX="864.0" layoutY="616.0" mnemonicParsing="false" onAction="#Updateevent" prefHeight="40.0" prefWidth="100.0" styleClass="GeneralButton" text="Update">
+        <TextField fx:id="titleid" layoutX="150.0" layoutY="229.0" prefHeight="27.0" prefWidth="338.0" promptText="Title" />
+        <TextArea fx:id="descid" layoutX="150.0" layoutY="533.0" prefHeight="112.0" prefWidth="338.0" promptText="Description" />
+        <DatePicker fx:id="startDateDp" layoutX="594.0" layoutY="230.0" prefHeight="21.0" prefWidth="338.0" promptText="Date" />
+        <Button fx:id="uploadImgBtn" layoutX="596.0" layoutY="615.0" mnemonicParsing="false" onAction="#onUploadButtonClick" prefHeight="30.0" prefWidth="150.0" styleClass="GeneralButton" text="Import image" />
+        <Button fx:id="updateBtn" layoutX="954.0" layoutY="812.0" mnemonicParsing="false" onAction="#Updateevent" prefHeight="40.0" prefWidth="100.0" styleClass="GeneralButton" text="Update">
             <font>
                 <Font name="Leelawadee UI Semilight" size="15.0" />
             </font></Button>
-        <Button fx:id="EvReturnBtn" layoutX="874.0" layoutY="8.0" mnemonicParsing="false" onAction="#ReturnEv" prefHeight="40.0" prefWidth="80.0" styleClass="GeneralButton" text="Return">
+        <Button fx:id="EvReturnBtn" layoutX="964.0" layoutY="22.0" mnemonicParsing="false" onAction="#ReturnEv" prefHeight="40.0" prefWidth="80.0" styleClass="GeneralButton" text="Return">
             <font>
                 <Font name="Leelawadee UI Semilight" size="13.0" />
             </font></Button>
-        <ImageView fx:id="imagePreview" fitHeight="159.0" fitWidth="338.0" layoutX="473.0" layoutY="365.0" pickOnBounds="true" preserveRatio="true" styleClass="Box" />
-        <Label layoutX="29.0" layoutY="116.0" text="Event Title">
+        <ImageView fx:id="imagePreview" fitHeight="159.0" fitWidth="338.0" layoutX="594.0" layoutY="449.0" pickOnBounds="true" preserveRatio="true" styleClass="Box" />
+        <Label layoutX="150.0" layoutY="200.0" text="Event Title">
             <font>
                 <Font name="Leelawadee UI Semilight" size="18.0" />
             </font>
@@ -43,47 +43,47 @@
                 <Font name="Leelawadee UI Semilight" size="15.0" />
             </font>
         </Text>
-        <Label layoutX="29.0" layoutY="187.0" text="Category">
+        <Label layoutX="150.0" layoutY="271.0" text="Category">
             <font>
                 <Font name="Leelawadee UI Semilight" size="18.0" />
             </font>
         </Label>
-        <Label layoutX="29.0" layoutY="421.0" text="Description">
+        <Label layoutX="150.0" layoutY="505.0" text="Description">
             <font>
                 <Font name="Leelawadee UI Semilight" size="18.0" />
             </font>
         </Label>
-        <Label layoutX="474.0" layoutY="119.0" text="Date">
+        <Label layoutX="595.0" layoutY="203.0" text="Date">
             <font>
                 <Font name="Leelawadee UI Semilight" size="18.0" />
             </font>
         </Label>
-        <Label layoutX="473.0" layoutY="330.0" text="Image">
+        <Label layoutX="594.0" layoutY="414.0" text="Image">
             <font>
                 <Font name="Leelawadee UI Semilight" size="18.0" />
             </font>
         </Label>
-        <ChoiceBox fx:id="categoryid" layoutX="29.0" layoutY="219.0" prefHeight="15.0" prefWidth="338.0" />
-        <TextField fx:id="locationid" layoutX="473.0" layoutY="274.0" prefHeight="25.0" prefWidth="338.0" promptText="Location" />
-        <Label layoutX="473.0" layoutY="242.0" text="Location">
+        <ChoiceBox fx:id="categoryid" layoutX="150.0" layoutY="303.0" prefHeight="15.0" prefWidth="338.0" />
+        <TextField fx:id="locationid" layoutX="594.0" layoutY="358.0" prefHeight="25.0" prefWidth="338.0" promptText="Location" />
+        <Label layoutX="594.0" layoutY="326.0" text="Location">
             <font>
                 <Font name="Leelawadee UI Semilight" size="18.0" />
             </font>
         </Label>
-        <TextField fx:id="objid" layoutX="29.0" layoutY="297.0" prefHeight="27.0" prefWidth="338.0" promptText="Objective" />
-        <Label layoutX="28.0" layoutY="268.0" text="Objective">
+        <TextField fx:id="objid" layoutX="150.0" layoutY="381.0" prefHeight="27.0" prefWidth="338.0" promptText="Objective" />
+        <Label layoutX="149.0" layoutY="352.0" text="Objective">
             <font>
                 <Font name="Leelawadee UI Semilight" size="18.0" />
             </font>
         </Label>
-        <TextField fx:id="timeid" layoutX="29.0" layoutY="374.0" prefHeight="27.0" prefWidth="338.0" promptText="Time (HH:mm:ss)" />
-        <Label layoutX="29.0" layoutY="345.0" text="Time">
+        <TextField fx:id="timeid" layoutX="150.0" layoutY="458.0" prefHeight="27.0" prefWidth="338.0" promptText="Time (HH:mm:ss)" />
+        <Label layoutX="150.0" layoutY="429.0" text="Time">
             <font>
                 <Font name="Leelawadee UI Semilight" size="18.0" />
             </font>
         </Label>
-        <TextField fx:id="addressid" layoutX="472.0" layoutY="212.0" prefHeight="25.0" prefWidth="338.0" promptText="Address" />
-        <Label layoutX="472.0" layoutY="180.0" text="Address">
+        <TextField fx:id="addressid" layoutX="593.0" layoutY="296.0" prefHeight="25.0" prefWidth="338.0" promptText="Address" />
+        <Label layoutX="593.0" layoutY="264.0" text="Address">
             <font>
                 <Font name="Leelawadee UI Semilight" size="18.0" />
             </font>

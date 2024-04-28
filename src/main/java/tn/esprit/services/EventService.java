@@ -259,4 +259,23 @@ public class EventService implements IService<Event> {
 
         return ratingCounts;
     }
+
+    // Method to retrieve the count of users interested in a specific event
+    public int getInterestedUserCount(int eventId) throws SQLException {
+        int interestedCount = 0;
+
+        String sql = "SELECT COUNT(*) FROM event_registrations WHERE event_id = ? AND status = 'Interested'";
+        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
+            ps.setInt(1, eventId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    interestedCount = rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving interested user count: " + e.getMessage(), e);
+        }
+
+        return interestedCount;
+    }
 }

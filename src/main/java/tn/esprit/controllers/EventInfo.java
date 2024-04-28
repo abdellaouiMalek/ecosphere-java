@@ -39,6 +39,9 @@ public class EventInfo implements Initializable {
     private Text AddressText;
 
     @FXML
+    private Button nbinterested;
+
+    @FXML
     private Text LocationText;
 
     @FXML
@@ -179,6 +182,10 @@ public class EventInfo implements Initializable {
         calculateAndDisplayAverageRating(eventInfo.getId());
 
         setSelectedEvent(eventInfo);
+
+        updateInterestedCount();
+
+
 
 
     }
@@ -382,5 +389,23 @@ public class EventInfo implements Initializable {
         alert.setContentText("You have canceled your interest in this event.");
         alert.showAndWait();
     }
+
+    // Method to update the interested count display
+    private void updateInterestedCount() {
+        if (selectedEvent != null) {
+            int eventId = selectedEvent.getId(); // Assuming you have a method to get the event ID
+
+            try {
+                EventService eventService = new EventService(); // Create a new instance of EventService
+                int interestedCount = eventService.getInterestedUserCount(eventId); // Get the interested user count
+
+                // Update the UI element with the interested count
+                nbinterested.setText(String.valueOf(interestedCount));
+            } catch (SQLException e) {
+                System.out.println("Error retrieving interested count: " + e.getMessage());
+            }
+        }
+    }
+
 
 }

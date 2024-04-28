@@ -66,22 +66,22 @@
                         <Font name="Leelawadee UI Semilight" size="17.0" />
                     </font>
                 </Text>
-                <Text fx:id="descText" layoutX="45.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="915.642578125">
+                <Text fx:id="descText" layoutX="45.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="915.642578125">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="17.0" />
                     </font>
                 </Text>
-                <Text layoutX="628.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organized by:">
+                <Text layoutX="628.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organized by:">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="17.0" />
                     </font>
                 </Text>
-                <Text fx:id="hostNameText" layoutX="734.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="hostName">
+                <Text fx:id="hostNameText" layoutX="734.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="hostName">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="13.0" />
                     </font>
                 </Text>
-            <Button fx:id="intrestedid" layoutX="954.0" layoutY="263.0" mnemonicParsing="false" onAction="#intrested" prefHeight="38.0" prefWidth="111.0" styleClass="GeneralButton" text=" ☆ I'm interested">
+            <Button fx:id="intrestedid" layoutX="810.0" layoutY="349.0" mnemonicParsing="false" onAction="#intrested" prefHeight="38.0" prefWidth="111.0" styleClass="GeneralButton" text=" ☆ I'm interested">
                <font>
                   <Font name="Leelawadee UI Semilight" size="12.0" />
                </font>
@@ -150,6 +150,7 @@
                   <Font size="38.0" />
                </font>
             </Label>
+            <Button fx:id="nbinterested" layoutX="921.0" layoutY="349.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="43.0" text="0" />
             </children>
         </AnchorPane>
     </content>
