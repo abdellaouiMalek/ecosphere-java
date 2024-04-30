@@ -12,11 +12,16 @@ import java.io.IOException;
 public class MainFX extends Application {
 
     @Override
-    public void start(Stage stage)throws Exception{
+    public void start(Stage stage){
 
         FXMLLoader loader =  new FXMLLoader(getClass().getResource("/History.fxml"));
 
-        Scene scene = new Scene(loader.load());
+        Scene scene = null;
+        try {
+            scene = new Scene(loader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //scene.setRoot(loader.load());
         stage.setTitle("Sharing-Hub ");
         stage.setMinWidth(1100);

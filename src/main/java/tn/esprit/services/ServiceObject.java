@@ -110,7 +110,7 @@ public class ServiceObject  {
             st.setString(1, name);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                return extractProduitFromResultSet(rs);
+                return extractObjetFromResultSet(rs);
 
             }
         } catch (SQLException e) {
@@ -119,7 +119,7 @@ public class ServiceObject  {
         return null;// Si aucun objet n'est trouvé ou en cas d'erreur
     }
 
-    private Object extractProduitFromResultSet(ResultSet rs)  throws SQLException{
+    private Object extractObjetFromResultSet(ResultSet rs)  throws SQLException{
         Object o = new Object();
         o.setId(rs.getInt(1));
         o.setName(rs.getString(2));

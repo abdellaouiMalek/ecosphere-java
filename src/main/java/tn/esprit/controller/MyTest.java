@@ -117,14 +117,10 @@ public class MyTest implements Initializable {
 
     public MyTest() {
         cnx = DBconnection.getInstance().getCnx();
-
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Initialize publicationList and bind it to the TableView
-        ObjectList = FXCollections.observableArrayList();
-        sharing_tableView.setItems(ObjectList);
 
         // Initialize TableColumn instances
         TableColumn<Object, String> sharinghub_col_name = new TableColumn<>("Name");
@@ -145,12 +141,12 @@ public class MyTest implements Initializable {
         // add columns
         sharing_tableView.getColumns().addAll(sharinghub_col_name, sharinghub_col_type, sharinghub_col_description,sharinghub_col_age, sharinghub_col_price);
         // fill table
-        refreshTable();
 
         sharinghubTypeList();
         sharinghubDescriptionList();
         sharinghubShowData();
 
+        refreshTable();
     }
     @FXML
     void importBtn() {
@@ -339,6 +335,7 @@ public class MyTest implements Initializable {
                 showAlert( "Success", "Publication updated successfully.",Alert.AlertType.INFORMATION);
 
                 clearFields();
+                refreshTable();
             } catch (Exception e) {
                 e.printStackTrace();
                 showAlert("Error", "An error occurred while updating the Object.",Alert.AlertType.INFORMATION);
@@ -392,6 +389,7 @@ public class MyTest implements Initializable {
                     ObjectList.remove(selectedObject);
                     showAlert( "Success", "Publication deleted successfully.",Alert.AlertType.INFORMATION);
                     clearFields();
+                    refreshTable();
                 }
             } else {
                 showAlert( "Error", "Please select a publication to delete.",Alert.AlertType.ERROR);
@@ -422,7 +420,7 @@ public class MyTest implements Initializable {
 
     public void sharinghubShowData() {
         sharinghubListData = sharinghubDataList();
-        sharinghub_col_id.setCellValueFactory(new PropertyValueFactory<>("ID Object"));
+        sharinghub_col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         sharinghub_col_name.setCellValueFactory(new PropertyValueFactory<>("Name"));
         sharinghub_col_type.setCellValueFactory(new PropertyValueFactory<>("Type"));
         sharinghub_col_description.setCellValueFactory(new PropertyValueFactory<>("Description"));
@@ -442,6 +440,8 @@ public class MyTest implements Initializable {
         sharinghub_name.setText(obj.getName());
         sharinghub_age.setText(String.valueOf(obj.getAge()));
         sharinghub_price.setText(String.valueOf((obj.getPrice())));
+        sharinghub_description.setValue(obj.getDescription());
+        sharinghub_type.setValue(obj.getType());
 
         String path ="file:"+obj.getPicture();
        // data.date = String.valueOf(obj.getDate());
@@ -507,7 +507,11 @@ public class MyTest implements Initializable {
             sharing_tableView.getItems().clear();
 
             // Ajouter tous les éléments de ObjectList à la TableView
-            sharing_tableView.getItems().addAll(ObjectList);
+
+
+            List<Object> objects = o.getAll();
+            ObjectList = FXCollections.observableArrayList(objects);
+            sharing_tableView.setItems(ObjectList);
         }
 
     }
