@@ -157,6 +157,11 @@
                                                 <Font size="15.0" />
                                              </font>
                                           </Button>
+                                          <Button fx:id="sharinghub_historyBtn" layoutX="555.0" layoutY="76.0" mnemonicParsing="false" onAction="#historyBtn" prefHeight="30.0" prefWidth="72.0" styleClass="btn" stylesheets="@testFromDesign.css" text="history">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Button>
                                        </children>
                                     </AnchorPane>
                                  </children>

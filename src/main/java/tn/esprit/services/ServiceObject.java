@@ -1,5 +1,6 @@
 package tn.esprit.services;
 
+import tn.esprit.models.History;
 import tn.esprit.models.Object;
 import tn.esprit.tools.Statics;
 import tn.esprit.tools.UtilityFunctions;
@@ -36,7 +37,7 @@ public class ServiceObject  {
 
 
         public void update(Object o) {
-            String reqUpdate="UPDATE `Object` SET `name`=?, `type`=?, `description`=?, `age`=?, `picture`=?, `price`=? WHERE id=?";
+            String reqUpdate="UPDATE `object` SET `name`=?, `type`=?, `description`=?, `age`=?, `picture`=?, `price`=? WHERE id=?";
 
             try (PreparedStatement ste = cnx.prepareStatement(reqUpdate)){
                  ste.setString(1, o.getName());
@@ -80,6 +81,40 @@ public class ServiceObject  {
         return null; // Retourne null si le produit n'est pas trouvé
     }
 
+
+    // GET ALL HISTORY BY OBJECT ID
+    public List<History> getAllHistoryByObject(int foreignId) {
+        List<History> histories = new ArrayList<>();
+        String req = "SELECT * " +
+                "FROM history h " +
+                "JOIN object o ON h.object_id = o.id " +
+                "WHERE o.id = "+foreignId;
+        try (Statement st = cnx.createStatement();
+             ResultSet rs = st.executeQuery(req)) {
+
+            while (rs.next()) {
+                // Retrieve data from each row in the result set and create History objects
+                History h = new History();
+                h.setName(rs.getString("name"));
+                h.setInitialCondition(rs.getString("initialCondition"));
+                h.setDate(rs.getDate("date"));
+                h.setId(rs.getInt("object_id"));
+                histories.add(h);
+            }
+
+        }
+       catch (SQLException e) {
+            System.out.println("probleme here");
+            e.printStackTrace();
+        }
+        if(histories.size() == 0)    return null;
+        System.out.println(histories);
+        return histories;
+    }
+
+
+
+
     public List<Object> getAll() {
         List<Object> objects = new ArrayList<>();
         String req = "SELECT * FROM Object";
@@ -105,7 +140,7 @@ public class ServiceObject  {
         return objects;
     }
     public Object findByName(String name){
-            String sql = "SELECT * FROM Object WHERE name = ?";
+            String sql = "SELECT * FROM Object WHERE name LIKE %?% ";
         try (PreparedStatement st = cnx.prepareStatement(sql)){
             st.setString(1, name);
             ResultSet rs = st.executeQuery();

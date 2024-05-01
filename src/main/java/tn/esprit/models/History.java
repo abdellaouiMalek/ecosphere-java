@@ -4,12 +4,16 @@ import java.util.Date;
 
 public class History {
     private int id ;
+
+    private Object object;
     private String initialCondition , name ;
     private Date date;
 
+
     // constructor
-    public History(int id, String initialCondition, String name, Date date) {
+    public History(int id, String initialCondition,Object object, String name, Date date) {
         this.id = id;
+        this.object = object;
         this.initialCondition = initialCondition;
         this.name = name;
         this.date = date;
@@ -21,6 +25,13 @@ public class History {
         this.date = date;
     }
 
+    public Object getObject() {
+        return object;
+    }
+
+    public void setObject(Object object) {
+        this.object = object;
+    }
     public void add(History history) {
     }
 

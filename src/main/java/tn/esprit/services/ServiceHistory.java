@@ -16,8 +16,7 @@ public class ServiceHistory  {
 
     public void add(History history) {
         String req = "INSERT INTO History (`name`, `initialCondition`, `date`) VALUES (?,?,?)";
-        try {
-            PreparedStatement ps = cnx.prepareStatement(req);
+        try (PreparedStatement ps = cnx.prepareStatement(req)){
             ps.setString(1, history.getName());
             ps.setString(2, history.getInitialCondition());
             ps.setDate(3, new java.sql.Date(history.getDate().getTime())); // Convert java.util.Date to java.sql.Date
@@ -30,8 +29,7 @@ public class ServiceHistory  {
 
     public void update(History history) {
         String req = "UPDATE `History` SET `name`=?, `initialCondition`=?, `date`=? WHERE id=?";
-        try {
-            PreparedStatement stm = cnx.prepareStatement(req);
+        try (PreparedStatement stm = cnx.prepareStatement(req)){
             stm.setString(1,history.getName());
             stm.setString(2, history.getInitialCondition());
             stm.setDate(3, new java.sql.Date(history.getDate().getTime())); // Convert java.util.Date to java.sql.Date
@@ -89,7 +87,7 @@ public class ServiceHistory  {
         return history;
     }
 
-    public Object findByName(String name){
+    public History findByName(String name){
         String sql = "SELECT * FROM History WHERE name = ?";
         try (PreparedStatement st = cnx.prepareStatement(sql)){
             st.setString(1, name);
@@ -104,16 +102,13 @@ public class ServiceHistory  {
         return null;// Si aucun objet n'est trouvé ou en cas d'erreur
     }
 
-    private Object extractHistoryFromResultSet(ResultSet rs)  throws SQLException{
-        Object o = new Object();
-        o.setId(rs.getInt(1));
-        o.setName(rs.getString(2));
-        o.setType(rs.getString(3));
-        o.setDescription( rs.getString(4));
-        o.setAge( rs.getInt(5));
-        o.setPicture(rs.getString(6));
-        o.setPrice(rs.getFloat(7));
-        return o;
+    private History extractHistoryFromResultSet(ResultSet rs)  throws SQLException{
+        History h = new History();
+        h.setId(rs.getInt(1));
+        h.setName(rs.getString(2));
+        h.setInitialCondition(rs.getString(3));
+        h.setDate( rs.getDate(4));
+        return h;
     }
 
     public int delete(int id)throws SQLException {

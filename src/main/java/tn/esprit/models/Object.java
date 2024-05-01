@@ -1,5 +1,6 @@
 package tn.esprit.models;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Object {
@@ -7,9 +8,12 @@ public class Object {
     private String type , picture , description , name ;
     private float price ;
 
+    private List<History> histories;
     public Object() {
 
     }
+
+
 
     public Object(int age, String type, String picture, String description, String name, float price) {
         this.age = age;
@@ -18,6 +22,7 @@ public class Object {
         this.description = description;
         this.name = name;
         this.price = price;
+        this.histories = histories;
     }
 
     // getters & setters
@@ -75,6 +80,14 @@ public class Object {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public List<History> getHistories() {
+        return histories;
+    }
+
+    public void setHistories(List<History> histories) {
+        this.histories = histories;
     }
 
     // display

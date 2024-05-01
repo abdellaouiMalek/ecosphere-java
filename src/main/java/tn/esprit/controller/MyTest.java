@@ -2,10 +2,10 @@ package tn.esprit.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -15,20 +15,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import tn.esprit.models.History;
 import tn.esprit.models.Object;
 import tn.esprit.services.ServiceObject;
-import tn.esprit.test.MainFX;
 import tn.esprit.util.DBconnection;
-import javax.swing.*;
+import javafx.event.ActionEvent;
+
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.*;
 
 
+
 public class MyTest implements Initializable {
     ObservableList<Object> ObjectList = FXCollections.observableArrayList();
+    ObservableList<History> HistoriesList = FXCollections.observableArrayList();
     ServiceObject o = new ServiceObject();
     Connection cnx;
 
@@ -109,10 +111,16 @@ public class MyTest implements Initializable {
     private Button sharinghub_updateBtn;
 
     @FXML
+    private Button sharinghub_historyBtn;
+
+    @FXML
     private Label username;
     private Object ObjData;
     private File file;
     private File picture;
+
+//    @FXML
+//    private ComboBox<List<History>> sharinghub_listeHistory;
     private final ServiceObject ps = new ServiceObject();
 
     public MyTest() {
@@ -128,6 +136,7 @@ public class MyTest implements Initializable {
         TableColumn<Object, String> sharinghub_col_description = new TableColumn<>("Description");
         TableColumn<Object, Integer> sharinghub_col_age = new TableColumn<>("Age");
         TableColumn<Object, Float> sharinghub_col_price = new TableColumn<>("price");
+
         //imageColumn = new TableColumn<>("Image");
         // Set cell factory for the image column to use ImageCell
 //        imageColumn.setCellFactory(column -> new ImageCell());
@@ -138,9 +147,11 @@ public class MyTest implements Initializable {
         sharinghub_col_description.setCellValueFactory(new PropertyValueFactory<>("description"));
         sharinghub_col_age.setCellValueFactory(new PropertyValueFactory<>("age"));
         sharinghub_col_price.setCellValueFactory(new PropertyValueFactory<>("price"));
+        //TableColumn<Object,List<History>> sharinghub_col_history = new TableColumn<>("object_id");
         // add columns
         sharing_tableView.getColumns().addAll(sharinghub_col_name, sharinghub_col_type, sharinghub_col_description,sharinghub_col_age, sharinghub_col_price);
         // fill table
+        //,sharinghub_col_history
 
         sharinghubTypeList();
         sharinghubDescriptionList();
@@ -197,10 +208,10 @@ public class MyTest implements Initializable {
                         , result.getString("picture")
                         , result.getString("description")
                         , result.getString("name")
-                        , result.getFloat("price"));
+                        , result.getFloat("price")
+                    );
                 listData.add(ObjData);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -219,6 +230,7 @@ public class MyTest implements Initializable {
         String description = sharinghub_description.getSelectionModel().getSelectedItem();
         int age = Integer.parseInt(sharinghub_age.getText());
         Float price = Float.valueOf(sharinghub_price.getText());
+         //List<History> histories = sharinghub_listeHistory.getSelectionModel().getSelectedItem() ;
         //Image picturee = sharinghub_ImageView.getPicture();
 
             if (sharinghub_name.getText().isEmpty()
@@ -238,6 +250,7 @@ public class MyTest implements Initializable {
             o.setDescription(description);
             o.setAge(age);
             o.setPrice(price);
+           // o.setHistories(histories);
 
             //o.setPicture(picturee); // Utilisez setImageObject au lieu de setImage
 
@@ -333,9 +346,9 @@ public class MyTest implements Initializable {
                 service.update(selectedObject);
 
                 showAlert( "Success", "Publication updated successfully.",Alert.AlertType.INFORMATION);
-
                 clearFields();
                 refreshTable();
+
             } catch (Exception e) {
                 e.printStackTrace();
                 showAlert("Error", "An error occurred while updating the Object.",Alert.AlertType.INFORMATION);
@@ -404,6 +417,34 @@ public class MyTest implements Initializable {
 
 
 
+    @FXML
+    void historyBtn(  ) {
+        Object selectedObject = sharing_tableView.getSelectionModel().getSelectedItem();
+    int ObjectID = selectedObject.getId();
+
+        List<History> histories = o.getAllHistoryByObject(ObjectID);
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/History.fxml"));
+            Parent root = loader.load();
+
+            // Create a new scene with the loaded root node
+            Scene newScene = new Scene(root);
+
+            // Create a new stage (window) for the new scene
+            Stage newStage = new Stage();
+            newStage.setTitle("History"); // Set the title of the new stage
+            newStage.setScene(newScene); // Set the scene to the new stage
+
+            // Show the new stage (window)
+            newStage.show();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 
 

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-
+import javafx.scene.control.Label;
 public class HistoryController implements Initializable {
     ObservableList<History> HistoryList = FXCollections.observableArrayList();
     ServiceHistory history = new ServiceHistory();
@@ -41,7 +41,8 @@ public class HistoryController implements Initializable {
     }
 
 
-
+    @FXML
+    private Label label;
     @FXML
     private Button Histiory_btn;
 
@@ -82,6 +83,13 @@ public class HistoryController implements Initializable {
     private Label username;
 
     @FXML
+    private TableColumn<History, String> Histiory_col_name;
+    @FXML
+    private TableColumn<History, String> Histiory_col_initialcond;
+    @FXML
+    private TableColumn<History, String> Histiory_col_createdat;
+
+    @FXML
     void delete_btn(ActionEvent event) {
 
     }
@@ -90,22 +98,32 @@ public class HistoryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        TableColumn<History, String> sharinghub_col_name = new TableColumn<>("Name");
-        TableColumn<History, String> sharinghub_col_initialcond = new TableColumn<>("initialCondition");
-        TableColumn<History, Date> sharinghub_col_date = new TableColumn<>("date");
+        TableColumn<History, String> Histiory_col_name = new TableColumn<>("Name");
+        TableColumn<History, String> Histiory_col_initialcond = new TableColumn<>("initialCondition");
+        TableColumn<History, Date> Histiory_col_createdat = new TableColumn<>("date");
 
-        sharinghub_col_name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        sharinghub_col_initialcond.setCellValueFactory(new PropertyValueFactory<>("initialCondition"));
-        sharinghub_col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        Histiory_col_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        Histiory_col_initialcond.setCellValueFactory(new PropertyValueFactory<>("initialCondition"));
+        Histiory_col_createdat.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        Histiory_tableView.getColumns().addAll(sharinghub_col_name, sharinghub_col_initialcond, sharinghub_col_date);
+        Histiory_tableView.getColumns().addAll(Histiory_col_name, Histiory_col_initialcond, Histiory_col_createdat);
 
-      //  sharinghubShowData();
+        initialconditionList();
+        sharinghubShowData();
 
         refreshTable();
 
     }
-
+    // Method to receive histories list
+    public void setHistories(List<History> histories) {
+        // Process histories list as needed
+        // Example: Display histories in the label
+        StringBuilder sb = new StringBuilder();
+        for (History history : histories) {
+            sb.append(history.getName()).append(", "); // Example: Concatenate history names
+        }
+        label.setText(sb.toString());
+    }
     public ObservableList<History> sharinghubDataList() {
         ObservableList<History> listData = FXCollections.observableArrayList();
         String sql = "SElECT * FROM history ";
@@ -132,29 +150,11 @@ public class HistoryController implements Initializable {
 
     private ObservableList<History> sharinghubListData;
 
-   /* private void sharinghubShowData() {
-        sharinghubListData = sharinghubDataList();
-        sharinghub_col_name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        sharinghub_col_initialcond.setCellValueFactory(new PropertyValueFactory<>("initialCondition"));
-        sharinghub_col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
-
-        _tableView.setItems(sharinghubListData);
-    }**/
-
-    private void refreshTable() {
-        Histiory_tableView.getItems().clear();
-
-        List<History> h = history.getAll();
-        HistoryList = FXCollections.observableArrayList(h);
-
-        Histiory_tableView.setItems(HistoryList);
-    }
-
     @FXML
     void add_btn() {
         try {
             String name = tf_name.getText();
-            String initialCondition = (String) sharinghub_intcond.getSelectionModel().getSelectedItem();
+            String initialCondition = sharinghub_intcond.getSelectionModel().getSelectedItem();
             if (name.isEmpty() || initialCondition.isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, "Error", "Please fill in all fields ");
                 return;
@@ -185,16 +185,16 @@ public class HistoryController implements Initializable {
     }
 
 
-    private String[] initialconditionList = {"Excellent", "Good", "Bad", "Medium"};
+    private String[] initialcondtList = {"Excellent", "Good", "Bad", "Medium"};
 
-    public void sharinghubDescriptionList() {
-        List<String> descriptionL = new ArrayList<>();
+    public void initialconditionList() {
+        List<String> initcondList = new ArrayList<>();
 
-        for (String data : initialconditionList) {
-            descriptionL.add(data);
+        for (String data : initialcondtList) {
+            initcondList.add(data);
         }
 
-        ObservableList listData = FXCollections.observableArrayList(descriptionL);
+        ObservableList listData = FXCollections.observableArrayList(initcondList);
         sharinghub_intcond.setItems(listData);
     }
 
@@ -223,10 +223,10 @@ public class HistoryController implements Initializable {
 
                 ServiceHistory history = new ServiceHistory();
                 history.update(selectedHistory);
-                refreshTable();
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Post updated successfully.");
-
                 clearFields();
+                refreshTable();
+
             } catch (Exception e) {
                 e.printStackTrace();
                 showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while updating the post.");
@@ -243,7 +243,7 @@ public class HistoryController implements Initializable {
           //          HistoryServices.delete(selectedPost);
             //        HistoryList.remove(selectedPost); // Supprimez également la publication de votre liste observable
               //      refreshTable();
-                    showAlert(Alert.AlertType.INFORMATION, "Success", "Post deleted successfully.");
+                  //  showAlert(Alert.AlertType.INFORMATION, "Success", "Post deleted successfully.");
                 //} catch (Exception e) {
                   //  e.printStackTrace();
                     //showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while deleting the post.");
@@ -253,5 +253,38 @@ public class HistoryController implements Initializable {
     //        }
       //  }
 
+    }
+
+
+    private void sharinghubShowData() {
+        sharinghubListData = sharinghubDataList();
+        Histiory_col_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        Histiory_col_initialcond.setCellValueFactory(new PropertyValueFactory<>("initialCondition"));
+        Histiory_col_createdat.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+        Histiory_tableView.setItems(sharinghubListData);
+    }
+
+    public void sharinghubSelectData(){
+        History his = Histiory_tableView.getSelectionModel().getSelectedItem();
+        int num = Histiory_tableView.getSelectionModel().getSelectedIndex();
+
+        if((num - 1)< -1) return;
+
+        tf_name.setText(his.getName());
+        sharinghub_intcond.setValue(his.getInitialCondition());
+        //createdat.setValue(his.getDate());
+
+
+    }
+
+
+    private void refreshTable() {
+        Histiory_tableView.getItems().clear();
+
+        List<History> h = history.getAll();
+        HistoryList = FXCollections.observableArrayList(h);
+
+        Histiory_tableView.setItems(HistoryList);
     }
 }
