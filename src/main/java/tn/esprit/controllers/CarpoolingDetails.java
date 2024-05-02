@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -45,6 +46,11 @@ public class CarpoolingDetails {
     private Label price;
     @FXML
     private ImageView icon;
+    private List<Carpooling> searchResults;
+
+    public void setSearchResults(List<Carpooling> searchResults) {
+        this.searchResults = searchResults;
+    }
 
     private final CarpoolingService carpoolingService = new CarpoolingService();
     private int carpoolingId;
@@ -173,10 +179,16 @@ public class CarpoolingDetails {
 
     @FXML
     void navigationBack(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/search.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/allCarpoolings.fxml"));
         Parent root = loader.load();
+
+        AllCarpoolings controller = loader.getController();
+        controller.displaySearchResults(searchResults);
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
     }
+
+
 }

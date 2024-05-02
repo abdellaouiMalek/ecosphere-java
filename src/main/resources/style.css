@@ -9,6 +9,16 @@
     -fx-border-radius: 5px; /* Border radius */
     -fx-cursor: hand; /* Cursor style */
 }
+.carpooling-card {
+    -fx-background-color: white; /* Set background color */
+    -fx-background-radius: 5px; /* Set border radius */
+    -fx-border-color: #BDBDBD; /* Set border color */
+    -fx-border-width: 1px; /* Set border width */
+    -fx-border-radius: 5px; /* Set border radius */
+    -fx-padding: 10px; /* Set padding */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 2); /* Add shadow effect */
+}
+
 
 .button:hover {
     -fx-background-color: #45a049; /* Darker green when hovered */
