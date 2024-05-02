@@ -4,10 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import tn.esprit.models.History;
 import tn.esprit.models.Object;
 import tn.esprit.services.ServiceHistory;
@@ -15,32 +20,23 @@ import tn.esprit.services.ServiceObject;
 import tn.esprit.util.DBconnection;
 
 import javax.naming.Name;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.control.Label;
-public class HistoryController implements Initializable {
+public class HistoryController  {
     ObservableList<History> HistoryList = FXCollections.observableArrayList();
     ServiceHistory history = new ServiceHistory();
-
     Connection cnx;
-
-    private History HistoryData;
-    private final ServiceHistory ps = new ServiceHistory();
-    private PreparedStatement prepare;
-    private ResultSet result;
-
-
-    public HistoryController() {
-        cnx = DBconnection.getInstance().getCnx();
-    }
-
-
+    Object object;
     @FXML
     private Label label;
     @FXML
@@ -89,18 +85,14 @@ public class HistoryController implements Initializable {
     @FXML
     private TableColumn<History, String> Histiory_col_createdat;
 
-    @FXML
-    void delete_btn(ActionEvent event) {
 
-    }
+    private History HistoryData;
+    private final ServiceHistory ps = new ServiceHistory();
+    private PreparedStatement prepare;
+    private ResultSet result;
+    public void initialize( Object object) {
+        this.object=object;
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        TableColumn<History, String> Histiory_col_name = new TableColumn<>("Name");
-        TableColumn<History, String> Histiory_col_initialcond = new TableColumn<>("initialCondition");
-        TableColumn<History, Date> Histiory_col_createdat = new TableColumn<>("date");
 
         Histiory_col_name.setCellValueFactory(new PropertyValueFactory<>("name"));
         Histiory_col_initialcond.setCellValueFactory(new PropertyValueFactory<>("initialCondition"));
@@ -109,7 +101,7 @@ public class HistoryController implements Initializable {
         Histiory_tableView.getColumns().addAll(Histiory_col_name, Histiory_col_initialcond, Histiory_col_createdat);
 
         initialconditionList();
-        sharinghubShowData();
+
 
         refreshTable();
 
@@ -124,29 +116,7 @@ public class HistoryController implements Initializable {
         }
         label.setText(sb.toString());
     }
-    public ObservableList<History> sharinghubDataList() {
-        ObservableList<History> listData = FXCollections.observableArrayList();
-        String sql = "SElECT * FROM history ";
 
-        Connection connect = database.DBconnection();
-
-        try {
-            prepare = connect.prepareStatement(sql);
-            result = prepare.executeQuery();
-            History h;
-            while (result.next()) {
-                HistoryData = new History(
-                         result.getString("initialCondition")
-                         ,result.getString("name")
-                        , result.getDate("date"));
-                listData.add(HistoryData);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listData;
-    }
 
     private ObservableList<History> sharinghubListData;
 
@@ -163,6 +133,8 @@ public class HistoryController implements Initializable {
             newHistory.setName(name);
             newHistory.setInitialCondition(initialCondition);
             newHistory.setDate(new Date());
+            newHistory.setObject_id(object.getId());
+
             ServiceHistory newpostService = new ServiceHistory();
             newpostService.add(newHistory);
             // Ajoutez cette ligne pour récupérer l'ID auto-incrémenté après l'ajout dans la base de données
@@ -234,35 +206,39 @@ public class HistoryController implements Initializable {
         } else {
             showAlert(Alert.AlertType.ERROR, "Error", "Please select a post to update.");
         }
+    }
+    @FXML
+    void delete_btn(ActionEvent event) {
+        History selectedHistory = Histiory_tableView.getSelectionModel().getSelectedItem();
+        if (selectedHistory != null) {
+            try {
+                ServiceHistory HistoryServices = new ServiceHistory();
+                HistoryServices.delete(selectedHistory.getId());
+                HistoryList.remove(selectedHistory); // Supprimez également la publication de votre liste observable
+                refreshTable();
 
-//    public void delete_btn () {
-  //          History selectedPost = Histiory_tableView.getSelectionModel().getSelectedItem();
-    //        if (selectedPost != null) {
-      //          try {
-        //            ServiceHistory HistoryServices = new ServiceHistory();
-          //          HistoryServices.delete(selectedPost);
-            //        HistoryList.remove(selectedPost); // Supprimez également la publication de votre liste observable
-              //      refreshTable();
-                  //  showAlert(Alert.AlertType.INFORMATION, "Success", "Post deleted successfully.");
-                //} catch (Exception e) {
-                  //  e.printStackTrace();
-                    //showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while deleting the post.");
-                //}
-//} else {
-  //              showAlert(Alert.AlertType.ERROR, "Error", "Please select a post to delete.");
-    //        }
-      //  }
+                showAlert(Alert.AlertType.INFORMATION, "Success", "history deleted successfully.");
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while deleting the history.");
+            }
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Error", "Please select a history to delete.");
+        }
 
     }
 
 
-    private void sharinghubShowData() {
-        sharinghubListData = sharinghubDataList();
-        Histiory_col_name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        Histiory_col_initialcond.setCellValueFactory(new PropertyValueFactory<>("initialCondition"));
-        Histiory_col_createdat.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        Histiory_tableView.setItems(sharinghubListData);
+
+    @FXML
+    void onTableRowClicked(MouseEvent event) throws IOException {
+        History Hi = Histiory_tableView.getSelectionModel().getSelectedItem();
+        tf_name.setText(Hi.getName());
+        sharinghub_intcond.setValue(Hi.getInitialCondition());
+
+
+
     }
 
     public void sharinghubSelectData(){
@@ -277,12 +253,24 @@ public class HistoryController implements Initializable {
 
 
     }
-
+    @FXML
+    void back_btn(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MyTest.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void refreshTable() {
         Histiory_tableView.getItems().clear();
-
-        List<History> h = history.getAll();
+        ServiceObject so =new ServiceObject();
+        List<History> h = so.getAllHistoryByObject(object.getId());
         HistoryList = FXCollections.observableArrayList(h);
 
         Histiory_tableView.setItems(HistoryList);

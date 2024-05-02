@@ -98,7 +98,8 @@ public class ServiceObject  {
                 h.setName(rs.getString("name"));
                 h.setInitialCondition(rs.getString("initialCondition"));
                 h.setDate(rs.getDate("date"));
-                h.setId(rs.getInt("object_id"));
+                h.setId(rs.getInt("id"));
+                h.setObject_id(rs.getInt("object_id"));
                 histories.add(h);
             }
 

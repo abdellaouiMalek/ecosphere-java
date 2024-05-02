@@ -15,11 +15,14 @@ public class ServiceHistory  {
 
 
     public void add(History history) {
-        String req = "INSERT INTO History (`name`, `initialCondition`, `date`) VALUES (?,?,?)";
+        String req = "INSERT INTO History (`name`, `initialCondition`, `date`,`object_id`) VALUES (?,?,?,?)";
         try (PreparedStatement ps = cnx.prepareStatement(req)){
             ps.setString(1, history.getName());
             ps.setString(2, history.getInitialCondition());
-            ps.setDate(3, new java.sql.Date(history.getDate().getTime())); // Convert java.util.Date to java.sql.Date
+            ps.setDate(3, new java.sql.Date(history.getDate().getTime()));
+            ps.setInt(4, history.getObject_id());
+
+
             ps.executeUpdate();
             System.out.println("History Added Successfully!");
         } catch (SQLException e) {
@@ -73,10 +76,10 @@ public class ServiceHistory  {
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
                 History h = new History();
-                h.setName(rs.getString(1));
-                h.setInitialCondition(rs.getString(2));
-                h.setDate(rs.getDate(3));
-                h.setId(rs.getInt(4));
+                h.setName(rs.getString("name"));
+                h.setInitialCondition(rs.getString("initialCondition"));
+                h.setDate(rs.getDate("date"));
+                h.setId(rs.getInt("id"));
                 history.add(h);
             }
 
@@ -117,6 +120,7 @@ public class ServiceHistory  {
             Statement ste = cnx.createStatement();
             String sql = "DELETE FROM `History` WHERE id=" + id;
             i = ste.executeUpdate(sql);
+            System.out.println("  hist supprimer avec sucee");
         } catch (SQLException ex) {
             Logger.getLogger(ServiceHistory.class.getName()).log(Level.SEVERE, null, ex);
         }

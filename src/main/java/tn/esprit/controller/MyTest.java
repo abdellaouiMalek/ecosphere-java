@@ -33,6 +33,8 @@ public class MyTest implements Initializable {
     ObservableList<History> HistoriesList = FXCollections.observableArrayList();
     ServiceObject o = new ServiceObject();
     Connection cnx;
+    @FXML
+    private ImageView sharinghub_image;
 
     @FXML
     private AnchorPane add_O;
@@ -46,8 +48,8 @@ public class MyTest implements Initializable {
     @FXML
     private TableView<Object> sharing_tableView;
 
-    @FXML
-    private AnchorPane sharinghub_ImageView;
+
+
 
     @FXML
     private Button sharinghub_addBtn;
@@ -131,11 +133,7 @@ public class MyTest implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         // Initialize TableColumn instances
-        TableColumn<Object, String> sharinghub_col_name = new TableColumn<>("Name");
-        TableColumn<Object, String> sharinghub_col_type= new TableColumn<>("Type");
-        TableColumn<Object, String> sharinghub_col_description = new TableColumn<>("Description");
-        TableColumn<Object, Integer> sharinghub_col_age = new TableColumn<>("Age");
-        TableColumn<Object, Float> sharinghub_col_price = new TableColumn<>("price");
+
 
         //imageColumn = new TableColumn<>("Image");
         // Set cell factory for the image column to use ImageCell
@@ -161,7 +159,7 @@ public class MyTest implements Initializable {
     }
     @FXML
     void importBtn() {
-        Stage stage = (Stage) sharinghub_imageView.getScene().getWindow(); // Obtenir le Stage actuel
+        Stage stage = (Stage) sharinghub_image.getScene().getWindow(); // Obtenir le Stage actuel
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif"));
@@ -169,7 +167,7 @@ public class MyTest implements Initializable {
 
         if (file != null) {
             picture = new File(file.toURI().toString()); // Stocker le chemin de l'image
-            sharinghub_imageView.setImage(new Image(String.valueOf(picture)));
+            sharinghub_image.setImage(new Image(String.valueOf(picture)));
         }
    //     FileChooser openFile = new FileChooser();
     //    openFile.setTitle("Open Image File");
@@ -418,7 +416,7 @@ public class MyTest implements Initializable {
 
 
     @FXML
-    void historyBtn(  ) {
+    void historyBtn( ActionEvent event ) {
         Object selectedObject = sharing_tableView.getSelectionModel().getSelectedItem();
     int ObjectID = selectedObject.getId();
 
@@ -428,17 +426,17 @@ public class MyTest implements Initializable {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/History.fxml"));
             Parent root = loader.load();
+            HistoryController controller = loader.getController();
+            System.out.println("test");
+
+            System.out.println(selectedObject);
+            controller.initialize(selectedObject);
 
             // Create a new scene with the loaded root node
-            Scene newScene = new Scene(root);
-
-            // Create a new stage (window) for the new scene
-            Stage newStage = new Stage();
-            newStage.setTitle("History"); // Set the title of the new stage
-            newStage.setScene(newScene); // Set the scene to the new stage
-
-            // Show the new stage (window)
-            newStage.show();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -483,6 +481,7 @@ public class MyTest implements Initializable {
         sharinghub_price.setText(String.valueOf((obj.getPrice())));
         sharinghub_description.setValue(obj.getDescription());
         sharinghub_type.setValue(obj.getType());
+        sharinghub_id.setText(String.valueOf(obj.getId()));
 
         String path ="file:"+obj.getPicture();
        // data.date = String.valueOf(obj.getDate());

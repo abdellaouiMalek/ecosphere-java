@@ -68,7 +68,7 @@
                                                         <String fx:value="shadow" />
                                                     </styleClass>
                                                     <children>
-                                                        <TableView fx:id="Histiory_tableView" layoutX="14.0" layoutY="14.0" prefHeight="226.0" prefWidth="790.0" stylesheets="@testFromDesign.css" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="16.0">
+                                                        <TableView fx:id="Histiory_tableView" layoutX="14.0" layoutY="14.0" onMousePressed="#onTableRowClicked" prefHeight="226.0" prefWidth="790.0" stylesheets="@testFromDesign.css" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="16.0">
                                                             <columns>
                                                                 <TableColumn fx:id="Histiory_col_name" prefWidth="75.0" text="Name" />
                                                                 <TableColumn fx:id="Histiory_col_initialcond" prefWidth="75.0" text="initialCondition" />
@@ -115,6 +115,7 @@
                                                         <Button fx:id="add_btn" layoutX="191.0" layoutY="199.0" mnemonicParsing="false" onAction="#add_btn" prefHeight="46.0" prefWidth="114.0" styleClass="btn" stylesheets="@testFromDesign.css" text="Add" />
                                                         <Button fx:id="update_btn" layoutX="349.0" layoutY="199.0" mnemonicParsing="false" onAction="#update_btn" prefHeight="46.0" prefWidth="115.0" styleClass="btn" stylesheets="@testFromDesign.css" text="Update" />
                                           <Button fx:id="delete_btn" layoutX="499.0" layoutY="199.0" mnemonicParsing="false" onAction="#delete_btn" prefHeight="46.0" prefWidth="115.0" styleClass="btn" stylesheets="@testFromDesign.css" text="Delete" />
+                                          <Button fx:id="back_btn1" layoutX="44.0" layoutY="199.0" mnemonicParsing="false" onAction="#back_btn" prefHeight="46.0" prefWidth="115.0" styleClass="btn" stylesheets="@testFromDesign.css" text="back" />
                                                     </children>
                                                 </AnchorPane>
                                             </children>
