@@ -3,7 +3,6 @@ package tn.esprit.services;
 import tn.esprit.models.Comment;
 import tn.esprit.models.Post;
 import tn.esprit.util.DBconnection;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,22 +12,20 @@ import java.util.List;
 
 public class CommentServices implements IService<Comment> {
     Connection cnx = DBconnection.getInstance().getCnx();
-
     @Override
-    public void add(Comment comment) {
-        String req = "INSERT INTO `comment`(`contenu`, `publicationDate`) VALUES (?,?)";
+    public void add(Comment comment ,int id) {
+        String req = "INSERT INTO `comment`(`contenu`,`idpost`) VALUES (?,?)";
         try {
             PreparedStatement stm = cnx.prepareStatement(req);
             stm.setString(1, comment.getContenu());
-            java.util.Date currentDate = new java.util.Date();
-            stm.setDate(2, new java.sql.Date(currentDate.getTime())); // Convert java.util.Date to java.sql.Date
+            stm.setInt(2, comment.getIdpost());
+            System.out.println(id);
             stm.executeUpdate();
             System.out.println("Comment Added Successfully!");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-
     @Override
     public List<Comment> getAll() {
         List<Comment> comments = new ArrayList<>();
@@ -40,7 +37,8 @@ public class CommentServices implements IService<Comment> {
                 Comment comment = new Comment();
                 comment.setId(resultSet.getInt("id"));
                 comment.setContenu(resultSet.getString("contenu"));
-                comment.setPublicationDate(resultSet.getDate("publicationDate"));
+                Post post;
+                post = PostServices.GetPostById(resultSet.getInt("post_id"));
                 comments.add(comment);
             }
         } catch (SQLException e) {
@@ -50,12 +48,11 @@ public class CommentServices implements IService<Comment> {
     }
     @Override
     public void update(Comment comment) {
-        String req = "UPDATE comment SET contenu = ?, publicationDate = ? WHERE id = ?";
+        String req = "UPDATE comment SET contenu = ? WHERE id = ?";
         try {
             PreparedStatement stm = cnx.prepareStatement(req);
             stm.setString(1, comment.getContenu());
-            stm.setDate(2, new java.sql.Date(comment.getPublicationDate().getTime()));
-            stm.setInt(3, comment.getId());
+            stm.setInt(2, comment.getId());
             stm.executeUpdate();
             System.out.println("Comment Updated Successfully!");
         } catch (SQLException e) {

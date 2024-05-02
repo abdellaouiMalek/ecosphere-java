@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="718.0" style="-fx-background-image: fdfdfdfd;" stylesheets="@addFromDesign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.CommentaireForum">
+   <children>
+      <Pane layoutX="1.0" layoutY="1.0" prefHeight="126.0" prefWidth="718.0">
+         <children>
+            <ImageView fitHeight="126.0" fitWidth="135.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/422079871_417559997274203_1275405772308820781_n.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="573.0" layoutY="75.0" mnemonicParsing="false" onAction="#ajouterC" prefHeight="37.0" prefWidth="126.0" style="-fx-background-color: #25b48b;" text="Add Comment" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <HBox layoutX="-2.0" layoutY="136.0" prefHeight="660.0" prefWidth="718.0">
+         <children>
+            <ScrollPane fx:id="ScrollPane" style="-fx-background-color: #fdfdfd;">
+               <content>
+                  <VBox fx:id="commentContainer" prefHeight="650.0" prefWidth="1010.0" spacing="20.0" style="-fx-background-image: fdfdfdf;" stylesheets="@addFromDesign.css">
+                     <padding>
+                        <Insets left="80.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

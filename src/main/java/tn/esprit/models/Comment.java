@@ -1,27 +1,20 @@
 package tn.esprit.models;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
 public class Comment {
     // attributs
-    private int id;
+    private int id,idpost;
     private String contenu ;
-    public Date publicationDate ;
-
 
     public Comment() {
     }
     // constructor
-    public Comment(int id, String contenu,Date publicationDate) {
+    public Comment(int id, String contenu,int idpost) {
         this.id = id;
         this.contenu = contenu;
-        this.publicationDate = publicationDate;
     }
-
-    public Comment( String contenu,Date publicationDate) {
+    public Comment( String contenu, int idpost) {
         this.contenu = contenu;
-        this.publicationDate = publicationDate;
+        this.idpost = idpost;
     }
     public Comment(String contenu) {
         this.contenu = contenu;
@@ -30,37 +23,27 @@ public class Comment {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public String getContenu() {
         return contenu;
     }
-
     public void setContenu(String contenu) {
         this.contenu = contenu;
     }
-
-    public void setPublicationDate(Date publicationDate) {
-        this.publicationDate = publicationDate;
+    public int getIdpost() {
+        return idpost;
+    }
+    public void setIdpost(int idpost) {
+        this.idpost = idpost;
     }
 
-    public Date getPublicationDate() {
-        return publicationDate;
-    }
-
-    // display
     @Override
     public String toString() {
         return "Comment{" +
                 "id=" + id +
                 ", contenu='" + contenu + '\'' +
                 '}';
-    }
-
-    public void setPublicationDate(LocalDateTime now) {
-        return;
     }
 }

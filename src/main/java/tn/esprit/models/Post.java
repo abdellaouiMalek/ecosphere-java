@@ -12,26 +12,24 @@ public class Post {
     private int id;
     private String title;
     private String auteur;
+    private String image;
     //image;
     private String content;
-    public Date createdat;
 
     // constructor
-    public Post(int id, String title, String auteur, String content, Date createdat) {
+    public Post(int id, String title, String auteur, String content,String image) {
         this.id = id;
         this.title = title;
         this.auteur = auteur;
-        //this.image = image;
+        this.image = image;
         this.content = content;
-        this.createdat = createdat;
     }
 
-    public Post(String title, String auteur, String content, Date createdat) {
+    public Post(String title, String auteur, String content, String image) {
         this.title = title;
         this.auteur = auteur;
-        //this.image = image;
+        this.image = image;
         this.content = content;
-        this.createdat = createdat;
     }
 
     public Post() {
@@ -62,14 +60,6 @@ public class Post {
         this.auteur = auteur;
     }
 
-    //public String getImage() {
-        //return image;
-    //}
-
-   // public void setImage(String image) {
-      //  this.image = image;
-    //}
-
     public String getContent() {
         return content;
     }
@@ -78,12 +68,11 @@ public class Post {
         this.content = content;
     }
 
-    public java.sql.Date getCreatedat() {
-        return (java.sql.Date) createdat;
+    public void setImage(String imagePath) {
     }
 
-    public void setCreatedat(Date createdat) {
-        this.createdat = createdat;
+    public String getImage() {
+        return image;
     }
 
     //display
@@ -95,7 +84,6 @@ public class Post {
                 ", auteur='" + auteur + '\'' +
                 //", image='" + image + '\'' +
                 ", content='" + content + '\'' +
-                ", createdat=" + createdat +
                 '}';
     }
 
@@ -115,7 +103,4 @@ public class Post {
         return null;
     }
 
-
-    public void setCreatedat(LocalDateTime now) {
-    }
 }

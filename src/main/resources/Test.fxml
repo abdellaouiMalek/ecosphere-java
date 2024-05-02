@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -111,6 +112,7 @@
                                        <Button layoutX="282.0" layoutY="207.0" mnemonicParsing="false" onAction="#addpost" styleClass="btn" stylesheets="@addFromDesign.css" text="Ajouter" />
                                        <Button layoutX="382.0" layoutY="207.0" mnemonicParsing="false" onAction="#updatepost" styleClass="btn" stylesheets="@addFromDesign.css" text="Update" />
                                        <Button layoutX="482.0" layoutY="207.0" mnemonicParsing="false" onAction="#deletepost" styleClass="btn" stylesheets="@addFromDesign.css" text="delete" />
+                                          <ImageView fitHeight="122.0" fitWidth="150.0" layoutX="649.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" />
                                     </children>
                                  </AnchorPane>
                               </children>

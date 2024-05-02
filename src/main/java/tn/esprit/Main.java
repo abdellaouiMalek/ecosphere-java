@@ -11,12 +11,15 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         DBconnection cnx = DBconnection.getInstance();
-        //PostServices post = new PostServices();
-        //Post p = new Post("auteue22322", "auteur1232636", "content1", new Date());
+        PostServices post = new PostServices();
+        //Post p = new Post("Esprit", "Tunis", "content10", new Date());
         //post.add(p);
+
+        //System.out.println("*********************"+p.getId());
         CommentServices comment = new CommentServices();
-        Comment c = new Comment( "contenu1",new Date());
-        comment.add(c);
+        Comment c = new Comment( "contenu20",62);
+        System.out.println(post.GetPostById(62).getId());
+        comment.add(c,post.GetPostById(62).getId());
         //List<Post> l = post.getAll();
         //System.out.println(l);
          //post.delete(p);

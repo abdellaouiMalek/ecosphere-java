@@ -55,36 +55,21 @@ public class AjouterBlog implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         PostList = FXCollections.observableArrayList();
         Post_tableView.setItems(PostList);
-        // Initialize TableColumn instances
-        //post_col_auteur = new TableColumn<>("Auteur");
-        //post_col_title = new TableColumn<>("Title");
-        //post_col_contenu= new TableColumn<>("Contenu");
-        //post_col_createdat = new TableColumn<>("Date");
-
-        // Bind TableView columns to Publication properties
-        //.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
         TableColumn<Post, String> post_col_auteur = new TableColumn<>("Auteur") ;
         TableColumn<Post, String> post_col_title = new TableColumn<>("Title") ;
         TableColumn<Post,String> post_col_contenu = new TableColumn<>("Contenu");
-        TableColumn<Post, Date> post_col_createdat = new TableColumn<>("Createdat");
-
         post_col_auteur.setCellValueFactory(new PropertyValueFactory<>("auteur"));
         post_col_title.setCellValueFactory(new PropertyValueFactory<>("title"));
         post_col_contenu.setCellFactory(col -> new ContentCell());
         post_col_contenu.setCellValueFactory(new PropertyValueFactory<>("content"));
-        post_col_createdat.setCellValueFactory(new PropertyValueFactory<>("createdat"));
-
         // Add columns to the TableView
-        Post_tableView.getColumns().addAll( post_col_auteur,post_col_title, post_col_contenu,post_col_createdat);
+        Post_tableView.getColumns().addAll( post_col_auteur,post_col_title, post_col_contenu);
         // Set preferred widths for columns
         refreshTable();
         post_col_auteur.setPrefWidth(100);
         post_col_title.setPrefWidth(100);
         post_col_contenu.setPrefWidth(100);
-        post_col_createdat.setPrefWidth(100);
-
     }
-
     @FXML
     void addpost() {
             try {
@@ -99,7 +84,6 @@ public class AjouterBlog implements Initializable {
                 newpost.setAuteur(Auteur);
                 newpost.setTitle(Title);
                 newpost.setContent(Content);
-                newpost.setCreatedat(new Date());
                 PostServices newpostService = new PostServices();
                 newpostService.add(newpost);
                 // Ajoutez cette ligne pour récupérer l'ID auto-incrémenté après l'ajout dans la base de données
@@ -118,7 +102,6 @@ public class AjouterBlog implements Initializable {
         PostServices postServices = new PostServices();
         List<Post> postList = postServices.getAll();
         Post_tableView.setItems(FXCollections.observableArrayList(postList));  }
-
     private void showAlert(Alert.AlertType type, String titre, String contenu) {
         Alert alert = new Alert(type);
         alert.setTitle(titre);
@@ -140,20 +123,18 @@ public class AjouterBlog implements Initializable {
                     String Title = tf_title.getText();
                     String Content = ta_content.getText();
 
-                    if (Auteur.isEmpty() || Auteur.isEmpty() || Content.isEmpty()) {
+                    if (Title.isEmpty() || Auteur.isEmpty() || Content.isEmpty()) {
                         showAlert(Alert.AlertType.ERROR, "Error", "Please fill in all fields.");
                         return;
                     }
                     selectedPost.setAuteur(Auteur);
                     selectedPost.setTitle(Title);
                     selectedPost.setContent(Content);
-                    selectedPost.setCreatedat(LocalDateTime.now());
 
                     PostServices post= new PostServices();
                     post.update(selectedPost);
                     refreshTable();
                     showAlert(Alert.AlertType.INFORMATION, "Success", "Post updated successfully.");
-
                     clearFields();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -162,8 +143,6 @@ public class AjouterBlog implements Initializable {
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Please select a post to update.");
             }
-
-
     }
 
     public void deletepost() { Post selectedPost = Post_tableView.getSelectionModel().getSelectedItem();
