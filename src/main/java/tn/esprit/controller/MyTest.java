@@ -121,6 +121,9 @@ public class MyTest implements Initializable {
     private File file;
     private File picture;
 
+
+    private  String picturePath;
+
 //    @FXML
 //    private ComboBox<List<History>> sharinghub_listeHistory;
     private final ServiceObject ps = new ServiceObject();
@@ -161,32 +164,21 @@ public class MyTest implements Initializable {
     void importBtn() {
         Stage stage = (Stage) sharinghub_image.getScene().getWindow(); // Obtenir le Stage actuel
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(
+        fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif"));
         File file = fileChooser.showOpenDialog(stage);
 
         if (file != null) {
-            picture = new File(file.toURI().toString()); // Stocker le chemin de l'image
-            sharinghub_image.setImage(new Image(String.valueOf(picture)));
+            try {
+                 picturePath = file.toURI().toString(); // Stocker le chemin de l'image
+                Image image = new Image(picturePath);
+                sharinghub_image.setImage(image);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-   //     FileChooser openFile = new FileChooser();
-    //    openFile.setTitle("Open Image File");
-      //  openFile.getExtensionFilters().addAll(
-        //        new FileChooser.ExtensionFilter("Open Picture File", ".png", ".jpg"));
-        //File file = openFile.showOpenDialog(add_O.getScene().getWindow());
-        //if (file != null) {
-          //  try {
-            //    String picture = file.toURI().toString(); // Stocker le chemin de l'image
-                // Load image into the sharinghub_imageView
-              //   image = new Image(picture);
-                //sharinghub_imageView.setImage(picture);
-
-            //} catch (Exception e) {
-             //   e.printStackTrace();
-            //}
-       // }
-
     }
+
 
 
 
@@ -242,15 +234,17 @@ public class MyTest implements Initializable {
 
 //        String picture = savePictureToFile(picturee);
 
-        Object o = new Object(age,type,"waffu", description,name ,price); // Création d'un produit avec l'ID du partenaire
+            Object o = new Object(age, type, picturePath, description, name, price);
+            // Création d'un produit avec l'ID du partenaire
             o.setName(name);
             o.setType(type);
             o.setDescription(description);
             o.setAge(age);
             o.setPrice(price);
+
            // o.setHistories(histories);
 
-            //o.setPicture(picturee); // Utilisez setImageObject au lieu de setImage
+            o.setPicture(picturePath); // Utilisez setImageObject au lieu de setImage
 
         ServiceObject service = new ServiceObject();
         service.add(o); // Ajouter le produit à la base de données
@@ -465,31 +459,38 @@ public class MyTest implements Initializable {
         sharinghub_col_description.setCellValueFactory(new PropertyValueFactory<>("Description"));
         sharinghub_col_age.setCellValueFactory(new PropertyValueFactory<>("Age"));
         sharinghub_col_price.setCellValueFactory(new PropertyValueFactory<>("Price"));
+
         sharing_tableView.setItems(sharinghubListData);
     }
 // Methode pour l affichage de image de Objet selectioné
 
-    public void sharinghubSelectData(){
+    public void sharinghubSelectData() {
         Object obj = sharing_tableView.getSelectionModel().getSelectedItem();
-        int num = sharing_tableView.getSelectionModel().getSelectedIndex();
+        if (obj != null) {
+            // Populate other fields
+            sharinghub_name.setText(obj.getName());
+            sharinghub_age.setText(String.valueOf(obj.getAge()));
+            sharinghub_price.setText(String.valueOf(obj.getPrice()));
+            sharinghub_description.setValue(obj.getDescription());
+            sharinghub_type.setValue(obj.getType());
+            sharinghub_id.setText(String.valueOf(obj.getId()));
 
-        if((num - 1)< -1) return;
+            // Retrieve image path from the selected object
+            String imagePath = obj.getPicture();
 
-      // sharinghub_id.setText(obj.getId());
-        sharinghub_name.setText(obj.getName());
-        sharinghub_age.setText(String.valueOf(obj.getAge()));
-        sharinghub_price.setText(String.valueOf((obj.getPrice())));
-        sharinghub_description.setValue(obj.getDescription());
-        sharinghub_type.setValue(obj.getType());
-        sharinghub_id.setText(String.valueOf(obj.getId()));
-
-        String path ="file:"+obj.getPicture();
-       // data.date = String.valueOf(obj.getDate());
-       // data.id = obj.getId();
-
-        //    sharinghub_ImageView.setImage(path,160, 146, false, true);
-
+            // Load image and set it to sharinghub_image ImageView
+            if (imagePath != null && !imagePath.isEmpty()) {
+                try {
+                    Image image = new Image(imagePath);
+                    sharinghub_image.setImage(image);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Handle exception (e.g., show an error message)
+                }
+            }
+        }
     }
+
 
     private String[] typeList = {"HouseWare", "Accessory", "Machine"};
 
