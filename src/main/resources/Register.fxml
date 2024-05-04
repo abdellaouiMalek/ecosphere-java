@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="542.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Register">
+   <children>
+      <AnchorPane layoutX="-7.0" layoutY="-7.0" prefHeight="554.0" prefWidth="609.0">
+         <children>
+            <TextField fx:id="tfphoto" layoutX="386.0" layoutY="349.0" />
+            <Button layoutX="264.0" layoutY="464.0" mnemonicParsing="false" onAction="#Register" text="Register" />
+            <PasswordField fx:id="tfpassword" layoutX="219.0" layoutY="309.0" />
+            <Label fx:id="ctrlname" layoutX="377.0" layoutY="144.0" />
+            <Label fx:id="ctrlfname" layoutX="377.0" layoutY="189.0" />
+            <Label fx:id="ctrlmail" layoutX="377.0" layoutY="233.0" />
+            <Label fx:id="ctrlphone" layoutX="378.0" layoutY="277.0" />
+            <Label fx:id="ctrlpass" layoutX="377.0" layoutY="313.0" />
+            <Button fx:id="Auth" layoutX="420.0" layoutY="464.0" mnemonicParsing="false" onAction="#GoLogin" text="Login" />
+         </children></AnchorPane>
+      <TextField fx:id="tfname" layoutX="212.0" layoutY="132.0" />
+      <TextField fx:id="tffamname" layoutX="212.0" layoutY="178.0" />
+      <TextField fx:id="tfmail" layoutX="212.0" layoutY="222.0" />
+      <TextField fx:id="tfphone" layoutX="212.0" layoutY="264.0" />
+      <Button layoutX="211.0" layoutY="341.0" mnemonicParsing="false" onAction="#addPhoto" prefHeight="26.0" prefWidth="150.0" text="Import" />
+      <ComboBox fx:id="cmbbrole" layoutX="211.0" layoutY="384.0" onAction="#cbmRole" prefWidth="150.0" />
+      <Text layoutX="84.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+      <Text layoutX="82.0" layoutY="401.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role" />
+      <Text layoutX="82.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Family Name" />
+      <Text layoutX="82.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" />
+      <Text layoutX="83.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Photo" />
+      <Text layoutX="82.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+      <Text layoutX="82.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" />
+   </children>
+</AnchorPane>

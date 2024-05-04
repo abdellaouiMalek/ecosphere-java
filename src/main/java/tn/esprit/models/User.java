@@ -1,54 +1,41 @@
 package tn.esprit.models;
 
 public class User {
-    // Attributs
-    private int id;
-    private String email, password, first_name , last_name , phone_number;
-    private boolean isActive;
+    private int  id;
+    private String first_name;
+    private String last_name;
+    private String email;
+    private  String password;
+    private  String phone_number;
+    private  String picture;
+    private Role role;
+    private  boolean verified;
+    private  int jeton;
 
-    //constructor
-    public User(int id, String email, String password, String first_name, String last_name, String phone_number, boolean isActive) {
+    public User(int id, String first_name, String last_name, String email, String password, String phone_number, String picture, Role role, boolean verified,int jeton) {
         this.id = id;
-        this.email = email;
-        this.password = password;
         this.first_name = first_name;
         this.last_name = last_name;
-        this.phone_number = phone_number;
-        this.isActive = isActive;
-    }
-
-    public User(String email, String password, String first_name, String last_name, String phone_number, boolean isActive) {
         this.email = email;
         this.password = password;
-        this.first_name = first_name;
-        this.last_name = last_name;
         this.phone_number = phone_number;
-        this.isActive = isActive;
+        this.picture = picture;
+        this.role = role;
+        this.verified = verified;
+        this.jeton = jeton;
     }
 
-    // Getters & Setters
+
+
+    public User() {
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirst_name() {
@@ -67,6 +54,22 @@ public class User {
         this.last_name = last_name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getPhone_number() {
         return phone_number;
     }
@@ -75,25 +78,49 @@ public class User {
         this.phone_number = phone_number;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
-    //Display
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    public int getJeton() {
+        return jeton;
+    }
+
+    public void setJeton(int jeton) {
+        this.jeton = jeton;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
-                ", phone_number='" + phone_number + '\'' +
-                ", isActive=" + isActive +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phone_number=" + phone_number +
+                ", picture='" + picture + '\'' +
+                ", role=" + role +
                 '}';
     }
 }
