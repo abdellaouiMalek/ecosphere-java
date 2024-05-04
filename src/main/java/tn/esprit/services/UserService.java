@@ -1,14 +1,26 @@
 package tn.esprit.services;
 
 
+import org.mindrot.jbcrypt.BCrypt;
 import tn.esprit.models.Role;
+import tn.esprit.models.SessionUser;
 import tn.esprit.models.User;
 import tn.esprit.util.DBconnection;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.Properties;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.mail.Session;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Element;
 public class UserService implements IUserService<User>{
 
     private Connection cnx;
@@ -124,7 +136,6 @@ return user;
             System.out.println(e.getMessage());        }
 
     }
-
     public String getUserPhoneNumber(int userId) {
         String phoneNumber = null;
         try {
@@ -139,6 +150,72 @@ return user;
             System.out.println(e.getMessage());
         }
         return phoneNumber;
+    }
+
+
+    public static boolean isValidEmail(String email) {
+        // Regular expression for email validation
+        String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+    public User login(String email, String password) {
+                // Validate email and password
+                if (!isValidEmail(email) || password.isEmpty()) {
+                    return null;
+                }
+
+                String sql = "SELECT * FROM `user` WHERE `email` = ?";
+                try (PreparedStatement pstmt = cnx.prepareStatement(sql)) {
+                    User user = new User();
+                    pstmt.setString(1, email);
+                    ResultSet resultSet = pstmt.executeQuery();
+
+                    if (resultSet.next()) {
+
+                        user.setId(resultSet.getInt(1));
+                        user.setFirst_name(resultSet.getString(2));
+                        user.setLast_name(resultSet.getString(3));
+                        user.setEmail(resultSet.getString(4));
+                        user.setPassword(resultSet.getString(5));
+                        user.setPhone_number(resultSet.getString(6));
+                        user.setPicture(resultSet.getString(7));
+                        String roleName = resultSet.getString(8);
+                        Role role = Role.valueOf(roleName);
+
+                        user.setRole(role);
+                        boolean verified = resultSet.getBoolean("verified");
+                        boolean passswordHashed = BCrypt.checkpw(password,user.getPassword());
+
+                        // Check if password matches
+                        if (passswordHashed) {
+                            System.out.println("pwd done ");
+                            // Set the logged-in user in the session
+
+                            if(verified){
+                                System.out.println("Logged-in user: " + SessionUser.loggedUser);
+                                SessionUser.loggedUser = user;
+                                return user; // Login successful
+                            }else{
+                                System.out.println("not verified");
+                                //sendEmail(email,"email verification", "<h1>fuck</h1>","ghassen0");
+
+                                return user;
+                            }
+
+                        } else {
+                            System.out.println("Incorrect password");
+                            return null; // Incorrect password
+                        }
+                    } else {
+                        System.out.println("User not found");
+                        return null; // User not found
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Error during login: " + e.getMessage());
+                    return null; // Error during login
+                }
     }
 
     public String getUserEmailById(int id) {
@@ -157,4 +234,6 @@ return user;
         return userEmail;
     }
 
-}
+
+    }
+

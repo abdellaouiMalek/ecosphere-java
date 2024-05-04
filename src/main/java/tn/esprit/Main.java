@@ -4,6 +4,9 @@ import tn.esprit.models.Carpooling;
 import tn.esprit.models.Reservation;
 import tn.esprit.services.CarpoolingService;
 import tn.esprit.services.ReservationService;
+import tn.esprit.models.Role;
+import tn.esprit.models.Session;
+import tn.esprit.models.User;
 import tn.esprit.services.UserService;
 import tn.esprit.util.DBconnection;
 import tn.esprit.util.SmsService;
@@ -51,7 +54,7 @@ public class Main {
         /*// Search for carpooling
         try {
             System.out.println("Enter your user ID: ");
-            int userId = Integer.parseInt(scanner.nextLine());
+                int userId = Integer.parseInt(scanner.nextLine());
             System.out.println("Enter the carpooling ID you wish to reserve: ");
             int carpoolingId = Integer.parseInt(scanner.nextLine());
             Reservation newReservation = new Reservation(0, userId, carpoolingId);
@@ -198,7 +201,14 @@ public class Main {
         }*/
 
 
-
+        User u = new User(1,"slouma","slouma","slouma","123","123F","ghassen", Role.ADMIN);
+        UserService us = new UserService();
+//          us.add(u);
+//        us.update(u);
+//        System.out.println(us.getById(1));
+//        System.out.println(us.getAll());
+        us.login(u.getEmail(), u.getPassword());
+        System.out.println(Session.getLoggedInUser());
 
     }
 }
