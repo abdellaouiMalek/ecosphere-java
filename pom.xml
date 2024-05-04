@@ -95,6 +95,7 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>tn.esprit.MainFX</mainClass>
+                    <mainClass>tn.esprit.test.MainFX</mainClass>
                 </configuration>
             </plugin>
         </plugins>
