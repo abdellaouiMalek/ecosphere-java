@@ -1,41 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.Rating?>
 
 <ScrollPane fx:id="sPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.EventInfo">
     <content>
-        <AnchorPane id="Rating" prefHeight="853.0" prefWidth="1070.0" styleClass="Box">
-            <children>
+        <AnchorPane id="Rating" prefHeight="853.0" prefWidth="1150.0">
+            <children>  
                 <Text fx:id="startDateText" layoutX="705.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="startDate">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="13.0" />
                     </font>
                 </Text>
-                <Button fx:id="deleteBtn" layoutX="993.0" layoutY="208.0" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="30.0" prefWidth="70.0" styleClass="GeneralButton" text="delete">
+                <Button fx:id="deleteBtn" layoutX="993.0" layoutY="208.0" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="30.0" prefWidth="70.0" stylesheets="@allevents.css" text="delete">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="12.0" />
                     </font>
+               <styleClass>
+                  <String fx:value="GeneralButton" />
+                  <String fx:value="button2" />
+               </styleClass>
                 </Button>
-                <Button fx:id="updateBtn" layoutX="972.0" layoutY="155.0" mnemonicParsing="false" onAction="#updateEvent" prefHeight="30.0" prefWidth="90.0" styleClass="GeneralButton" text="Update">
+                <Button fx:id="updateBtn" layoutX="972.0" layoutY="155.0" mnemonicParsing="false" onAction="#updateEvent" prefHeight="30.0" prefWidth="90.0" stylesheets="@allevents.css" text="Update">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="12.0" />
                     </font>
+               <styleClass>
+                  <String fx:value="GeneralButton" />
+                  <String fx:value="button2" />
+               </styleClass>
                 </Button>
-                <Button fx:id="backBtn" layoutX="983.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBackToList" prefHeight="40.0" prefWidth="80.0" styleClass="GeneralButton" text="Return">
+                <Button fx:id="backBtn" layoutX="983.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBackToList" prefHeight="40.0" prefWidth="80.0" styleClass="GeneralButton" stylesheets="@allevents.css" text="Return">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="13.0" />
                     </font>
                 </Button>
-                <ImageView fx:id="afficheIv" fitHeight="323.0" fitWidth="574.0" layoutX="24.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" styleClass="Box" />
+                <ImageView fx:id="afficheIv" fitHeight="323.0" fitWidth="574.0" layoutX="24.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
                 <Text fx:id="titleText" layoutX="626.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="33.0" />
@@ -81,7 +96,7 @@
                         <Font name="Leelawadee UI Semilight" size="13.0" />
                     </font>
                 </Text>
-            <Button fx:id="intrestedid" layoutX="810.0" layoutY="349.0" mnemonicParsing="false" onAction="#intrested" prefHeight="38.0" prefWidth="111.0" styleClass="GeneralButton" text=" ☆ I'm interested">
+            <Button fx:id="intrestedid" layoutX="810.0" layoutY="349.0" mnemonicParsing="false" onAction="#intrested" prefHeight="38.0" prefWidth="126.0" styleClass="button2" stylesheets="@allevents.css" text=" ☆ I'm interested">
                <font>
                   <Font name="Leelawadee UI Semilight" size="12.0" />
                </font>
@@ -101,56 +116,111 @@
                   <Font name="Leelawadee UI Semilight" size="13.0" />
                </font>
             </Text>
-            <Text layoutX="60.0" layoutY="673.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating and Reviews">
-               <font>
-                  <Font name="Leelawadee UI Semilight" size="33.0" />
-               </font>
-            </Text>
-            <Button fx:id="Submitratingid" layoutX="781.0" layoutY="688.0" mnemonicParsing="false" onAction="#submitRating" prefHeight="30.0" prefWidth="115.0" text="Submit Rating" />
-            <Rating fx:id="rating" layoutX="104.0" layoutY="757.0" rating="0.0" />
-
-                <ProgressBar fx:id="progressBar5" layoutX="482.0" layoutY="676.0" prefWidth="150.0" progress="0.0">
-               <effect>
-                  <ColorAdjust hue="-0.24" />
-               </effect></ProgressBar>
-                <Label fx:id="ratingCount5" layoutX="642.0" layoutY="676.0" text="0" />
-
-                <ProgressBar fx:id="progressBar4" layoutX="482.0" layoutY="706.0" prefWidth="150.0" progress="0.0" />
-                <Label fx:id="ratingCount4" layoutX="642.0" layoutY="706.0" text="0" />
-
-                <ProgressBar fx:id="progressBar3" layoutX="482.0" layoutY="736.0" prefWidth="150.0" progress="0.0">
-               <effect>
-                  <ColorAdjust hue="0.47" />
-               </effect></ProgressBar>
-                <Label fx:id="ratingCount3" layoutX="642.0" layoutY="736.0" text="0" />
-
-                <ProgressBar fx:id="progressBar2" layoutX="482.0" layoutY="766.0" prefWidth="150.0" progress="0.0">
-               <effect>
-                  <ColorAdjust hue="-0.87" />
-               </effect></ProgressBar>
-                <Label fx:id="ratingCount2" layoutX="642.0" layoutY="766.0" text="0" />
-
-                <ProgressBar fx:id="progressBar1" layoutX="482.0" layoutY="796.0" prefWidth="150.0" progress="0.0">
-               <effect>
-                  <ColorAdjust hue="-1.0" />
-               </effect></ProgressBar>
-                <Label fx:id="ratingCount1" layoutX="642.0" layoutY="796.0" text="0" />
-            <Label layoutX="456.0" layoutY="676.0" text="5 ★" />
-            <Label layoutX="455.0" layoutY="707.0" text="4 ★" />
-            <Label layoutX="456.0" layoutY="736.0" text="3 ★" />
-            <Label layoutX="455.0" layoutY="767.0" text="2 ★" />
-            <Label layoutX="455.0" layoutY="796.0" text="1 ★" />
-            <Label layoutX="204.0" layoutY="687.0" text="/5">
-               <font>
-                  <Font size="38.0" />
-               </font>
-            </Label>
-            <Label fx:id="avgrating" layoutX="153.0" layoutY="687.0" text="0.0">
-               <font>
-                  <Font size="38.0" />
-               </font>
-            </Label>
-            <Button fx:id="nbinterested" layoutX="921.0" layoutY="349.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="43.0" text="0" />
+            <Button fx:id="nbinterested" layoutX="935.0" layoutY="349.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="43.0" text="0" />
+            <HBox layoutX="106.0" layoutY="611.0" prefHeight="190.0" prefWidth="943.0" styleClass="hbox-rating">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="190.0" prefWidth="397.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="rating" text="Rating and Reviews">
+                           <font>
+                              <Font name="Leelawadee UI Semilight" size="33.0" />
+                           </font>
+                        </Text>
+                        <HBox alignment="CENTER" prefHeight="73.0" prefWidth="275.0">
+                           <children>
+                              <Label fx:id="avgrating" text="0.0">
+                                 <font>
+                                    <Font size="38.0" />
+                                 </font>
+                              </Label>
+                              <Label text="/5">
+                                 <font>
+                                    <Font size="38.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Rating fx:id="rating" rating="0.0" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="190.0" prefWidth="351.0">
+                     <children>
+                        <GridPane alignment="CENTER" prefHeight="145.0" prefWidth="308.0" styleClass="progress-bar" stylesheets="@home.css">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="64.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="311.0" minWidth="10.0" prefWidth="216.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="89.0" minWidth="10.0" prefWidth="84.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="53.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="29.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="5 ★" />
+                              <Label text="4 ★" GridPane.rowIndex="1" />
+                              <Label text="3 ★" GridPane.rowIndex="2" />
+                              <Label text="2 ★" GridPane.rowIndex="3" />
+                              <Label text="1 ★" GridPane.rowIndex="4" />
+                  
+                                                                      <ProgressBar fx:id="progressBar5" prefHeight="18.0" prefWidth="200.0" progress="0.0" GridPane.columnIndex="1">
+                                 <effect>
+                                    <ColorAdjust hue="-0.24" />
+                                 </effect>
+                              </ProgressBar>
+                  
+                                                                      <ProgressBar fx:id="progressBar4" prefWidth="200.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  
+                                                                      <ProgressBar fx:id="progressBar3" prefWidth="200.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <effect>
+                                    <ColorAdjust hue="0.47" />
+                                 </effect>
+                              </ProgressBar>
+                  
+                                                                      <ProgressBar fx:id="progressBar2" prefWidth="200.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <effect>
+                                    <ColorAdjust hue="-0.87" />
+                                 </effect>
+                              </ProgressBar>
+                  
+                                                                      <ProgressBar fx:id="progressBar1" prefWidth="200.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <effect>
+                                    <ColorAdjust hue="-1.0" />
+                                 </effect>
+                              </ProgressBar>
+                                  <Label fx:id="ratingCount5" text="0" GridPane.columnIndex="2" />
+                                  <Label fx:id="ratingCount4" text="0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                  <Label fx:id="ratingCount3" text="0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                  <Label fx:id="ratingCount2" text="0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                  <Label fx:id="ratingCount1" text="0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="190.0" prefWidth="199.0" styleClass="button3">
+                     <children>
+                        <Button fx:id="Submitratingid" alignment="CENTER" mnemonicParsing="false" onAction="#submitRating" prefHeight="30.0" prefWidth="115.0" styleClass="button3" stylesheets="@allevents.css" text="Submit Rating" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <ImageView fitHeight="27.0" fitWidth="29.0" layoutX="611.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@53.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="27.0" fitWidth="29.0" layoutX="612.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images%20(2).png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="27.0" fitWidth="29.0" layoutX="612.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@2340040-200.png" />
+               </image>
+            </ImageView>
             </children>
         </AnchorPane>
     </content>

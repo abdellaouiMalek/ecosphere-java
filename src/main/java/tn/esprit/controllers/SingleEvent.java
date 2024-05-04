@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import tn.esprit.models.Event;
@@ -34,6 +35,8 @@ public class SingleEvent implements Initializable {
     private Text catText;
     @FXML
     private Text locText;
+    @FXML
+    private Pane titlePane;
 
 
     /**
@@ -43,6 +46,8 @@ public class SingleEvent implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         afficheIv.maxWidth(202);
         afficheIv.maxHeight(114);
+        titleText.wrappingWidthProperty().bind(titlePane.widthProperty());
+
     }
 
     public void setData(Event e){

@@ -20,6 +20,7 @@ import tn.esprit.models.EventRating;
 import tn.esprit.models.EventRegistrations;
 import tn.esprit.services.EventService;
 import javafx.scene.control.Alert.AlertType;
+import tn.esprit.util.Emailservice;
 
 import java.io.File;
 import java.io.IOException;
@@ -128,6 +129,8 @@ public class EventInfo implements Initializable {
     private Event eventInfoStore;
     private boolean isInterested = false;
     private int eventId;
+    private Emailservice emailService = new Emailservice();
+
 
 
     @Override
@@ -136,6 +139,7 @@ public class EventInfo implements Initializable {
 
         updateInterestButton();
         initializeRatings(eventId);
+
 
 
     }
@@ -349,12 +353,15 @@ public class EventInfo implements Initializable {
     void intrested(ActionEvent event) {
         try {
             int userId = 1;
+            String recipientEmail = "wardiaziz2507@gmail.com";
+            String subject = "Interest in Event";
+            String body = "Thank you for your interest in our event.";
 
             if (isInterested) {
                 // Cancel interest
                 es.cancelInterest(eventInfoStore.getId(), userId);
                 isInterested = false;
-                showCancelInterestPopup(); // Display cancellation success popup
+                showCancelInterestPopup();
             } else {
                 // Register interest
                 Date currentDate = new Date();
@@ -364,6 +371,19 @@ public class EventInfo implements Initializable {
                 es.saveRegistration(registration);
                 isInterested = true;
                 showRegisterInterestPopup(); // Display registration success popup
+
+                // Compose email body with event details
+                body = "<h2>Thank you for your interest in our event!</h2>"
+                        + "<p><strong>Event Details:</strong></p>"
+                        + "<ul>"
+                        + "<li><strong>Name:</strong> " + eventInfoStore.getEventName() + "</li>"
+                        + "<li><strong>Date:</strong> " + eventInfoStore.getDate() + "</li>"
+                        + "<li><strong>Description:</strong> " + eventInfoStore.getDescription() + "</li>"
+                        + "</ul>"
+                        + "<p><img src='C:/Users/aziz/IdeaProjects/ecosphere-java/src/main/resources/logo.png'></p>";
+
+                // Send email
+                emailService.sendEmail(recipientEmail, subject, body);
             }
 
             // Update the button text based on the new interest status

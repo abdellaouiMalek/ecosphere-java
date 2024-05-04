@@ -14,13 +14,15 @@
         <HBox prefHeight="114.0" prefWidth="1000.0">
             <children>
                 <ImageView fx:id="afficheIv" fitHeight="114.0" fitWidth="202.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER" />
-                <Pane prefHeight="114.0" prefWidth="280.0">
+                <Pane fx:id="titlePane" prefHeight="114.0" prefWidth="280.0">
                     <children>
-                        <Text fx:id="titleText" layoutX="18.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="120.0">
+                        <Text fx:id="titleText" layoutX="18.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title">
                             <font>
                                 <Font name="Leelawadee UI Semilight" size="18.0" />
-                            </font></Text>
-                        <Text fx:id="catText" layoutX="18.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category" wrappingWidth="120.0">
+                            </font>
+                        </Text>
+                        <!-- Adjusted layoutY to move category name down -->
+                        <Text fx:id="catText" layoutX="18.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category">
                             <font>
                                 <Font name="Leelawadee UI Semilight" size="14.0" />
                             </font>
