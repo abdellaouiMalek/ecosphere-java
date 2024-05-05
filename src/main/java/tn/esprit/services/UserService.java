@@ -182,7 +182,7 @@ public class UserService implements IUserService<User>{
             pstm.setInt(1, id );
             ResultSet resultSet = pstm.executeQuery();
             if (resultSet.next()) {
-                user.setId(resultSet.getInt(id));
+                user.setId(resultSet.getInt("id")); // Use the column name "id"
                 user.setFirst_name(resultSet.getString(2));
                 user.setLast_name(resultSet.getString(3));
                 user.setEmail(resultSet.getString(4));

@@ -11,9 +11,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import tn.esprit.models.Carpooling;
@@ -30,7 +32,7 @@ import java.util.List;
 
 public class AllCarpoolings {
     @FXML
-    private AnchorPane carpoolingsContainer;
+    private TilePane carpoolingsContainer;
     @FXML
     private Button sortPrice;
     @FXML
@@ -41,16 +43,13 @@ public class AllCarpoolings {
 
     @FXML
     private TextField destination;
-
+    @FXML
+    private ScrollPane scrollPane;
     List<Carpooling> searchResults;
 
     public void displaySearchResults(List<Carpooling> searchResults) {
         this.searchResults = searchResults;
         carpoolingsContainer.getChildren().clear();
-        double cardX = 10.0; // Initial X position for the first card
-        double cardY = 10.0; // Initial Y position for the first row
-        int cardsPerRow = 3;
-        int cardCount = 0;
 
         for (Carpooling carpooling : searchResults) {
             try {
@@ -59,9 +58,8 @@ public class AllCarpoolings {
 
                 CarpoolingCard controller = loader.getController();
                 controller.setCarpooling(carpooling);
-
-                AnchorPane.setTopAnchor(card, cardY);
-                AnchorPane.setLeftAnchor(card, cardX);
+                carpoolingsContainer.setHgap(20); // Set horizontal gap to 20 pixels
+                carpoolingsContainer.setVgap(20); // Set vertical gap to 20 pixels
 
                 carpoolingsContainer.getChildren().add(card);
 
@@ -70,20 +68,21 @@ public class AllCarpoolings {
                     int carpoolingId = extractCarpoolingId(carpooling);
                     navigateToCarpoolingDetails(carpoolingId);
                 });
-                cardCount++;
-                if (cardCount % cardsPerRow == 0) {
-                    // Move to the next row
-                    cardY += 140.0; // Adjust the vertical spacing as needed
-                    cardX = 10.0; // Reset X position for the next row
-                } else {
-                    // Move to the next column
-                    cardX += 210.0; // Adjust the horizontal spacing as needed
-                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+
+        private int calculateCardsPerRow() {
+        double containerWidth = carpoolingsContainer.getWidth();
+        double cardWidth = 200.0;
+        double horizontalSpacing = 10.0;
+
+        int cardsPerRow = (int) ((containerWidth + horizontalSpacing) / (cardWidth + horizontalSpacing));
+        return Math.max(cardsPerRow, 1);
+    }
+
 
     private void navigateToCarpoolingDetails(int carpoolingId) {
         try {

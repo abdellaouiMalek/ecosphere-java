@@ -105,6 +105,7 @@ public class CarpoolingService implements IService<Carpooling> {
             while (resultSet.next()) {
                 Carpooling carpooling = new Carpooling();
                 carpooling.setId(resultSet.getInt("id"));
+                carpooling.setUserID(resultSet.getInt("user_id"));
                 carpooling.setDeparture(resultSet.getString("departure"));
                 carpooling.setDestination(resultSet.getString("destination"));
                 carpooling.setDepartureDate(resultSet.getDate("departure_date"));

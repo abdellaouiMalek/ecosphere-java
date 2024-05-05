@@ -9,18 +9,20 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="620.0" prefWidth="847.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AllCarpoolings">
    <children>
-      <VBox layoutY="-4.0" prefHeight="558.0" prefWidth="851.0">
+      <VBox layoutY="-4.0" prefHeight="626.0" prefWidth="882.0">
          <children>
             <HBox prefHeight="54.0" prefWidth="882.0" styleClass="hbox-background" stylesheets="@../style.css">
                <children>
@@ -102,7 +104,7 @@
                   <String fx:value="hbox-background" />
                </styleClass>
             </HBox>
-            <HBox prefHeight="393.0" prefWidth="851.0">
+            <HBox prefHeight="514.0" prefWidth="882.0">
                <children>
                   <VBox prefHeight="394.0" prefWidth="187.0">
                      <children>
@@ -188,14 +190,24 @@
                         </HBox>
                      </children>
                      <HBox.margin>
-                        <Insets left="20.0" />
+                        <Insets left="20.0" top="20.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox prefHeight="394.0" prefWidth="542.0">
+                  <VBox prefHeight="218.0" prefWidth="662.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0" />
-                        <AnchorPane fx:id="carpoolingsContainer" prefHeight="413.0" prefWidth="542.0" />
+                        <HBox prefHeight="58.0" prefWidth="662.0" />
+                        <ScrollPane fx:id="scrollPane" prefHeight="414.0" prefWidth="525.0">
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </VBox.margin>
+                           <content>
+                              <TilePane fx:id="carpoolingsContainer" prefHeight="415.0" prefWidth="620.0" styleClass="carpooling-card" stylesheets="@../style.css" />
+                           </content>
+                        </ScrollPane>
                      </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
                   </VBox>
                </children>
                <VBox.margin>
