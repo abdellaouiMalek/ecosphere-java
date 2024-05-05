@@ -92,7 +92,7 @@ public class AllCarpoolings {
 
             CarpoolingDetails controller = loader.getController();
             controller.getID(carpoolingId);
-            controller.setSearchResults(searchResults); // Pass the searchResults list
+            controller.setSearchResults(searchResults);
 
             Stage stage = (Stage) carpoolingsContainer.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -116,16 +116,6 @@ public class AllCarpoolings {
         searchService.search(event, departure, destination, departureDate);
     }
 
-
-    @FXML
-    void addNavigation(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/addCarpooling.fxml"));
-        Parent root = loader.load();
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
     @FXML
     void navigationBack(MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/search.fxml"));
@@ -144,6 +134,22 @@ public class AllCarpoolings {
     void sortTime(ActionEvent event) {
         Collections.sort(searchResults, Comparator.comparing(Carpooling::getTime));
         displaySearchResults(searchResults);
+    }
+
+    @FXML
+    void addNavigation(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/addCarpooling.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+
+    @FXML
+    void max(ActionEvent event) {
+
     }
     }
 

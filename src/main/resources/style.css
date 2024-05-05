@@ -50,3 +50,6 @@
 .text-field:filled:focused {
     -fx-background-color: #4CAF50; /* Background color when filled and focused */
 }
+.hbox-background {
+    -fx-background-color: white;
+}
