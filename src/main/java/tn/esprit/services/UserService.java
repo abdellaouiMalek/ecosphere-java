@@ -54,9 +54,9 @@ public class UserService implements IUserService<User>{
     }
     public  void sendEmail( String to, String subject, String body) {
 
-        final String from = "ecospherepidev@outlook.com";
+        final String from = "malek.abdellaoui@esprit.tn";
 
-        final String password = "eco@spherepidev2020";
+        final String password = "Tamtouma19102001";
 
         String host = "smtp.office365.com";
         String port = "587"; // Port for TLS/STARTTLS
@@ -288,6 +288,8 @@ return user;
             ResultSet resultSet = pstmt.executeQuery();
 
             if (resultSet.next()) {
+                // Print user data to debug
+                System.out.println("User found in database");
 
                 user.setId(resultSet.getInt(1));
                 user.setFirst_name(resultSet.getString(2));
@@ -298,27 +300,23 @@ return user;
                 user.setPicture(resultSet.getString(7));
                 String roleName = resultSet.getString(8);
                 Role role = Role.valueOf(roleName);
-
                 user.setRole(role);
-                boolean verified = resultSet.getBoolean("verified");
-                boolean passswordHashed = BCrypt.checkpw(password,user.getPassword());
 
                 // Check if password matches
-                if (passswordHashed) {
-                    System.out.println("pwd done ");
-                    // Set the logged-in user in the session
-
-                    if(verified){
-                        System.out.println("Logged-in user: " + SessionUser.loggedUser);
+                boolean passwordMatches = BCrypt.checkpw(password, user.getPassword());
+                if (passwordMatches) {
+                    // Check if user is verified
+                    boolean verified = resultSet.getBoolean("verified");
+                    if (verified) {
+                        System.out.println("User is verified");
                         SessionUser.loggedUser = user;
+                        System.out.println("si logged user"+SessionUser.loggedUser);
                         return user; // Login successful
-                    }else{
-                        System.out.println("not verified");
-                        //sendEmail(email,"email verification", "<h1>fuck</h1>","ghassen0");
-
-                        return user;
+                    } else {
+                        System.out.println("User is not verified");
+                        // You may want to handle this case differently
+                        return null;
                     }
-
                 } else {
                     System.out.println("Incorrect password");
                     return null; // Incorrect password

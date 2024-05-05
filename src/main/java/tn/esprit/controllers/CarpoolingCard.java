@@ -18,11 +18,17 @@ public class CarpoolingCard {
 
     @FXML
     private Label dateLabel;
+    @FXML
+    private Label price;
+    @FXML
+    private Label time;
 
     public void setCarpooling(Carpooling carpooling) {
         departureLabel.setText("Departure: " + carpooling.getDeparture());
         destinationLabel.setText("Destination: " + carpooling.getDestination());
         dateLabel.setText("Date: " + carpooling.getArrivalDate());
+        price.setText("price" + carpooling.getPrice());
+        time.setText("time" + carpooling.getTime());
     }
 
 }

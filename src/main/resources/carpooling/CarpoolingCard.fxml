@@ -8,5 +8,7 @@
     <Label fx:id="departureLabel" layoutX="14.0" layoutY="14.0" />
     <Label fx:id="destinationLabel" layoutX="14.0" layoutY="35.0" />
     <Label fx:id="dateLabel" layoutX="14.0" layoutY="56.0" />
+      <Label fx:id="price" layoutX="24.0" layoutY="66.0" />
+      <Label fx:id="time" layoutX="34.0" layoutY="76.0" />
 </children>
 </AnchorPane>

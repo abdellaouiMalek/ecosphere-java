@@ -14,6 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import tn.esprit.models.Carpooling;
+import tn.esprit.models.SessionUser;
+import tn.esprit.models.User;
 import tn.esprit.services.CarpoolingService;
 
 import java.io.IOException;
@@ -60,6 +62,9 @@ public class AddCarpooling {
     private final CarpoolingService carpoolingService = new CarpoolingService();
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
+    User loggedUser = SessionUser.getLoggedUser();
+    int loggedId = loggedUser.getId();
+
     @FXML
     void add(ActionEvent event) {
         if (validateInput()) {
@@ -73,7 +78,7 @@ public class AddCarpooling {
                 Time timeValue = new Time(timeFormat.parse(time.getText()).getTime());
                 double priceValue = Double.parseDouble(price.getText());
 
-                Carpooling carpooling = new Carpooling(departureText, destinationText, departureDate, arrivalDate, timeValue, priceValue);
+                Carpooling carpooling = new Carpooling(loggedId,departureText, destinationText, departureDate, arrivalDate, timeValue, priceValue);
 
                 carpoolingService.add(carpooling);
 

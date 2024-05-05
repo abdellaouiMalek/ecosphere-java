@@ -13,6 +13,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import tn.esprit.models.Carpooling;
 import tn.esprit.models.Reservation;
+import tn.esprit.models.SessionUser;
+import tn.esprit.models.User;
+import tn.esprit.services.CarpoolingSearchService;
 import tn.esprit.services.CarpoolingService;
 import tn.esprit.services.ReservationService;
 
@@ -25,8 +28,6 @@ import java.util.Date;
 import java.util.List;
 
 public class Search {
-
-
     @FXML
     private TextField departure;
 
@@ -35,34 +36,15 @@ public class Search {
 
     @FXML
     private DatePicker departureDate;
+    private final CarpoolingSearchService searchService = new CarpoolingSearchService();
 
     @FXML
     void search(ActionEvent event) throws ParseException {
-        String dep = departure.getText();
-        String dest = destination.getText();
-        LocalDate selectedDate = departureDate.getValue();
-
-        try {
-            Date utilDate = java.sql.Date.valueOf(selectedDate);
-            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-
-            CarpoolingService carpoolingService = new CarpoolingService();
-            List<Carpooling> searchResults = carpoolingService.search(dep, dest, sqlDate);
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/allCarpoolings.fxml"));
-            Parent root = loader.load();
-
-            AllCarpoolings controller = loader.getController();
-
-            controller.displaySearchResults(searchResults);
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        }
+        CarpoolingSearchService searchService = new CarpoolingSearchService();
+        searchService.search(event, departure, destination, departureDate);
     }
+
+
 
     @FXML
     void waitlistNavigation(ActionEvent event) throws IOException {

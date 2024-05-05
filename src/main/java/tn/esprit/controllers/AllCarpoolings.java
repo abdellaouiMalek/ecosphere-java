@@ -1,23 +1,47 @@
 package tn.esprit.controllers;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import tn.esprit.models.Carpooling;
+import tn.esprit.services.CarpoolingSearchService;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
 public class AllCarpoolings {
     @FXML
-    private AnchorPane carpoolingsContainer; // AnchorPane to hold carpooling cards
+    private AnchorPane carpoolingsContainer;
+    @FXML
+    private Button sortPrice;
+    @FXML
+    private TextField departure;
+
+    @FXML
+    private DatePicker departureDate;
+
+    @FXML
+    private TextField destination;
+
     List<Carpooling> searchResults;
 
     public void displaySearchResults(List<Carpooling> searchResults) {
@@ -46,8 +70,6 @@ public class AllCarpoolings {
                     int carpoolingId = extractCarpoolingId(carpooling);
                     navigateToCarpoolingDetails(carpoolingId);
                 });
-
-
                 cardCount++;
                 if (cardCount % cardsPerRow == 0) {
                     // Move to the next row
@@ -89,6 +111,13 @@ public class AllCarpoolings {
     }
 
     @FXML
+    void search(ActionEvent event) throws ParseException {
+        CarpoolingSearchService searchService = new CarpoolingSearchService();
+        searchService.search(event, departure, destination, departureDate);
+    }
+
+
+    @FXML
     void addNavigation(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/addCarpooling.fxml"));
         Parent root = loader.load();
@@ -105,4 +134,16 @@ public class AllCarpoolings {
         stage.setScene(new Scene(root));
         stage.show();
     }
-}
+
+    @FXML
+    void sortPrice(ActionEvent event) {
+        Collections.sort(searchResults, Comparator.comparingDouble(Carpooling::getPrice));
+        displaySearchResults(searchResults);
+    }
+    @FXML
+    void sortTime(ActionEvent event) {
+        Collections.sort(searchResults, Comparator.comparing(Carpooling::getTime));
+        displaySearchResults(searchResults);
+    }
+    }
+

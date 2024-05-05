@@ -4,8 +4,14 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+import tn.esprit.controllers.AddCarpooling;
+import tn.esprit.controllers.CarpoolingDetails;
+import tn.esprit.controllers.Search;
 import tn.esprit.models.User;
 import tn.esprit.services.UserService;
 
@@ -53,42 +59,27 @@ public class Login {
     }
 
     @FXML
-    void clickLogin (ActionEvent event) {
-
-
+    void clickLogin(ActionEvent event) {
         // Validate input fields
         if (tfmail.getText().isEmpty()) {
             ctrlEmail.setText("email est incorrect");
-
         }
         if (tfpass.getText().isEmpty()) {
             ctrlPwd.setText("mot de passe est incorrect");
         }
 
-
         try {
-            // Create a new User object with entered email and password
-
-
-
             // Attempt to log in using UserService
-            User loginSuccess = us.login(tfmail.getText(),tfpass.getText() );
-            if (loginSuccess.isVerified()) {
-                // Display success message
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Login Successful");
-                alert.setHeaderText(null);
-                alert.setContentText("Welcome, " + tfmail.getText() + "!");
-                alert.showAndWait();
-
+            User loggedInUser = us.login(tfmail.getText(), tfpass.getText());
+            if (loggedInUser != null) {
                 System.out.println("Login successful!");
-                // TODO: Navigate to another view or perform actions after successful login
-            }
-            if (!loginSuccess.isVerified()){
-                // TODO: Navigate to verification  view
-            }
-
-            else {
+                // Pass the user's ID to the Search controller
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/search.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } else {
                 // Display login failure message
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Login Failed");
@@ -102,6 +93,5 @@ public class Login {
             System.out.println("Error during login: " + ex.getMessage());
         }
     }
-
 
 }

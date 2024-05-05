@@ -5,15 +5,15 @@ import java.util.Date;
 
 public class Carpooling {
     // attribut
-    private int id ;
+    private int id , userID;
     private String departure , destination;
     private Date departureDate , arrivalDate ;
     private Time time ;
     private double price ;
 
     // constructor
-    public Carpooling(int id, String departure, String destination, Date departureDate, Date arrivalDate, Time time, double price) {
-        this.id = id;
+    public Carpooling(int userID, String departure, String destination, Date departureDate, Date arrivalDate, Time time, double price) {
+        this.userID = userID;
         this.departure = departure;
         this.destination = destination;
         this.departureDate = departureDate;
@@ -38,6 +38,15 @@ public class Carpooling {
         this.price = price;
     }
     // getters & setters
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
     public int getId() {
         return id;
     }
