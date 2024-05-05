@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.Home">
    <top>
       <HBox prefHeight="60.0" prefWidth="200.0" styleClass="white-background" stylesheets="@home.css" BorderPane.alignment="CENTER">
          <children>
@@ -19,7 +14,7 @@
                <children>
                   <ImageView fitHeight="60.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Desktop/logo.png" />
+                              <Image url="@logo.png" />
                      </image>
                   </ImageView>
                   <Label prefHeight="60.0" prefWidth="188.0" text="EcoSphere" textFill="#05d72b">
@@ -32,14 +27,14 @@
             <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
             <HBox prefHeight="60.0" prefWidth="241.0">
                <children>
-                  <Label prefHeight="60.0" prefWidth="129.0" text="User Name">
+                  <Label fx:id="username" prefHeight="60.0" prefWidth="129.0" text="User Name">
                      <font>
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </Label>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Desktop/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg" />
+                        <Image url="@pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg" />
                      </image>
                   </ImageView>
                </children>
@@ -67,13 +62,13 @@
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../Desktop/calendar-date-date-notes-business-office-event-icon-template-black-color-editable-calendar-date-symbol-flat-illustration-for-graphic-and-web-design-free-vector.jpg" />
+                              <Image url="@53.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="30.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="42.0" prefWidth="189.0" text="Browse Events">
+                        <Label prefHeight="42.0" prefWidth="189.0" text="Browse Events" onMouseClicked="#BrowseEvents">
                            <font>
                               <Font name="Berlin Sans FB" size="18.0" />
                            </font>
@@ -120,7 +115,7 @@
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../Desktop/calendar-date-date-notes-business-office-event-icon-template-black-color-editable-calendar-date-symbol-flat-illustration-for-graphic-and-web-design-free-vector.jpg" />
+                              <Image url="@53.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="30.0" />
@@ -140,7 +135,7 @@
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../Desktop/calendar-date-date-notes-business-office-event-icon-template-black-color-editable-calendar-date-symbol-flat-illustration-for-graphic-and-web-design-free-vector.jpg" />
+                              <Image url="@logo.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="30.0" />
@@ -173,7 +168,7 @@
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../Desktop/calendar-date-date-notes-business-office-event-icon-template-black-color-editable-calendar-date-symbol-flat-illustration-for-graphic-and-web-design-free-vector.jpg" />
+                              <Image url="@images.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="30.0" />
@@ -206,7 +201,7 @@
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../Desktop/calendar-date-date-notes-business-office-event-icon-template-black-color-editable-calendar-date-symbol-flat-illustration-for-graphic-and-web-design-free-vector.jpg" />
+                              <Image url="@images.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="30.0" />
@@ -219,6 +214,10 @@
                         </Label>
                      </children>
                   </HBox>
+                  <Button fx:id="Loginbtn" mnemonicParsing="false" onAction="#Loginbtn" prefHeight="31.0" prefWidth="172.0" text="Login">
+                     <VBox.margin>
+                        <Insets left="40.0" top="30.0" />
+                     </VBox.margin></Button>
                </children>
             </VBox>
          </children></VBox>

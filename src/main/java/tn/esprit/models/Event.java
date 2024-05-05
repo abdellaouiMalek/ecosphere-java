@@ -10,6 +10,7 @@ public class Event {
     private Date date;
     private Time time;
     private Category category;
+    private int userId;
 
 
     // constructor
@@ -24,6 +25,8 @@ public class Event {
         this.date = date;
         this.time = time;
         this.category = category;
+        this.userId = userId;
+
     }
     public Event(String eventName, String address, String location, String objective, String image, String description, Category category, Date date, Time time) {
         this.eventName = eventName;
@@ -35,6 +38,8 @@ public class Event {
         this.date = date;
         this.time = time;
         this.category = category;
+        this.userId = userId;
+
 
     }
 
@@ -124,6 +129,14 @@ public class Event {
         this.time = time;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     // display
     @Override
     public String toString() {
@@ -137,6 +150,7 @@ public class Event {
                 ", description='" + description + '\'' +
                 ", date=" + date +
                 ", time=" + time +
+                ", userId=" + userId +
                 '}';
     }
 }

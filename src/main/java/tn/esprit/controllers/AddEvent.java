@@ -13,6 +13,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import tn.esprit.models.Category;
 import tn.esprit.models.Event;
+import tn.esprit.models.SessionUser;
+import tn.esprit.models.User;
 import tn.esprit.services.CategoryService;
 import tn.esprit.services.EventService;
 
@@ -63,6 +65,10 @@ public class AddEvent implements Initializable {
 
     EventService es = new EventService();
     private String imagePath;
+
+    User loggedUser = SessionUser.getLoggedUser();
+    int loggedId = loggedUser.getId();
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -177,9 +183,13 @@ public class AddEvent implements Initializable {
                         // Set the Category object into the Event
                         e.setCategory(selectedCategory);
 
+                        e.setUserId(loggedId);
+
                         // Call the EventService to add the event to the database
                         EventService es = new EventService();
                         es.add(e);
+
+
 
                         // Show success message
                         Alert success = new Alert(Alert.AlertType.INFORMATION);
@@ -250,6 +260,8 @@ public class AddEvent implements Initializable {
             System.out.println("Error loading AllEvents.fxml: " + ex.getMessage());
         }
     }
+
+
 
 
 }

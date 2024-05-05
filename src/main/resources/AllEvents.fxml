@@ -17,7 +17,7 @@
 <AnchorPane prefHeight="900.0" prefWidth="1100.0" stylesheets="@allevents.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AllEvents">
 
     <children>
-        <Button fx:id="addEventBtn" layoutX="866.0" layoutY="22.0" mnemonicParsing="false" onAction="#addEventRedirect" prefHeight="34.0" prefWidth="114.0" styleClass="GeneralButton2" text="+ Add event">
+        <Button fx:id="addEventBtn" layoutX="859.0" layoutY="28.0" mnemonicParsing="false" onAction="#addEventRedirect" prefHeight="34.0" prefWidth="114.0" styleClass="GeneralButton2" text="+ Add event">
             <font>
                 <Font name="Leelawadee UI Semilight" size="14.0" />
             </font></Button>
@@ -37,11 +37,6 @@
                 </GridPane>
             </content>
         </ScrollPane>
-        <Text layoutX="27.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Events List">
-            <font>
-                <Font name="Leelawadee UI Semilight" size="33.0" />
-            </font>
-        </Text>
         <Text layoutX="27.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A list of upcoming and ongoing events awaiting your participation!">
             <font>
                 <Font name="Leelawadee UI Semilight" size="15.0" />
@@ -64,6 +59,8 @@
                 <Font name="Leelawadee UI Semilight" size="16.0" />
             </font>
         </RadioButton>
+      <Button layoutX="-63.0" layoutY="36.0" mnemonicParsing="false" text="Button" />
+      <Button fx:id="ReturnHome" layoutX="1008.0" layoutY="21.0" mnemonicParsing="false" onAction="#ReturnHome" prefHeight="34.0" prefWidth="67.0" text="Return" />
     </children>
 
 </AnchorPane>

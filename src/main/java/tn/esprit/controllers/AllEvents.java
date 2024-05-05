@@ -4,9 +4,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import tn.esprit.models.Event;
 import tn.esprit.services.EventService;
 
@@ -44,10 +46,15 @@ public class AllEvents implements Initializable  {
     @FXML
     private ChoiceBox<String> sortBoxCB;
 
+    @FXML
+    private Button ReturnHome;
+
+
     EventService es = new EventService();
     private String sortCriteria = "Start Date";
     private boolean showOnlyActiveEvents = false;
     private boolean showOnlyEndedEvents = false;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -148,6 +155,23 @@ public class AllEvents implements Initializable  {
         } catch (SQLException | IOException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    @FXML
+    void ReturnHome(ActionEvent event) {
+        try {
+            // Load the AllEvents.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/home.fxml"));
+            Parent root = loader.load();
+
+            // Set up the stage
+            Stage stage = (Stage) ReturnHome.getScene().getWindow();
+            stage.setScene(new Scene(root));
+
+        } catch (IOException ex) {
+            System.out.println("Error loading home.fxml: " + ex.getMessage());
+        }
+
     }
 
 }

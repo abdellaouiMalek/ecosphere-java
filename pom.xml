@@ -39,8 +39,7 @@
             <artifactId>java-sdk</artifactId>
             <version>1.0.0</version>
         </dependency>
-            <version>20.0.2</version>
-        </dependency>
+
         <dependency>
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
@@ -62,19 +61,6 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>tn.esprit.test.MainFX</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.8</version>
-                <configuration>
-                    <mainClass>tn.esprit.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
