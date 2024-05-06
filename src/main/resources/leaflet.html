@@ -13,7 +13,6 @@
 <div id="map"></div>
 <script>
     function initMap() {
-
         var lat = 36.8065; // Tunis latitude
         var lon = 10.1815; // Tunis longitude
         var macarte = null;
@@ -35,13 +34,8 @@
                     const city = data.features.find(feature => feature.place_type.includes('place')).text;
                     console.log('City:', city);
 
-                    var carpooling_departure = document.getElementById('add_departure_departure');
-                    console.log('Departure Input:', carpooling_departure);
-                    if (carpooling_departure) {
-                        carpooling_departure.value = city;
-                    } else {
-                        console.error('Error: Departure input field not found.');
-                    }
+                    // Call Java method with city name
+                    window.javaBridge.showCity(city);
                 })
                 .catch(error => {
                     console.error('Error:', error);

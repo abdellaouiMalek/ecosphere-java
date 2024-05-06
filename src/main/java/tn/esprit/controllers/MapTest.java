@@ -5,8 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import netscape.javascript.JSObject;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MapTest implements Initializable {
@@ -15,27 +17,35 @@ public class MapTest implements Initializable {
     private WebView mapView;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        WebEngine webEngine = mapView.getEngine();
-        webEngine.load(getClass().getResource("/leaflet.html").toExternalForm());
-        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("LoadWorker state changed from " + oldValue + " to " + newValue);
+    public void initialize(URL url, ResourceBundle rb) {
+        mapView.getEngine().setOnAlert(event -> System.out.println(event.getData()));
+        mapView.getEngine().getLoadWorker().exceptionProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                System.out.println("JavaScript error occurred: " + newValue.getMessage());
+            }
+        });
+        mapView.getEngine().getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == Worker.State.FAILED) {
-                System.err.println("WebView load error: " + webEngine.getLocation());
+                System.out.println("Failed to load content: " + mapView.getEngine().getLocation());
+                System.out.println("Error: " + mapView.getEngine().getLoadWorker().getException().getMessage());
             }
         });
 
-        // Listener for WebView errors
-        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == Worker.State.FAILED) {
-                System.err.println("WebView load error: " + webEngine.getLocation());
-            }
-        });
+        mapView.getEngine().load(Objects.requireNonNull(getClass().getResource("/leaflet.html")).toExternalForm());
 
-        // Listener for JavaScript errors
-        mapView.getEngine().setOnError(event -> {
-            System.err.println("JavaScript Error: " + event.getMessage());
+        // Expose Java object to JavaScript
+        mapView.getEngine().getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == Worker.State.SUCCEEDED) {
+                JSObject window = (JSObject) mapView.getEngine().executeScript("window");
+                window.setMember("javaBridge", new JavaBridge());
+            }
         });
     }
-}
 
+    // Java class to bridge communication with JavaScript
+    public class JavaBridge {
+        public void showCity(String city) {
+            System.out.println("City: " + city);
+        }
+    }
+}
