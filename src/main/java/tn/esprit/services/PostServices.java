@@ -13,6 +13,24 @@ public class PostServices implements IService2<Post> {
 
     @Override
     public void add(Post post) {
+        if (post.getTitle() == null || post.getTitle().isEmpty()) {
+            throw new IllegalArgumentException("Le titre du post est requis");
+        }
+
+        // Vérifier si l'auteur du post est vide ou null
+        if (post.getAuteur() == null || post.getAuteur().isEmpty()) {
+            throw new IllegalArgumentException("L'auteur du post est requis");
+        }
+
+        // Vérifier si le contenu du post est vide ou null
+        if (post.getContent() == null || post.getContent().isEmpty()) {
+            throw new IllegalArgumentException("Le contenu du post est requis");
+        }
+
+        // Vérifier si l'image du post est vide ou null
+        if (post.getImage() == null || post.getImage().isEmpty()) {
+            throw new IllegalArgumentException("L'image du post est requise");
+        }
         String req = "INSERT INTO `post`( `title`,`auteur`, `content` ,`image` ) VALUES (?,?,?,?)";
         try {
             PreparedStatement stm = cnx.prepareStatement(req);
@@ -48,18 +66,23 @@ public class PostServices implements IService2<Post> {
     }
     @Override
     public void update(Post post) {
-        String req = "UPDATE post SET title = ?,auteur = ?, content = ?, image = ? WHERE id = ?";
-        try {
-            PreparedStatement stm = cnx.prepareStatement(req);
-            stm.setString(1, post.getTitle());
-            stm.setString(2, post.getAuteur());
-            stm.setString(3, post.getContent());
-            stm.setString(4, post.getImage());
-            stm.setInt(5, post.getId());
-            stm.executeUpdate();
-            System.out.println("Post Updated Successfully!");
+        String req = "UPDATE post SET title=?, auteur =?, content=?, image=? WHERE id =?";
+        try{
+            PreparedStatement ps=cnx.prepareStatement(req);
+            ps.setString(1,post.getTitle());
+            ps.setString(2,post.getAuteur());
+            ps.setString(3,post.getContent());
+            ps.setString(4,post.getImage());
+            ps.setInt(5,post.getId());
+            int rowsUpdated = ps.executeUpdate();
+            if(rowsUpdated > 0) {
+                System.out.println("Post Updated Successfully");
+            }
+            else{
+                System.out.println("No post found with ID :"+post.getId());
+            }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     @Override

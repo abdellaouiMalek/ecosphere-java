@@ -2,7 +2,6 @@ package tn.esprit.models;
 
 import javafx.beans.value.ObservableValue;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -82,7 +81,7 @@ public class Post {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", auteur='" + auteur + '\'' +
-                //", image='" + image + '\'' +
+                ", image='" + image + '\'' +
                 ", content='" + content + '\'' +
                 '}';
     }

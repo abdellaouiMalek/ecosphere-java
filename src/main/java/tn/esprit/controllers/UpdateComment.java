@@ -33,7 +33,7 @@ public class UpdateComment {
     @FXML
     void naviguer(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/CommentFeed.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/commentaireforum.fxml"));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

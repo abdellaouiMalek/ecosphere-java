@@ -8,6 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import tn.esprit.models.Comment;
+import tn.esprit.models.Post;
 import tn.esprit.services.CommentServices;
 import tn.esprit.services.PostServices;
 public class ajouternouveaucommentaire {
@@ -22,6 +23,7 @@ public class ajouternouveaucommentaire {
         Comment nouveauCommentaire = new Comment();
         nouveauCommentaire.setContenu(contenuTA.getText());
         CommentServices commentService = new CommentServices();
+        nouveauCommentaire.setIdpost(idpost); // Définition de l'ID du post associé
         commentService.add(nouveauCommentaire, nouveauCommentaire.getIdpost());
         // Fermeture de la fenêtre après l'ajout du commentaire
         ((Stage)((Button)event.getSource()).getScene().getWindow()).close();
@@ -33,4 +35,7 @@ public class ajouternouveaucommentaire {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        }}
+        }
+public void initialize (Post post  ) {
+        this.idpost=post.getId();
+} }

@@ -116,7 +116,10 @@ public class POSTFB {
     @FXML
     void CommentP(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/commentaireforum.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/commentaireforum.fxml"));
+            Parent root = loader.load();
+            CommentaireForum controller = loader.getController();
+            controller.setdata(post);
             auteurL.getScene().setRoot(root);
 
         } catch (Exception e) {

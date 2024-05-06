@@ -11,6 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tn.esprit.models.Comment;
+import tn.esprit.models.Post;
 import tn.esprit.services.CommentServices;
 
 import java.net.URL;
@@ -23,6 +24,9 @@ public class CommentaireForum implements Initializable {
     private ScrollPane ScrollPane;
     @FXML
     private VBox commentContainer;
+    private Post post;
+    public void  setdata (Post post  ) {
+        this.post=post;}
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         CommentServices cs = new CommentServices();
@@ -46,9 +50,11 @@ public class CommentaireForum implements Initializable {
     }
     public void ajouterC(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/ajouternouveaucommentaire.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouternouveaucommentaire.fxml"));
+            Parent root = loader.load();
+            ajouternouveaucommentaire controller = loader.getController();
+            controller.initialize(post);
             Scene scene = new Scene(root);
-
             // Obtenir la scène actuelle à partir de n'importe quel nœud de l'événement
             Scene currentScene = ((Node) event.getSource()).getScene();
 
