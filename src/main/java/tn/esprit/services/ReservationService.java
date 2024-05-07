@@ -2,6 +2,7 @@ package tn.esprit.services;
 
 import tn.esprit.interfaces.IService;
 import tn.esprit.models.Carpooling;
+import tn.esprit.models.EventRating;
 import tn.esprit.models.Reservation;
 import tn.esprit.models.User;
 import tn.esprit.util.DBconnection;
@@ -57,6 +58,21 @@ public class ReservationService implements IService<Reservation> {
             e.printStackTrace();
         }
         return reservations;
+    }
+
+    @Override
+    public List<Reservation> search(String searchTerm, String sortBy) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void addEventRating(EventRating eventRating) throws SQLException {
+
+    }
+
+    @Override
+    public double calculateAverageRating(int eventId) throws SQLException {
+        return 0;
     }
 
     public int getReservationCountForCarpooling(int carpoolingId) throws SQLException {

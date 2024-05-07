@@ -281,7 +281,7 @@ return user;
             return null;
         }
 
-        String sql = "SELECT * FROM `user` WHERE `email` = ?";
+        String sql = "SELECT * FROM user WHERE email = ?";
         try (PreparedStatement pstmt = cnx.prepareStatement(sql)) {
             User user = new User();
             pstmt.setString(1, email);
@@ -310,7 +310,7 @@ return user;
                     if (verified) {
                         System.out.println("User is verified");
                         SessionUser.loggedUser = user;
-                        System.out.println("si logged user"+SessionUser.loggedUser);
+                        System.out.println("logged user"+SessionUser.loggedUser);
                         return user; // Login successful
                     } else {
                         System.out.println("User is not verified");

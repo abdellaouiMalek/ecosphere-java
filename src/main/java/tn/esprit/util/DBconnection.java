@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DBconnection {
     // DB credentials
-    final String URL ="jdbc:mysql://localhost:3306/ecosphere";
+    final String URL ="jdbc:mysql://127.0.0.1:3306/ecosphere";
     final String USR = "root" ;
     final String PWD = "" ;
 
