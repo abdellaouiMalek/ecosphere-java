@@ -68,7 +68,7 @@ public class Home {
     public void Carpooling(MouseEvent event) {
         try {
             // Load the AllEvents.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/search.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/allcarpoolings.fxml"));
             Parent root = loader.load();
 
             // Set up the stage
