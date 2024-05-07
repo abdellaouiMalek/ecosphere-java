@@ -1,17 +1,14 @@
 package tn.esprit.controllers;
 
 import javafx.concurrent.Worker;
-import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.web.WebEngine;
+
 import javafx.scene.web.WebView;
-import org.openstreetmap.gui.jmapviewer.Coordinate;
-import org.openstreetmap.gui.jmapviewer.JMapViewer;
-import org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource;
+import netscape.javascript.JSObject;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MapTest implements Initializable {
@@ -20,49 +17,35 @@ public class MapTest implements Initializable {
     private WebView mapView;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Create a SwingNode to hold the JMapViewer
-        SwingNode swingNode = new SwingNode();
-
-        // Create a JMapViewer instance
-        JMapViewer mapViewer = new JMapViewer();
-
-        // Set the initial position and zoom level
-        Coordinate tunis = new Coordinate(36.8065, 10.1815);
-        mapViewer.setDisplayPosition(tunis, 10);
-
-        // Add tile source
-        mapViewer.setTileSource(new OsmTileSource.Mapnik());
-
-        // Add the mapViewer to the SwingNode
-        swingNode.setContent(mapViewer);
-
-        // Add the SwingNode to the JavaFX scene
-        AnchorPane.setTopAnchor(swingNode, 0.0);
-        AnchorPane.setBottomAnchor(swingNode, 0.0);
-        AnchorPane.setLeftAnchor(swingNode, 0.0);
-        AnchorPane.setRightAnchor(swingNode, 0.0);
-        ((AnchorPane) mapView.getParent()).getChildren().add(swingNode);
-
-        // Load JavaScript code from the leaflet.html resource
-        WebEngine webEngine = mapView.getEngine();
-        URL htmlResource = getClass().getResource("/leaflet.html");
-        if (htmlResource != null) {
-            webEngine.load(htmlResource.toExternalForm());
-        } else {
-            System.err.println("Error: leaflet.html resource not found");
-        }
-
-        // Add listener for WebView errors
-        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+    public void initialize(URL url, ResourceBundle rb) {
+        mapView.getEngine().setOnAlert(event -> System.out.println(event.getData()));
+        mapView.getEngine().getLoadWorker().exceptionProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                System.out.println("JavaScript error occurred: " + newValue.getMessage());
+            }
+        });
+        mapView.getEngine().getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == Worker.State.FAILED) {
-                System.err.println("WebView load error: " + webEngine.getLocation());
+                System.out.println("Failed to load content: " + mapView.getEngine().getLocation());
+                System.out.println("Error: " + mapView.getEngine().getLoadWorker().getException().getMessage());
             }
         });
 
-        // Add listener for JavaScript errors
-        webEngine.setOnError(event -> {
-            System.err.println("JavaScript Error: " + event.getMessage());
+        mapView.getEngine().load(Objects.requireNonNull(getClass().getResource("/leaflet.html")).toExternalForm());
+
+        // Expose Java object to JavaScript
+        mapView.getEngine().getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == Worker.State.SUCCEEDED) {
+                JSObject window = (JSObject) mapView.getEngine().executeScript("window");
+                window.setMember("javaBridge", new JavaBridge());
+            }
         });
+    }
+
+    // Java class to bridge communication with JavaScript
+    public class JavaBridge {
+        public void showCity(String city) {
+            System.out.println("City: " + city);
+        }
     }
 }
