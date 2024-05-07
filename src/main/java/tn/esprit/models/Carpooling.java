@@ -5,14 +5,24 @@ import java.util.Date;
 
 public class Carpooling {
     // attribut
-    private int id , userID;
+    private int id , userID ,seat;
     private String departure , destination;
     private Date departureDate , arrivalDate ;
     private Time time ;
     private double price ;
 
     // constructor
-    public Carpooling(int userID, String departure, String destination, Date departureDate, Date arrivalDate, Time time, double price) {
+    public Carpooling(int userID, String departure, String destination, Date departureDate, Date arrivalDate, Time time, double price , int seat) {
+        this.userID = userID;
+        this.departure = departure;
+        this.destination = destination;
+        this.departureDate = departureDate;
+        this.arrivalDate = arrivalDate;
+        this.time = time;
+        this.price = price;
+        this.seat = seat;
+    }
+    public Carpooling(int userID, String departure, String destination, Date departureDate, Date arrivalDate, Time time, double price ) {
         this.userID = userID;
         this.departure = departure;
         this.destination = destination;
@@ -21,6 +31,7 @@ public class Carpooling {
         this.time = time;
         this.price = price;
     }
+
 
     public Carpooling(int id) {
         this.id = id;
@@ -38,6 +49,14 @@ public class Carpooling {
         this.price = price;
     }
     // getters & setters
+
+    public int getSeat() {
+        return seat;
+    }
+
+    public void setSeat(int seat) {
+        this.seat = seat;
+    }
 
     public int getUserID() {
         return userID;

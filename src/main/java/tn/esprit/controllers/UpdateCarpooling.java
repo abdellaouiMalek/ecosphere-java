@@ -55,7 +55,9 @@ public class UpdateCarpooling {
     private TextField destination;
 
     @FXML
-    private Label id;
+    private TextField seat;
+
+
 
     @FXML
     private TextField price;
@@ -67,12 +69,11 @@ public class UpdateCarpooling {
     private ImageView icon;
     private final CarpoolingService carpoolingService = new CarpoolingService();
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-
     private int carpoolingId;
+
 
     public void getID(int carpoolingId) {
         this.carpoolingId = carpoolingId;
-        id.setText(String.valueOf(carpoolingId));
     }
 
     @FXML
@@ -86,10 +87,19 @@ public class UpdateCarpooling {
             Date arrivalDate = java.sql.Date.valueOf(arrivalDateValue);
             Time timeValue = new Time(timeFormat.parse(time.getText()).getTime());
             double priceValue = Double.parseDouble(price.getText());
+            int seatValue = Integer.parseInt(seat.getText());
+            System.out.println(" fl update carpooling " + carpoolingId);
+            Carpooling carp = new Carpooling();
+            carp.setId(carpoolingId);
+            carp.setDeparture(departureText);
+            carp.setDestination(destinationText);
+            carp.setPrice(priceValue);
+            carp.setTime(timeValue);
+            carp.setArrivalDate(arrivalDate);
+            carp.setDepartureDate(departureDate);
+            carp.setSeat(seatValue);
 
-            Carpooling carpooling = new Carpooling(carpoolingId, departureText, destinationText, departureDate, arrivalDate, timeValue, priceValue);
-
-            carpoolingService.update(carpooling);
+            carpoolingService.update(carp);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setContentText("Carpooling updated successfully!");

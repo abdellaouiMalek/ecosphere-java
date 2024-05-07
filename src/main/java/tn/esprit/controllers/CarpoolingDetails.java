@@ -171,6 +171,7 @@ public class CarpoolingDetails {
 
         UpdateCarpooling controller = loader.getController();
         controller.getID(carpoolingId);
+        System.out.println("fl carpooling dateils " + carpoolingId);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));

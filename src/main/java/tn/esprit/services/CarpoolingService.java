@@ -17,7 +17,7 @@ public class CarpoolingService implements IService<Carpooling> {
     // Add a new carpooling
     @Override
     public void add(Carpooling carpooling) throws SQLException {
-        String sql = "INSERT INTO carpooling (user_id,departure, destination, departure_date, arrival_date, time, price) VALUES (?,?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO carpooling (user_id,departure, destination, departure_date, arrival_date, time, price,seat) VALUES (?,?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement st = cnx.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             st.setInt(1, carpooling.getUserID());
             st.setString(2, carpooling.getDeparture());
@@ -26,6 +26,7 @@ public class CarpoolingService implements IService<Carpooling> {
             st.setDate(5, new java.sql.Date(carpooling.getArrivalDate().getTime()));
             st.setTime(6, carpooling.getTime());
             st.setDouble(7, carpooling.getPrice());
+            st.setInt(8,carpooling.getSeat());
 
             int affectedRows = st.executeUpdate();
             if (affectedRows == 0) {
@@ -46,15 +47,17 @@ public class CarpoolingService implements IService<Carpooling> {
     // update an existing carpooling
     @Override
     public void update(Carpooling carpooling)  {
-        String req = "UPDATE `carpooling` SET departure_date = ?, arrival_date = ?, departure = ?, destination = ?, price = ?, time = ? WHERE id = ?";
-        try (PreparedStatement ps = cnx.prepareStatement(req)) {
+        String req = "UPDATE `carpooling` SET departure_date = ?, arrival_date = ?, departure = ?, destination = ?, price = ?, time = ? , seat = ? WHERE id = ?";
+        try  {
+            PreparedStatement ps = cnx.prepareStatement(req);
             ps.setDate(1, new Date(carpooling.getDepartureDate().getTime()));
             ps.setDate(2, new Date(carpooling.getArrivalDate().getTime()));
             ps.setString(3, carpooling.getDeparture());
             ps.setString(4, carpooling.getDestination());
             ps.setDouble(5, carpooling.getPrice());
             ps.setTime(6, carpooling.getTime());
-            ps.setInt(7, carpooling.getId());
+            ps.setInt(7, carpooling.getSeat());
+            ps.setInt(8, carpooling.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -85,6 +88,7 @@ public class CarpoolingService implements IService<Carpooling> {
                 carpooling.setDestination(result.getString("destination"));
                 carpooling.setPrice(result.getDouble("price"));
                 carpooling.setTime(result.getTime("time"));
+                carpooling.setSeat(result.getInt("seats number"));
                 carpoolings.add(carpooling);
             }
         }catch (SQLException e) {
@@ -133,6 +137,7 @@ public class CarpoolingService implements IService<Carpooling> {
                 carpooling.setArrivalDate(resultSet.getDate("arrival_date"));
                 carpooling.setTime(resultSet.getTime("time"));
                 carpooling.setPrice(resultSet.getDouble("price"));
+                carpooling.setSeat(resultSet.getInt("seat"));
                 return carpooling;
             }
         }

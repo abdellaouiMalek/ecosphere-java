@@ -59,6 +59,9 @@ public class AddCarpooling {
     @FXML
     private ImageView icon;
 
+    @FXML
+    private TextField seat;
+
     private final CarpoolingService carpoolingService = new CarpoolingService();
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
@@ -77,8 +80,9 @@ public class AddCarpooling {
                 Date arrivalDate = java.sql.Date.valueOf(arrivalDateValue);
                 Time timeValue = new Time(timeFormat.parse(time.getText()).getTime());
                 double priceValue = Double.parseDouble(price.getText());
+                int seatValue = Integer.parseInt(seat.getText());
 
-                Carpooling carpooling = new Carpooling(loggedId,departureText, destinationText, departureDate, arrivalDate, timeValue, priceValue);
+                Carpooling carpooling = new Carpooling(loggedId,departureText, destinationText, departureDate, arrivalDate, timeValue, priceValue,seatValue);
 
                 carpoolingService.add(carpooling);
 
