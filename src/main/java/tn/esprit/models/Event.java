@@ -14,7 +14,7 @@ public class Event {
 
 
     // constructor
-    public Event(int id, String eventName, String address, String location, String objective, String image, String description, Category category, Date date, Time time) {
+    public Event(int id, String eventName, String address, String location, String objective, String image, String description, Category category, Date date, Time time, int userId) {
         this.id = id;
         this.eventName = eventName;
         this.address = address;
@@ -28,7 +28,7 @@ public class Event {
         this.userId = userId;
 
     }
-    public Event(String eventName, String address, String location, String objective, String image, String description, Category category, Date date, Time time) {
+    public Event(String eventName, String address, String location, String objective, String image, String description, Category category, Date date, Time time, int userId) {
         this.eventName = eventName;
         this.address = address;
         this.location = location;
@@ -41,13 +41,15 @@ public class Event {
         this.userId = userId;
 
 
+
+
     }
 
     public Event() {
 
     }
 
-    public Event(int eventId, String eventName, String address, Date date, Time time, String location, String objective, String description, Category category) {
+    public Event(int eventId, String eventName, String address, Date date, Time time, String location, String objective, String description, Category category, int userId) {
     }
 
     // getters & setters
@@ -150,7 +152,6 @@ public class Event {
                 ", description='" + description + '\'' +
                 ", date=" + date +
                 ", time=" + time +
-                ", userId=" + userId +
                 '}';
     }
 }

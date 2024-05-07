@@ -31,8 +31,8 @@ public class EventService implements IService<Event> {
         }
 
         // Insert the event into the database
-        String req = "INSERT INTO `event`(`event_name`, `address`, `date`, `time`, `location`, `objective`, `description`,`image`, `category_id`) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO `event`(`event_name`, `address`, `date`, `time`, `location`, `objective`, `description`,`image`, `category_id` , `user_id_id`) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = cnx.prepareStatement(req)) {
             ps.setString(1, event.getEventName());
             ps.setString(2, event.getAddress());
@@ -43,7 +43,7 @@ public class EventService implements IService<Event> {
             ps.setString(7, event.getDescription());
             ps.setString(8, event.getImage());
             ps.setInt(9, event.getCategory().getId());
-
+            ps.setInt(10, event.getUserId());
 
             ps.executeUpdate();
         } catch (SQLException e) {

@@ -161,6 +161,8 @@ public class AddEvent implements Initializable {
                 e.setDate(java.sql.Date.valueOf(startDateDp.getValue())); // Convert LocalDate to Date
                 e.setAddress(addressid.getText());
                 e.setImage(imagePath);
+                e.setUserId(loggedId);
+                System.out.println(loggedId);
 
                 // Validate and set the time field
                 String timeInput = timeid.getText().trim();
@@ -183,7 +185,6 @@ public class AddEvent implements Initializable {
                         // Set the Category object into the Event
                         e.setCategory(selectedCategory);
 
-                        e.setUserId(loggedId);
 
                         // Call the EventService to add the event to the database
                         EventService es = new EventService();
