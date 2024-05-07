@@ -14,13 +14,7 @@ public interface IService<T> {
         void delete(T t) throws SQLException;
 
         List<T> getAll();
-    void add(T t) throws SQLException;
 
-    void update(T t);
-
-    void delete(T t) throws SQLException;
-
-    List<T> getAll();
 
     List<T> search(String searchTerm, String sortBy) throws SQLException;
 

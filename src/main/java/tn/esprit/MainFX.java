@@ -21,7 +21,7 @@ public class MainFX extends Application {
         try {
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            primaryStage.setTitle("All events");
+            primaryStage.setTitle("HOME");
             primaryStage.setScene(scene);
             primaryStage.show();
 

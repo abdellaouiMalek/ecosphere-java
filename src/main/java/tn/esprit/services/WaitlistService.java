@@ -1,6 +1,7 @@
 package tn.esprit.services;
 
 import tn.esprit.interfaces.IService;
+import tn.esprit.models.EventRating;
 import tn.esprit.models.Waitlist;
 import tn.esprit.util.DBconnection;
 
@@ -40,6 +41,21 @@ public class WaitlistService implements IService<Waitlist> {
     @Override
     public List<Waitlist> getAll() {
         return null;
+    }
+
+    @Override
+    public List<Waitlist> search(String searchTerm, String sortBy) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void addEventRating(EventRating eventRating) throws SQLException {
+
+    }
+
+    @Override
+    public double calculateAverageRating(int eventId) throws SQLException {
+        return 0;
     }
 
 

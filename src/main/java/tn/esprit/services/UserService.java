@@ -348,27 +348,6 @@ return user;
             ResultSet resultSet = pstm.executeQuery();
             if (resultSet.next()) {
                 userEmail = resultSet.getString("email");
-
-    public  void sendEmail( String to, String subject, String body) {
-
-        final String from = "aziz.wardi@esprit.tn";
-
-        final String password = "1106AMT233a";
-
-        String host = "smtp.office365.com";
-        String port = "587"; // Port for TLS/STARTTLS
-
-        // Email properties
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", port);
-
-        // Authenticate the sender using a javax.mail.Authenticator
-        Session session = Session.getInstance(props, new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(from, password);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
