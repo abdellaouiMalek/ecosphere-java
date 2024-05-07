@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="900.0" prefWidth="1100.0" stylesheets="@allevents.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AllEvents">
+
+    <children>
+        <Button fx:id="addEventBtn" layoutX="859.0" layoutY="28.0" mnemonicParsing="false" onAction="#addEventRedirect" prefHeight="34.0" prefWidth="114.0" styleClass="GeneralButton2" text="+ Add event">
+            <font>
+                <Font name="Leelawadee UI Semilight" size="14.0" />
+            </font></Button>
+        <ScrollPane fx:id="eListScrollPane" layoutX="14.0" layoutY="163.0" maxWidth="1074.0" prefHeight="712.0" prefWidth="1074.0">
+            <content>
+                <GridPane fx:id="eventListGP" alignment="TOP_CENTER" prefHeight="112.0" prefWidth="1020.0" vgap="10.0">
+                    <columnConstraints>
+                        <ColumnConstraints />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+
+                </GridPane>
+            </content>
+        </ScrollPane>
+        <Text layoutX="27.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A list of upcoming and ongoing events awaiting your participation!">
+            <font>
+                <Font name="Leelawadee UI Semilight" size="15.0" />
+            </font>
+        </Text>
+        <TextField fx:id="searchBarTf" layoutX="27.0" layoutY="116.0" prefHeight="34.0" prefWidth="399.0" promptText="Search..." />
+        <ChoiceBox fx:id="sortBoxCB" layoutX="508.0" layoutY="117.0" prefHeight="34.0" prefWidth="137.0" />
+        <Label layoutX="435.0" layoutY="120.0" text="Sort by:">
+            <font>
+                <Font name="Leelawadee UI Semilight" size="18.0" />
+            </font>
+        </Label>
+        <RadioButton fx:id="showOnlyActiveRb" layoutX="677.0" layoutY="121.0" mnemonicParsing="false" text="In progress/upcoming">
+            <font>
+                <Font name="Leelawadee UI Semilight" size="16.0" />
+            </font>
+        </RadioButton>
+        <RadioButton fx:id="showOnlyEndedRb" layoutX="883.0" layoutY="121.0" mnemonicParsing="false" text="Ended">
+            <font>
+                <Font name="Leelawadee UI Semilight" size="16.0" />
+            </font>
+        </RadioButton>
+      <Button layoutX="-63.0" layoutY="36.0" mnemonicParsing="false" text="Button" />
+      <Button fx:id="ReturnHome" layoutX="1008.0" layoutY="21.0" mnemonicParsing="false" onAction="#ReturnHome" prefHeight="34.0" prefWidth="67.0" text="Return" />
+    </children>
+
+</AnchorPane>

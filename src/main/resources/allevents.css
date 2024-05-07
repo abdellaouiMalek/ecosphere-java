@@ -1,0 +1,53 @@
+/* Global Styles */
+.root {
+    -fx-background-color: #f0f9eb; /* Light green background for the entire scene */
+}.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+/* Example styling for buttons */
+.button {
+    -fx-background-color: #4CAF50; /* Green background */
+    -fx-text-fill: white; /* White text */
+    -fx-font-size: 14px;
+}
+
+/* Hover effect for buttons */
+.button:hover {
+    -fx-background-color: #45A049; /* Darker green on hover */
+}
+
+/* Styling for text field */
+.text-field {
+    -fx-background-color: #f0f0f0; /* Light gray background */
+    -fx-font-size: 14px;
+}
+
+.Box {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 1);
+}
+
+.button2 {
+    -fx-background-color: #5e80e6; /* Green background */
+    -fx-text-fill: white; /* White text */
+    -fx-font-size: 14px;
+}
+
+.button2:hover {
+    -fx-background-color: #4169e1; /* Darker green on hover */
+}
+
+/* Styling for the HBox that contains rating components */
+.hbox-rating {
+    -fx-background-color: #f0f0f0; /* Light gray background color */
+    -fx-padding: 10px; /* Padding around the HBox */
+}
+.button3 {
+    -fx-background-color: #fb9387; /* Green background */
+    -fx-text-fill: white; /* White text */
+    -fx-font-size: 14px;
+}
+.button3:hover {
+    -fx-background-color: #fa8072; /* Darker green on hover */
+}

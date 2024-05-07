@@ -1,6 +1,5 @@
 package controllers;
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,6 +43,7 @@ public class Login {
     private PasswordField tfpass;
 
     UserService us = new UserService();
+
     @FXML
     void sendToregister(ActionEvent event) {
         try {
@@ -73,9 +73,11 @@ public class Login {
             User loggedInUser = us.login(tfmail.getText(), tfpass.getText());
             if (loggedInUser != null) {
                 System.out.println("Login successful!");
-                // Pass the user's ID to the Search controller
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/search.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/home.fxml"));
                 Parent root = loader.load();
+
+                Home homeController = loader.getController();
+                homeController.setLoggedInUser(loggedInUser); // Pass the logged-in user to HomeController
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
@@ -92,6 +94,7 @@ public class Login {
             // Display error message in case of exception
             System.out.println("Error during login: " + ex.getMessage());
         }
-    }
 
+
+    }
 }
