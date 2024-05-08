@@ -146,8 +146,17 @@ public class POSTFB {
         startTime = System.currentTimeMillis();
     }
     public void onLikeContainerMouseReleased(javafx.scene.input.MouseEvent mouseEvent) {
-        if (System.currentTimeMillis() - startTime > 500) {
+        if(System.currentTimeMillis() - startTime > 500){
             reactionsContainer.setVisible(true);
+        }else {
+            if(reactionsContainer.isVisible()){
+                reactionsContainer.setVisible(false);
+            }
+            if(currentReaction == Reactions.NON){
+                setReaction(Reactions.LIKE);
+            }else{
+                setReaction(Reactions.NON);
+            }
         }
     }
     private void setReaction(Reactions reactions) {
