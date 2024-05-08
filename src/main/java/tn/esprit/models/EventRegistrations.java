@@ -9,19 +9,24 @@ public class EventRegistrations {
     private Date registrationDate ;
     private Time registrationTime;
     private String status;
+    private int eventId;
+    private int userId;
 
     // constructor
-    public EventRegistrations(int id, Date registrationDate, Time registrationTime, String status) {
+    public EventRegistrations(int id, Date registrationDate, Time registrationTime, String status, int eventId, int userId) {
         this.id = id;
         this.registrationDate = registrationDate;
         this.registrationTime = registrationTime;
         this.status = status;
+        this.eventId = eventId;
+        this.userId = userId;
     }
 
     public EventRegistrations(Date registrationDate, Time registrationTime, String status) {
         this.registrationDate = registrationDate;
         this.registrationTime = registrationTime;
         this.status = status;
+
     }
 
     // getters & setters
@@ -55,6 +60,22 @@ public class EventRegistrations {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     // display

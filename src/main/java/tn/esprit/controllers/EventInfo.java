@@ -14,11 +14,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.Rating;
-import tn.esprit.models.Event;
-import tn.esprit.models.EventRating;
-import tn.esprit.models.EventRegistrations;
+import tn.esprit.models.*;
 import tn.esprit.services.EventService;
 import javafx.scene.control.Alert.AlertType;
+import tn.esprit.services.UserService;
 import tn.esprit.util.EmailService;
 
 import java.io.File;
@@ -124,16 +123,22 @@ public class EventInfo implements Initializable {
 
 
     EventService es = new EventService();
+    UserService us = new UserService();
     private Event eventInfoStore;
     private boolean isInterested = false;
     private int eventId;
     private EmailService emailService = new EmailService();
+
+    User loggedUser = SessionUser.getLoggedUser();
+    int loggedId = loggedUser.getId();
+
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sPane.setFitToWidth(true);
+
 
         updateInterestButton();
         initializeRatings(eventId);
@@ -152,6 +157,7 @@ public class EventInfo implements Initializable {
     // Method to populate event information
     void sendEvent(Event eventInfo) {
         eventInfoStore = eventInfo;
+        System.out.println(eventInfo);
         eventId = eventInfo.getId();
         titleText.setText(eventInfo.getEventName());
         catText.setText(eventInfo.getCategory().getName());
@@ -165,10 +171,19 @@ public class EventInfo implements Initializable {
         Image image = new Image(imageFile.toURI().toString());
         afficheIv.setImage(image);
 
-        // Update interest status based on the current user
+        int userId = eventInfo.getUserId();
+        System.out.println(userId);
+        User user = us.getById(userId);
+
+        if (user != null) {
+            String userName = user.getFirst_name() + " " + user.getLast_name();
+            hostNameText.setText(userName);
+        } else {
+            hostNameText.setText("Unknown User"); // Set a default message if user is not found
+        }
+
+        // Update interest status based on the logged-in user
         try {
-            // Assuming userId = 1 for the current user
-            int userId = 1;
             isInterested = es.isInterested(eventInfo.getId(), userId);
         } catch (SQLException e) {
             System.out.println("Error checking interest in the event: " + e.getMessage());
@@ -350,7 +365,8 @@ public class EventInfo implements Initializable {
     @FXML
     void intrested(ActionEvent event) {
         try {
-            int userId = 1;
+            int userId = loggedUser.getId();
+            System.out.println(userId);
             String recipientEmail = "wardiaziz2507@gmail.com";
             String subject = "Interest in Event";
             String body = "Thank you for your interest in our event.";
@@ -366,8 +382,10 @@ public class EventInfo implements Initializable {
                 Time currentTime = Time.valueOf(LocalDateTime.now().toLocalTime());
                 EventRegistrations registration = new EventRegistrations(currentDate, currentTime, "Interested");
                 registration.setId(eventInfoStore.getId());
+                registration.setUserId(loggedId);
                 es.saveRegistration(registration);
                 isInterested = true;
+
                 showRegisterInterestPopup(); // Display registration success popup
 
                 // Compose email body with event details
