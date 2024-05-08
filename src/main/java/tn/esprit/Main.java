@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import tn.esprit.models.Comment;
-import tn.esprit.models.Post;
 import tn.esprit.services.CommentServices;
 import tn.esprit.services.PostServices;
 

@@ -10,10 +10,12 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import tn.esprit.models.Post;
 import tn.esprit.services.PostServices;
-
+import tn.esprit.services.Reactions;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
@@ -22,22 +24,25 @@ public class POSTFB {
 
     @FXML
     private Label auteurL;
-
     @FXML
     private Label contenuL;
-
     @FXML
     private ImageView imageP;
-
     @FXML
     private Label titreL;
     private Post post;
+    private long startTime = 0;
+    private Reactions currentReaction;
+    @FXML
+    private Label ReactionName;
+    @FXML
+    private ImageView imgReaction;
     public void setData(Post post) {
         // Attempt to load the image and handle possible errors.
-        if (post ==null){
+        if (post == null) {
             throw new IllegalArgumentException("Post cannot be null");
         }
-        this.post=post;
+        this.post = post;
         String imagePath = convertToFileSystemPath(post.getImage());
         if (imagePath != null && !imagePath.isEmpty()) {
             try {
@@ -57,8 +62,9 @@ public class POSTFB {
         auteurL.setText(post.getAuteur());
         titreL.setText(post.getTitle());
         contenuL.setText(post.getContent());
-
-        if(post == null){
+        nbreactions.setText(String.valueOf(post.getTotalReactions()));
+        currentReaction = Reactions.NON;
+        if (post == null) {
             throw new IllegalArgumentException("Le post ne peut pas etre null");
         }
     }
@@ -92,10 +98,8 @@ public class POSTFB {
                 PostServices ps = new PostServices();
                 ps.delete(post); // Utilisez votre service pour supprimer le post
                 showAlert(Alert.AlertType.INFORMATION, "Succès", null, "Post supprimé avec succès!");
-                // Si vous souhaitez effectuer une action supplémentaire après la suppression, vous pouvez le faire ici
             }
         } catch (Exception e) {
-            // Gérer toute exception qui pourrait survenir pendant la suppression
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la suppression du post", e.getMessage());
         }
     }
@@ -126,4 +130,56 @@ public class POSTFB {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    private ImageView imageviewangry;
+    @FXML
+    private ImageView imageviewlike;
+    @FXML
+    private ImageView imgviewlove;
+    @FXML
+    private HBox likecontainer;
+    @FXML
+    private Label nbreactions;
+    @FXML
+    private HBox reactionsContainer;
+    public void onLikeContainerPressed(javafx.scene.input.MouseEvent mouseEvent) {
+        startTime = System.currentTimeMillis();
+    }
+    public void onLikeContainerMouseReleased(javafx.scene.input.MouseEvent mouseEvent) {
+        if (System.currentTimeMillis() - startTime > 500) {
+            reactionsContainer.setVisible(true);
+        }
+    }
+    private void setReaction(Reactions reactions) {
+        Image image = new Image(getClass().getResourceAsStream(reactions.getImgSrc()));
+        imgReaction.setImage(image);
+        ReactionName.setText(reactions.getName());
+        ReactionName.setTextFill(Color.web(reactions.getColor()));
+
+        if (currentReaction == Reactions.NON) {
+            post.setTotalReactions(post.getTotalReactions() + 1);
+        }
+        currentReaction = reactions;
+        if (currentReaction == Reactions.NON) {
+            post.setTotalReactions(post.getTotalReactions() - 1);
+        }
+        PostServices postServices = new PostServices();
+        nbreactions.setText(String.valueOf(post.getTotalReactions()));
+    }
+    public void onReactionImgPressed(javafx.scene.input.MouseEvent me) {
+        switch (((ImageView) me.getSource()).getId()) {
+            case "imgviewlove":
+                setReaction(Reactions.LOVE);
+                break;
+            case "imageviewangry":
+                setReaction(Reactions.ANGRY);
+                break;
+            default:
+                setReaction(Reactions.LIKE);
+                break;
+        }
+        reactionsContainer.setVisible(false);
+    }
 }
+
+

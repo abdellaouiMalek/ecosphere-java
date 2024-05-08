@@ -15,27 +15,26 @@ public class ajouternouveaucommentaire {
     @FXML
     private TextArea contenuTA;
     PostServices ps = new PostServices();
-    private int idpost;
+    private int idposte;
     CommentServices cs =new CommentServices();
     @FXML
     void ajouterCommentaire(ActionEvent event) {
-        // Création d'un nouvel objet Comment avec les données du formulaire
         Comment nouveauCommentaire = new Comment();
         nouveauCommentaire.setContenu(contenuTA.getText());
         CommentServices commentService = new CommentServices();
-        nouveauCommentaire.setIdpost(idpost); // Définition de l'ID du post associé
+        nouveauCommentaire.setIdpost(idposte);
         commentService.add(nouveauCommentaire, nouveauCommentaire.getIdpost());
-        // Fermeture de la fenêtre après l'ajout du commentaire
         ((Stage)((Button)event.getSource()).getScene().getWindow()).close();
     }
     @FXML
     void naviguer(ActionEvent event){
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/commentaireforum.fxml"));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/commentaireforum.fxml"));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-public void initialize (Post post  ) {
-        this.idpost=post.getId();
-} }
+    }
+    public void initialize (Post post  ) {
+        this.idposte=post.getId();
+    } }
+

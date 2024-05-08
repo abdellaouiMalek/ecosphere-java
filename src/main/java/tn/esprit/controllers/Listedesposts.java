@@ -11,17 +11,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tn.esprit.models.Post;
 import tn.esprit.services.PostServices;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class Listedesposts implements Initializable {
-
     @FXML
     private VBox postContainer;
-
     @FXML
     private void ajouterP(ActionEvent event) {
         try {
@@ -34,7 +31,6 @@ public class Listedesposts implements Initializable {
             e.printStackTrace();
         }
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         PostServices ps = new PostServices();

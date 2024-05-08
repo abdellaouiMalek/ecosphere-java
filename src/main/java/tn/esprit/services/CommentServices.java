@@ -38,7 +38,7 @@ public class CommentServices implements IService<Comment> {
                 comment.setId(resultSet.getInt("id"));
                 comment.setContenu(resultSet.getString("contenu"));
                 int post;
-                post = PostServices.GetPostById(resultSet.getInt("post_id")).getId();
+                post = PostServices.GetPostById(resultSet.getInt("idpost")).getId();
                 comments.add(comment);
             }
         } catch (SQLException e) {

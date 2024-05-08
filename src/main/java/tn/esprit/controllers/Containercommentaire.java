@@ -18,17 +18,16 @@ public class Containercommentaire {
 
         @FXML
         private Label ContenuC;
-        private Comment comment;
-        public void setData(Comment comment){
-            if (comment ==null){
+        private Comment commentaire;
+        public void setData(Comment commentaire){
+            if (commentaire ==null){
                 throw new IllegalArgumentException("Comment cannot be null");
             }
-            this.comment=comment;
-            ContenuC.setText(comment.getContenu());
-            if(comment == null){
+            this.commentaire=commentaire;
+            ContenuC.setText(commentaire.getContenu());
+            if(commentaire == null){
                 throw new IllegalArgumentException("Le commentaire ne peut pas etre null");
             }
-
         }
         @FXML
         void deleteC(ActionEvent event) {
@@ -42,7 +41,7 @@ public class Containercommentaire {
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     // Si l'utilisateur confirme la suppression, supprimer le post
                     CommentServices cs =new CommentServices();
-                    cs.delete(comment); // Utilisez votre service pour supprimer le post
+                    cs.delete(commentaire); // Utilisez votre service pour supprimer le post
                     showAlert(Alert.AlertType.INFORMATION, "Succès", null, "Commentaire supprimé avec succès!");
                     // Si vous souhaitez effectuer une action supplémentaire après la suppression, vous pouvez le faire ici
                 }
@@ -65,7 +64,7 @@ public class Containercommentaire {
                 FXMLLoader loader =new FXMLLoader(getClass().getResource("/UpdateComment.fxml"));
                 Parent editCommentView = loader.load();
                 UpdateComment editCommentController = loader.getController();
-                editCommentController.initData(comment);
+                editCommentController.initData(commentaire);
                 Scene editScene = new Scene(editCommentView);
                 Stage window = new Stage();
                 window.setScene(editScene);
