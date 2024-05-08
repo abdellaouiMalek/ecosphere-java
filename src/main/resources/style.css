@@ -6,9 +6,18 @@
     -fx-text-fill: white; /* Text color */
     -fx-font-size: 14px; /* Font size */
     -fx-padding: 10px 20px; /* Padding */
-    -fx-border-radius: 5px; /* Border radius */
+    -fx-border-radius: 200px; /* Increase border radius to make it rounded */
     -fx-cursor: hand; /* Cursor style */
 }
+
+.custom-text {
+    -fx-font-family: "Arial"; /* Change the font family */
+    -fx-font-size: 18px; /* Increase the font size */
+    -fx-font-weight: bold; /* Make the font bold */
+    -fx-fill: #366671; /* Set text color */
+}
+
+
 .carpooling-card {
     -fx-background-color: white; /* Set background color */
     -fx-background-radius: 5px; /* Set border radius */

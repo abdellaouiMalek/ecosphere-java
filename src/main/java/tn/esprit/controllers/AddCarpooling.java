@@ -38,11 +38,6 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class AddCarpooling {
-    @FXML
-    private TextField departure;
-
-    @FXML
-    private TextField destination;
 
     @FXML
     private DatePicker departureDate;
@@ -61,6 +56,8 @@ public class AddCarpooling {
 
     @FXML
     private TextField seat;
+    private String departureValue;
+    private String destinationValue;
 
     private final CarpoolingService carpoolingService = new CarpoolingService();
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -72,8 +69,7 @@ public class AddCarpooling {
     void add(ActionEvent event) {
         if (validateInput()) {
             try {
-                String departureText = departure.getText();
-                String destinationText = destination.getText();
+
                 LocalDate departureDateValue = departureDate.getValue();
                 LocalDate arrivalDateValue = arrivalDate.getValue();
                 Date departureDate = java.sql.Date.valueOf(departureDateValue);
@@ -82,7 +78,7 @@ public class AddCarpooling {
                 double priceValue = Double.parseDouble(price.getText());
                 int seatValue = Integer.parseInt(seat.getText());
 
-                Carpooling carpooling = new Carpooling(loggedId,departureText, destinationText, departureDate, arrivalDate, timeValue, priceValue,seatValue);
+                Carpooling carpooling = new Carpooling(loggedId,departureValue, destinationValue, departureDate, arrivalDate, timeValue, priceValue,seatValue);
 
                 carpoolingService.add(carpooling);
 
@@ -143,4 +139,11 @@ public class AddCarpooling {
         stage.setScene(new Scene(root));
         stage.show();
     }
+
+    public void setDepartureAndDestination(String departureValue, String destinationValue) {
+        this.departureValue = departureValue;
+        System.out.println(departureValue);
+  this.destinationValue=destinationValue;
+        System.out.println(destinationValue);
+}
 }

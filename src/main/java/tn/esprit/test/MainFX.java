@@ -18,7 +18,7 @@ public class MainFX extends Application {
     public void start(Stage primaryStage) {
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/map.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/login.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setTitle("login");
             primaryStage.setScene(scene);

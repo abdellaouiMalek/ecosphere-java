@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="890.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.VerificationCode">
+<AnchorPane prefHeight="696.0" prefWidth="1017.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.VerificationCode">
    <children>
       <Label layoutX="74.0" layoutY="175.0" text="votre code de verification" />
       <TextField fx:id="verificationCode" layoutX="240.0" layoutY="171.0" />

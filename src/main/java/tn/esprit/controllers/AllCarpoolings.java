@@ -16,6 +16,8 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import tn.esprit.models.Carpooling;
+import tn.esprit.models.SessionUser;
+import tn.esprit.models.User;
 import tn.esprit.services.CarpoolingSearchService;
 
 import java.io.IOException;
@@ -25,6 +27,8 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 public class AllCarpoolings {
@@ -42,7 +46,14 @@ public class AllCarpoolings {
     private TextField destination;
     @FXML
     private ScrollPane scrollPane;
+    @FXML
+    private RadioButton sortMaxButton;
 
+    @FXML
+    private RadioButton sortTimeButton;
+
+    @FXML
+    private RadioButton sortpriceButton;
     List<Carpooling> searchResults;
 
     public void displaySearchResults(List<Carpooling> searchResults) {
@@ -70,15 +81,6 @@ public class AllCarpoolings {
                 e.printStackTrace();
             }
         }
-    }
-
-        private int calculateCardsPerRow() {
-        double containerWidth = carpoolingsContainer.getWidth();
-        double cardWidth = 200.0;
-        double horizontalSpacing = 10.0;
-
-        int cardsPerRow = (int) ((containerWidth + horizontalSpacing) / (cardWidth + horizontalSpacing));
-        return Math.max(cardsPerRow, 1);
     }
 
 
@@ -123,29 +125,77 @@ public class AllCarpoolings {
     }
     @FXML
     void sortPrice(ActionEvent event) {
-        Collections.sort(searchResults, Comparator.comparingDouble(Carpooling::getPrice));
+        searchResults.sort(Comparator.comparingDouble(Carpooling::getPrice));
         displaySearchResults(searchResults);
     }
     @FXML
     void sortTime(ActionEvent event) {
-        Collections.sort(searchResults, Comparator.comparing(Carpooling::getTime));
+        searchResults.sort(Comparator.comparing(Carpooling::getTime));
         displaySearchResults(searchResults);
     }
 
     @FXML
-    void addNavigation(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/addCarpooling.fxml"));
-        Parent root = loader.load();
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
+    void max(ActionEvent event) {
+        RadioButton selectedRadioButton = (RadioButton) event.getSource();
+        if (selectedRadioButton.getId().equals("sortMaxButton")) {
+            if (sortpriceButton.isSelected()) {
+                List<Carpooling> filteredResults = searchResults.stream()
+                        .filter(carpooling -> carpooling.getSeat() <= 2)
+                        .sorted(Comparator.comparingDouble(Carpooling::getPrice))
+                        .collect(Collectors.toList());
+                displaySearchResults(filteredResults);
+            }
+            else if  (sortTimeButton.isSelected()){
+                List<Carpooling> filteredResults = searchResults.stream()
+                        .filter(carpooling -> carpooling.getSeat() <= 2)
+                        .sorted(Comparator.comparing(Carpooling::getTime))
+                        .collect(Collectors.toList());
+                displaySearchResults(filteredResults);
+            }
+            else {
+                List<Carpooling> filteredResults = searchResults.stream()
+                        .filter(carpooling -> carpooling.getSeat() <= 2)
+                        .collect(Collectors.toList());
+                displaySearchResults(filteredResults);
+            }
+        }
     }
 
+  private boolean checkLoginStatus(User user) {
+      return user != null && user.getId() != 0;
+  }
 
     @FXML
-    void max(ActionEvent event) {
+    void addNavigation(MouseEvent event) throws IOException {
+        User loggedUser = SessionUser.getLoggedUser();
+        if (checkLoginStatus(loggedUser)) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/addDeparture.fxml"));
+            Parent root = loader.load();
 
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Login Required");
+            alert.setHeaderText(null);
+            alert.setContentText("Please log in to add a new carpooling.");
+
+            ButtonType loginButton = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
+            alert.getButtonTypes().setAll(loginButton, ButtonType.CANCEL);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == loginButton) {
+                FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/login.fxml"));
+                Parent loginRoot = loginLoader.load();
+
+                Scene currentScene = ((Node) event.getSource()).getScene();
+                currentScene.setRoot(loginRoot);
+            }
+        }
     }
-    }
+
+
+
+}
 

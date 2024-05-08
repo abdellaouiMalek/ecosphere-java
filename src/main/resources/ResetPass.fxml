@@ -9,6 +9,6 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.ResetPass"
-            prefHeight="890.0" prefWidth="1315.0">
+            prefHeight="696.0" prefWidth="1017.0">
 
 </AnchorPane>

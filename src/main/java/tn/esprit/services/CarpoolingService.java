@@ -132,6 +132,7 @@ public class CarpoolingService implements IService<Carpooling> {
                 carpooling.setArrivalDate(resultSet.getDate("arrival_date"));
                 carpooling.setTime(resultSet.getTime("time"));
                 carpooling.setPrice(resultSet.getDouble("price"));
+                carpooling.setSeat(resultSet.getInt("seat"));
                 carpoolings.add(carpooling);
             }
         }
@@ -158,5 +159,17 @@ public class CarpoolingService implements IService<Carpooling> {
             }
         }
         return null;
+    }
+
+    public int getCarpoolingSeats(int carpoolingId) throws SQLException {
+        String sql = "SELECT seat FROM carpooling WHERE id = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
+            ps.setInt(1, carpoolingId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("seat");
+            }
+        }
+        return 0;
     }
 }

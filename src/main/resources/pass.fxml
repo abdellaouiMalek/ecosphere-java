@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="tokenLabel" prefHeight="890.0" prefWidth="1315.0" stylesheets="@css/stylesheet.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AuthentificationController">
+<AnchorPane fx:id="tokenLabel" prefHeight="696.0" prefWidth="1017.0" stylesheets="@css/stylesheet.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AuthentificationController">
     <children>
         <TextField fx:id="tokenField" layoutX="300.0" layoutY="258.0" prefHeight="25.0" prefWidth="282.0" />
         <Text fx:id="typeTokenLabel" layoutX="298.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entrez le Token:" />

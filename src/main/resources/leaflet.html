@@ -11,8 +11,7 @@
             margin: 0;
             padding: 0;
         }
-        #map { height: 100%;
-        width: 100%;}
+        #map { height: 100%; width: 100%; }
     </style>
 </head>
 <body>
@@ -26,7 +25,9 @@
 
         macarte = L.map('map').setView([lat, lon], 13);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: 'Data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(macarte);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(macarte);
 
         macarte.on('click', function (e) {
             if (marker) {

@@ -87,11 +87,7 @@
             <artifactId>javafx-web</artifactId>
             <version>22.0.1</version>
         </dependency>
-        <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>11.2.1</version>
-        </dependency>
+
         <dependency>
             <groupId>com.mailersend</groupId>
             <artifactId>java-sdk</artifactId>
@@ -108,6 +104,12 @@
             <artifactId>javax.mail</artifactId>
             <version>1.6.2</version> <!-- Use the latest version -->
         </dependency>
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>9.0.10</version>
+        </dependency>
+
 
     </dependencies>
     <build>

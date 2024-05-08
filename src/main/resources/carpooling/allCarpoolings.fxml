@@ -20,11 +20,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="890.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AllCarpoolings">
+<AnchorPane prefHeight="696.0" prefWidth="1017.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AllCarpoolings">
    <children>
-      <VBox layoutY="-4.0" prefHeight="626.0" prefWidth="882.0">
+      <VBox layoutY="-4.0" prefHeight="702.0" prefWidth="1018.0">
          <children>
-            <HBox prefHeight="54.0" prefWidth="882.0" styleClass="hbox-background" stylesheets="@../style.css">
+            <HBox prefHeight="70.0" prefWidth="1277.0" styleClass="hbox-background" stylesheets="@../style.css">
                <children>
                   <ImageView fx:id="icon" fitHeight="25.0" fitWidth="26.0" onMouseClicked="#navigationBack" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -44,7 +44,7 @@
                   </ImageView>
                   <ImageView fitHeight="41.0" fitWidth="31.0" onMouseClicked="#addNavigation" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
-                        <Insets left="480.0" right="10.0" top="25.0" />
+                        <Insets left="600.0" right="10.0" top="25.0" />
                      </HBox.margin>
                      <image>
                         <Image url="@add.png" />
@@ -75,7 +75,7 @@
                   </MenuButton>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="44.0" prefWidth="882.0" spacing="15.0" stylesheets="@../style.css" AnchorPane.topAnchor="170.0">
+            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="1027.0" spacing="15.0" stylesheets="@../style.css" AnchorPane.topAnchor="170.0">
                <children>
                   <TextField fx:id="departure" prefHeight="26.0" prefWidth="118.0" promptText="From">
                      <styleClass>
@@ -104,7 +104,7 @@
                   <String fx:value="hbox-background" />
                </styleClass>
             </HBox>
-            <HBox prefHeight="514.0" prefWidth="882.0">
+            <HBox prefHeight="570.0" prefWidth="1018.0">
                <children>
                   <VBox prefHeight="394.0" prefWidth="187.0">
                      <children>
@@ -121,7 +121,7 @@
                                     <Insets left="8.0" top="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <RadioButton mnemonicParsing="false" onAction="#sortPrice">
+                              <RadioButton fx:id="sortpriceButton" mnemonicParsing="false" onAction="#sortPrice">
                                  <HBox.margin>
                                     <Insets top="10.0" />
                                  </HBox.margin>
@@ -143,7 +143,7 @@
                                     <Insets left="8.0" top="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <RadioButton mnemonicParsing="false" onAction="#sortTime">
+                              <RadioButton fx:id="sortTimeButton" mnemonicParsing="false" onAction="#sortTime">
                                  <HBox.margin>
                                     <Insets top="10.0" />
                                  </HBox.margin>
@@ -178,7 +178,7 @@
                                     <Insets left="8.0" top="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <RadioButton mnemonicParsing="false" onAction="#max">
+                              <RadioButton fx:id="sortMaxButton" mnemonicParsing="false" onAction="#max">
                                  <HBox.margin>
                                     <Insets top="10.0" />
                                  </HBox.margin>
@@ -193,15 +193,15 @@
                         <Insets left="20.0" top="20.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox prefHeight="218.0" prefWidth="662.0">
+                  <VBox prefHeight="493.0" prefWidth="787.0">
                      <children>
                         <HBox prefHeight="58.0" prefWidth="662.0" />
-                        <ScrollPane fx:id="scrollPane" prefHeight="414.0" prefWidth="525.0">
+                        <ScrollPane fx:id="scrollPane" prefHeight="510.0" prefWidth="747.0">
                            <VBox.margin>
                               <Insets left="20.0" right="20.0" />
                            </VBox.margin>
                            <content>
-                              <TilePane fx:id="carpoolingsContainer" prefHeight="415.0" prefWidth="620.0" styleClass="carpooling-card" stylesheets="@../style.css" />
+                              <TilePane fx:id="carpoolingsContainer" prefHeight="505.0" prefWidth="754.0" styleClass="carpooling-card" stylesheets="@../style.css" />
                            </content>
                         </ScrollPane>
                      </children>

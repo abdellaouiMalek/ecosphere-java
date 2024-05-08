@@ -14,8 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import tn.esprit.models.Carpooling;
-import tn.esprit.models.Reservation;
+import tn.esprit.models.*;
 import tn.esprit.models.Waitlist;
 import tn.esprit.services.CarpoolingService;
 import tn.esprit.services.ReservationService;
@@ -109,15 +108,17 @@ public class CarpoolingDetails {
 
     @FXML
     void reservation(ActionEvent event) {
-        int userId = 1;
-        int maxReservationsAllowed = 3;
+        User loggedUser = SessionUser.getLoggedUser();
+        int userId = loggedUser.getId();
         ReservationService reservationService = new ReservationService();
         UserService userService = new UserService();
         WaitlistService waitlistService = new WaitlistService();
 
         try {
             int currentReservations = reservationService.getReservationCountForCarpooling(carpoolingId);
-            if (currentReservations >= maxReservationsAllowed) {
+            int carpoolingSeats = carpoolingService.getCarpoolingSeats(carpoolingId);
+
+            if (currentReservations >= carpoolingSeats) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Waitlist Confirmation");
                 alert.setHeaderText("Maximum reservations reached");
@@ -126,11 +127,13 @@ public class CarpoolingDetails {
                 ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
                 alert.getButtonTypes().setAll(yesButton, noButton);
                 Optional<ButtonType> result = alert.showAndWait();
+
                 if (result.isPresent() && result.get() == yesButton) {
                     Waitlist waitlist = new Waitlist();
                     waitlist.setUserID(userId);
                     waitlist.setCarpoolingID(carpoolingId);
                     waitlistService.add(waitlist);
+
                     Alert waitlistAlert = new Alert(Alert.AlertType.INFORMATION);
                     waitlistAlert.setTitle("Waitlist Confirmation");
                     waitlistAlert.setHeaderText(null);
@@ -162,7 +165,6 @@ public class CarpoolingDetails {
             alert.showAndWait();
         }
     }
-
 
     @FXML
     void updateNavigation(ActionEvent event) throws IOException {

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="890.0" prefWidth="1315.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.UpdateCarpooling">
+<AnchorPane prefHeight="696.0" prefWidth="1017.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.UpdateCarpooling">
     <children>
         <VBox layoutX="201.0" layoutY="55.0" prefHeight="426.0" prefWidth="235.0">
             <children>
