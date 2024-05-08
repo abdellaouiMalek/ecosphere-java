@@ -1,13 +1,10 @@
 package tn.esprit;
 
 import tn.esprit.models.Comment;
-import tn.esprit.models.Post;
 import tn.esprit.services.CommentServices;
 import tn.esprit.services.PostServices;
 import tn.esprit.util.DBconnection;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         DBconnection cnx = DBconnection.getInstance();

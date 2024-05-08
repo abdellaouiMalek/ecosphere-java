@@ -6,12 +6,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="292.0" prefWidth="529.0" style="-fx-background-radius: #FFAFC6;" stylesheets="@addFromDesign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.Containercommentaire">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="146.0" prefWidth="529.0" style="-fx-background-radius: #FFAFC6;" stylesheets="@addFromDesign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.Containercommentaire">
    <children>
-      <Pane prefHeight="74.0" prefWidth="590.0" />
-      <Pane prefHeight="200.0" prefWidth="200.0" stylesheets="@addFromDesign.css">
+      <Pane prefHeight="121.0" prefWidth="462.0" stylesheets="@addFromDesign.css">
          <children>
-            <Label fx:id="ContenuC" layoutX="187.0" layoutY="63.0" prefHeight="37.0" prefWidth="353.0" text="Commentaire">
+            <Label fx:id="ContenuC" layoutX="88.0" layoutY="30.0" prefHeight="37.0" prefWidth="353.0" text="Commentaire">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
@@ -20,12 +19,12 @@
       </Pane>
       <Pane prefHeight="75.0" prefWidth="464.0" stylesheets="@addFromDesign.css">
          <children>
-            <Button layoutX="55.0" layoutY="6.0" mnemonicParsing="false" onAction="#updateC" prefHeight="37.0" prefWidth="141.0" style="-fx-background-color: #25b48b;" text="Modifier" textFill="WHITE">
+            <Button layoutX="55.0" layoutY="6.0" mnemonicParsing="false" onAction="#updateC" prefHeight="19.0" prefWidth="98.0" style="-fx-background-color: #25b48b;" text="Modifier" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="365.0" layoutY="6.0" mnemonicParsing="false" onAction="#deleteC" prefHeight="37.0" prefWidth="141.0" style="-fx-background-color: #25b48b;" stylesheets="@addFromDesign.css" text="Supprimer" textFill="#f2f2f2">
+            <Button layoutX="365.0" layoutY="6.0" mnemonicParsing="false" onAction="#deleteC" prefHeight="18.0" prefWidth="98.0" style="-fx-background-color: #25b48b;" stylesheets="@addFromDesign.css" text="Supprimer" textFill="#f2f2f2">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>

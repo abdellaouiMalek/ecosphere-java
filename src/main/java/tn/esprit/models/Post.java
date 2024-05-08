@@ -14,8 +14,7 @@ public class Post {
     private String image;
     //image;
     private String content;
-
-    // constructor
+    private int totalReactions ;
     public Post(int id, String title, String auteur, String content,String image) {
         this.id = id;
         this.title = title;
@@ -23,26 +22,27 @@ public class Post {
         this.image = image;
         this.content = content;
     }
-
-    public Post(String title, String auteur, String content, String image) {
+    public Post(String title, String auteur, String content, String image,int totalReactions) {
         this.title = title;
         this.auteur = auteur;
         this.image = image;
         this.content = content;
+        this.totalReactions=totalReactions;
     }
-
+    public Post(String title, String auteur, String content, String image) {
+        this.title = title;
+        this.auteur = auteur;
+        this.image = image;
+        this.content = content;}
     public Post() {
     }
 
-    // getters & setters
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public String getTitle() {
         return title;
     }
@@ -102,4 +102,11 @@ public class Post {
         return null;
     }
 
+    public int getTotalReactions() {
+        return totalReactions;
+    }
+
+    public void setTotalReactions(int totalReactions) {
+        this.totalReactions = totalReactions;
+    }
 }

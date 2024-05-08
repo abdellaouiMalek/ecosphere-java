@@ -1,5 +1,4 @@
 package tn.esprit.controllers;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +10,6 @@ import javafx.stage.FileChooser;
 import tn.esprit.models.Post;
 import tn.esprit.services.HateSpeech;
 import tn.esprit.services.PostServices;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -44,7 +42,6 @@ public class ajouternouveaupost {
                 return;
             }
             ps.add(new Post(titreTF.getText(), auteurTF.getText(), contenuTF.getText(), imagePath));
-            // Affichage d'un message de succès
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setHeaderText(null);
@@ -75,7 +72,6 @@ public class ajouternouveaupost {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.gif"));
-
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
             String targetDirectory = "src/main/resources/Images/";
@@ -84,7 +80,6 @@ public class ajouternouveaupost {
                 if (!directory.exists()) {
                     directory.mkdirs();
                 }
-                // Generate a unique filename
                 String fileName = generateUniqueFileName(selectedFile.getName());
                 Path targetPath = new File(targetDirectory + fileName).toPath();
                 Files.copy(selectedFile.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);

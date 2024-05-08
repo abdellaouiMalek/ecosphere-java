@@ -66,7 +66,7 @@ public class PostServices implements IService2<Post> {
     }
     @Override
     public void update(Post post) {
-        String req = "UPDATE post SET title=?, auteur =?, content=?, image=? WHERE id =?";
+        String req = "UPDATE post SET title=?, auteur =?, content=?, image=?  WHERE id =?";
         try{
             PreparedStatement ps=cnx.prepareStatement(req);
             ps.setString(1,post.getTitle());
@@ -74,6 +74,7 @@ public class PostServices implements IService2<Post> {
             ps.setString(3,post.getContent());
             ps.setString(4,post.getImage());
             ps.setInt(5,post.getId());
+
             int rowsUpdated = ps.executeUpdate();
             if(rowsUpdated > 0) {
                 System.out.println("Post Updated Successfully");
@@ -118,7 +119,7 @@ public class PostServices implements IService2<Post> {
             return post;
         }
     public static boolean containsBadwords(String text) {
-        List<String> badWords = Arrays.asList("debile", "malin","merde", "idiot");
+        List<String> badWords = Arrays.asList("debile", "malin", "merde", "idiot");
         for (String word : badWords) {
             if (text.toLowerCase().contains(word.toLowerCase())) {
                 return true;
@@ -126,4 +127,17 @@ public class PostServices implements IService2<Post> {
         }
         return false;
     }
+    public void updatereaction(Post post) {
+        String req = "UPDATE post SET totalReactions = ? WHERE id = ?";
+        try {
+            PreparedStatement stm = cnx.prepareStatement(req);
+            stm.setInt(1, post.getTotalReactions());
+            stm.setInt(2, post.getId());
+            stm.executeUpdate();
+            System.out.println("Nombre de réactions du post mis à jour avec succès!");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la mise à jour du nombre de réactions du post : " + e.getMessage());
+        }
+    }
 }
+
