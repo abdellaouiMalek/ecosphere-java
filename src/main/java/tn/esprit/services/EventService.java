@@ -121,6 +121,7 @@ public class EventService implements IService<Event> {
                 event.setDescription(res.getString("description"));
                 event.setDate(res.getDate("date"));
                 event.setTime(res.getTime("time"));
+                event.setUserId(res.getInt("user_id_id"));
 
                 // Retrieve category for the event
                 int categoryId = res.getInt("category_id");
@@ -204,13 +205,14 @@ public class EventService implements IService<Event> {
 
     public void saveRegistration(EventRegistrations registration) throws SQLException {
         try {
-            String req = "INSERT INTO event_registrations (registration_date, registration_time, status, event_id) " +
-                    "VALUES (?, ?, ?, ?)";
+            String req = "INSERT INTO event_registrations (registration_date, registration_time, status, event_id, user_id) " +
+                    "VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setDate(1, new java.sql.Date(registration.getRegistrationDate().getTime()));
             ps.setTime(2, registration.getRegistrationTime());
             ps.setString(3, registration.getStatus());
             ps.setInt(4, registration.getId());
+            ps.setInt(5, registration.getUserId());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
