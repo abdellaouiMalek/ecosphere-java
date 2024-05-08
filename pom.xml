@@ -23,7 +23,8 @@
         <repository>
             <id>osm-releases</id>
             <url>https://josm.openstreetmap.de/nexus/content/repositories/releases</url>
-    <repositories>
+        </repository>
+
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
@@ -151,3 +152,4 @@
     </build>
 
 
+</project>
