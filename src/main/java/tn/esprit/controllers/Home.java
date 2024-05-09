@@ -79,4 +79,19 @@ public class Home {
             System.out.println("Error loading .fxml: " + ex.getMessage());
         }
     }
+
+    public void Blog(MouseEvent event) {
+        try {
+            // Load the AllEvents.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Listdespostes.fxml"));
+            Parent root = loader.load();
+
+            // Set up the stage
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("Error loading .fxml: " + ex.getMessage());
+        }
+    }
 }

@@ -1,37 +1,48 @@
 package tn.esprit.models;
 
+import javafx.beans.value.ObservableValue;
+import javafx.beans.property.SimpleStringProperty;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Post {
     // attributs
     private int id;
-    private String title, auteur , image, content;
-    private Date createdat ;
-    // constructor
-    public Post(int id, String title, String auteur, String image, String content, Date createdat) {
+    private String title;
+    private String auteur;
+    private String image;
+    //image;
+    private String content;
+    private int totalReactions ;
+    public Post(int id, String title, String auteur, String content,String image) {
         this.id = id;
         this.title = title;
         this.auteur = auteur;
         this.image = image;
         this.content = content;
-        this.createdat = createdat;
     }
-    public Post(String title, String auteur, String image, String content, Date createdat) {
+    public Post(String title, String auteur, String content, String image,int totalReactions) {
         this.title = title;
         this.auteur = auteur;
         this.image = image;
         this.content = content;
-        this.createdat = createdat;
+        this.totalReactions=totalReactions;
     }
-    // getters & setters
+    public Post(String title, String auteur, String content, String image) {
+        this.title = title;
+        this.auteur = auteur;
+        this.image = image;
+        this.content = content;}
+    public Post() {
+    }
+
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public String getTitle() {
         return title;
     }
@@ -48,14 +59,6 @@ public class Post {
         this.auteur = auteur;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public String getContent() {
         return content;
     }
@@ -64,12 +67,11 @@ public class Post {
         this.content = content;
     }
 
-    public Date getCreatedat() {
-        return createdat;
+    public void setImage(String imagePath) {
     }
 
-    public void setCreatedat(Date createdat) {
-        this.createdat = createdat;
+    public String getImage() {
+        return image;
     }
 
     //display
@@ -81,7 +83,30 @@ public class Post {
                 ", auteur='" + auteur + '\'' +
                 ", image='" + image + '\'' +
                 ", content='" + content + '\'' +
-                ", createdat=" + createdat +
                 '}';
+    }
+
+    public ObservableValue<String> titleProperty() {
+        return new SimpleStringProperty(title);
+    }
+
+    public ObservableValue<String> contentProperty() {
+        return new SimpleStringProperty(content);
+    }
+
+    public ObservableValue<String> AuteurProperty() {
+        return new SimpleStringProperty(auteur);
+    }
+
+    public ObservableValue<Date> DateProperty() {
+        return null;
+    }
+
+    public int getTotalReactions() {
+        return totalReactions;
+    }
+
+    public void setTotalReactions(int totalReactions) {
+        this.totalReactions = totalReactions;
     }
 }
