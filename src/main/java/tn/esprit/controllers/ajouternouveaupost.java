@@ -8,6 +8,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import tn.esprit.models.Post;
+import tn.esprit.models.SessionUser;
+import tn.esprit.models.User;
 import tn.esprit.services.HateSpeech;
 import tn.esprit.services.PostServices;
 import java.io.File;
@@ -26,6 +28,10 @@ public class ajouternouveaupost {
     private TextField titreTF;
     private final PostServices ps = new PostServices();
     private String imagePath;
+
+    User loggedUser = SessionUser.getLoggedUser();
+    int loggedId = loggedUser.getId();
+    String username = loggedUser.getFirst_name();
     @FXML
     void AjouterP(ActionEvent event) {
         try {
@@ -41,7 +47,7 @@ public class ajouternouveaupost {
                 alert.showAndWait();
                 return;
             }
-            ps.add(new Post(titreTF.getText(), auteurTF.getText(), contenuTF.getText(), imagePath));
+            ps.add(new Post(titreTF.getText(), username,  contenuTF.getText(), imagePath));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setHeaderText(null);

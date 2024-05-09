@@ -17,6 +17,8 @@
     -fx-font-size: 14px;
 }
 
+
+
 .nav-btn:hover{
     -fx-background-color: #fff;
     -fx-text-fill: #000;
@@ -81,4 +83,32 @@ logout:hover{
 
 .btn:hover{
     -fx-background-color: linear-gradient(to bottom right, #5be8ab, #0cc49c);
+}
+
+
+
+.Pane_11{
+    -fx-background-color: #5be8ab;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-style: solid;
+    -fx-border-color: #0cc49c;
+}
+.Pane_112{
+    -fx-background-color: #ea7070;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-style: solid;
+    -fx-border-color:#FD9999;
+}
+.pane_navBar{
+    -fx-background-color: #485B80;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #eeeeee;
+    -fx-border-style: solid;
+    -fx-font-color: white;
 }

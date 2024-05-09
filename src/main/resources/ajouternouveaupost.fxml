@@ -11,7 +11,7 @@
 
 <AnchorPane maxWidth="-Infinity" styleClass="transparent" stylesheets="@addFromDesign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.ajouternouveaupost">
    <children>
-      <Label layoutX="27.0" layoutY="35.0" prefHeight="27.0" prefWidth="86.0" text="Auteur" textFill="#1dd9dc">
+      <Label layoutX="27.0" layoutY="35.0" opacity="0.0" prefHeight="27.0" prefWidth="86.0" text="Auteur" textFill="#1dd9dc">
          <font>
             <Font name="Segoe UI" size="18.0" />
          </font>
@@ -31,7 +31,7 @@
             <Font name="Segoe UI" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="auteurTF" layoutX="141.0" layoutY="36.0" promptText="Entrez votre nom" style="-fx-background-color: #f9f9f9;" stylesheets="@addFromDesign.css" />
+      <TextField fx:id="auteurTF" layoutX="141.0" layoutY="36.0" opacity="0.0" promptText="Entrez votre nom" style="-fx-background-color: #f9f9f9;" stylesheets="@addFromDesign.css" />
       <TextField fx:id="titreTF" layoutX="141.0" layoutY="86.0" promptText="Entrez le titre" style="-fx-background-color: #f9f9f9;" stylesheets="@addFromDesign.css" />
       <TextArea fx:id="contenuTF" layoutX="140.0" layoutY="131.0" prefHeight="194.0" prefWidth="375.0" promptText="Saisir votre contenu " style="-fx-background-color: #f9f9f9;" stylesheets="@addFromDesign.css" />
       <Button layoutX="14.0" layoutY="354.0" mnemonicParsing="false" onAction="#AjouterP" prefHeight="26.0" prefWidth="93.0" style="-fx-background-size: #fdfdfd;" stylesheets="@addFromDesign.css" text="Add" textFill="#0dc7c7">

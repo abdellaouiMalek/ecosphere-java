@@ -30,6 +30,7 @@ import tn.esprit.util.DBconnection;
 import javafx.event.ActionEvent;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.*;
@@ -112,6 +113,10 @@ public class MyTest implements Initializable {
 
     @FXML
     private TextField sharinghub_price;
+
+    @FXML
+    private Button backhome;
+
 
 
     @FXML
@@ -644,6 +649,39 @@ public PaymentIntent createPaymentIntent(int amount, String currency) throws Str
             ObjectList = FXCollections.observableArrayList(objects);
             sharing_tableView.setItems(ObjectList);
         }
+
+    @FXML
+    void backhome(ActionEvent event) {
+        try {
+            // Load the AllEvents.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/home.fxml"));
+            Parent root = loader.load();
+
+            // Set up the stage
+            Stage stage = (Stage) backhome.getScene().getWindow();
+            stage.setScene(new Scene(root));
+
+        } catch (IOException ex) {
+            System.out.println("Error loading home.fxml: " + ex.getMessage());
+        }
+
+    }
+
+    @FXML
+    void pannierBtn(ActionEvent event) {
+        // Get the source node (the button)
+        Node source = (Node) event.getSource();
+        // Get the scene containing the button
+        Scene scene = source.getScene();
+        // Change the root node of the scene to ObjectView.fxml
+        try {
+            Parent objectViewParent = FXMLLoader.load(getClass().getResource("/ObjectView.fxml"));
+            scene.setRoot(objectViewParent);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception
+        }
+    }
 
     }
 

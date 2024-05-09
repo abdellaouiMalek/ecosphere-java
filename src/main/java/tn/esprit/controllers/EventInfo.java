@@ -175,32 +175,24 @@ public class EventInfo implements Initializable {
             String userName = user.getFirst_name() + " " + user.getLast_name();
             hostNameText.setText(userName);
         } else {
-            hostNameText.setText("Unknown User"); // Set a default message if user is not found
+            hostNameText.setText("Unknown User");
         }
 
-        // Update interest status based on the logged-in user
         try {
             isInterested = es.isInterested(eventInfo.getId(), userId);
         } catch (SQLException e) {
             System.out.println("Error checking interest in the event: " + e.getMessage());
         }
 
-        // Update the button text based on the interest status
         updateInterestButton();
 
-        // Initialize ratings for this event
         initializeRatings(eventId);
 
-        // Calculate and display average rating
         calculateAndDisplayAverageRating(eventInfo.getId());
 
         setSelectedEvent(eventInfo);
 
         updateInterestedCount();
-
-
-
-
     }
 
     private void updateInterestButton() {
@@ -215,22 +207,19 @@ public class EventInfo implements Initializable {
     @FXML
     void deleteEvent(ActionEvent event) {
         try {
-            // Check if the logged-in user is the owner of the event
             User loggedUser = SessionUser.getLoggedUser();
             if (loggedUser != null && loggedUser.getId() == eventInfoStore.getUserId()) {
                 // Logged-in user is the owner, proceed with deletion
                 es.delete(eventInfoStore);
 
-                // Load the AllEvents.fxml file
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/AllEvents.fxml"));
                 Parent root = loader.load();
-
-                // Get the current stage and set the scene with the new root
                 Stage stage = (Stage) deleteBtn.getScene().getWindow();
                 stage.setScene(new Scene(root));
             } else {
-                // User is not the owner, show an error message or handle as needed
-                System.out.println("Error: User is not authorized to delete this event.");
+                // User is not authorized to delete this event, show alert
+                showAlert("Authorization Error", "Unauthorized Action",
+                        "You are not authorized to delete this event.");
             }
         } catch (SQLException | IOException ex) {
             System.out.println("Error deleting event: " + ex.getMessage());
@@ -247,21 +236,28 @@ public class EventInfo implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/UpdateEvent.fxml"));
                 Parent root = loader.load();
 
-                // Access the controller of the UpdateEvent view
                 UpdateEvent controller = loader.getController();
                 controller.setSelectedEvent(eventInfoStore);
 
-                // Set up the stage to display the UpdateEvent scene
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
             } else {
-                // User is not the owner, show an error message or handle as needed
-                System.out.println("Error: User is not authorized to update this event.");
+                // User is not authorized to update this event, show alert
+                showAlert("Authorization Error", "Unauthorized Action",
+                        "You are not authorized to update this event.");
             }
         } catch (IOException ex) {
             System.out.println("Error loading UpdateEvent.fxml: " + ex.getMessage());
         }
+    }
+    // Helper method to show an alert dialog
+    private void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 

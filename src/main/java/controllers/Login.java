@@ -1,17 +1,12 @@
 package controllers;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-import tn.esprit.controllers.AddCarpooling;
-import tn.esprit.controllers.CarpoolingDetails;
-import tn.esprit.controllers.Home;
-import tn.esprit.controllers.Search;
+import tn.esprit.models.SessionUser;
 import tn.esprit.models.User;
 import tn.esprit.services.UserService;
 
@@ -44,7 +39,6 @@ public class Login {
     private PasswordField tfpass;
 
     UserService us = new UserService();
-
     @FXML
     void sendToregister(ActionEvent event) {
         try {
@@ -60,29 +54,51 @@ public class Login {
     }
 
     @FXML
-    void clickLogin(ActionEvent event) {
+    void clickLogin (ActionEvent event) {
+
+
         // Validate input fields
         if (tfmail.getText().isEmpty()) {
             ctrlEmail.setText("email est incorrect");
+
         }
         if (tfpass.getText().isEmpty()) {
             ctrlPwd.setText("mot de passe est incorrect");
         }
 
+
         try {
+            // Create a new User object with entered email and password
+
+
+
             // Attempt to log in using UserService
-            User loggedInUser = us.login(tfmail.getText(), tfpass.getText());
-            if (loggedInUser != null) {
+            User loginSuccess = us.login(tfmail.getText(),tfpass.getText() );
+            if (SessionUser.loggedUser != null) {
+                // Display success message
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Login Successful");
+                alert.setHeaderText(null);
+                alert.setContentText("Welcome, " + tfmail.getText() + "!");
+                alert.showAndWait();
+
                 System.out.println("Login successful!");
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/home.fxml"));
+
+                System.out.println("test");
+                // Load Register.fxml using ClassLoader
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Profile.fxml"));
                 Parent root = loader.load();
 
-                Home homeController = loader.getController();
-                homeController.setLoggedInUser(loggedInUser); // Pass the logged-in user to HomeController
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } else {
+                // Replace the current scene with the new scene loaded from Register.fxml
+                createacc.getScene().setRoot(root);
+
+
+            }
+            if (!loginSuccess.isVerified()){
+                // TODO: Navigate to verification  view
+            }
+
+            else {
                 // Display login failure message
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Login Failed");
@@ -95,7 +111,7 @@ public class Login {
             // Display error message in case of exception
             System.out.println("Error during login: " + ex.getMessage());
         }
-
-
     }
+
+
 }

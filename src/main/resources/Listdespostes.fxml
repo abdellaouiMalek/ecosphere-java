@@ -40,5 +40,10 @@
             </ScrollPane>
          </children>
       </HBox>
+      <Button fx:id="gohome" alignment="CENTER" layoutX="589.0" layoutY="64.0" lineSpacing="12.0" mnemonicParsing="false" onAction="#gohome" prefHeight="35.0" prefWidth="66.0" scaleShape="false" style="-fx-region-border: fdfdfd;" styleClass="column-header" stylesheets="@addFromDesign.css" text="Home" textAlignment="CENTER" textFill="#427480" textOverrun="CENTER_ELLIPSIS">
+         <font>
+            <Font name="Segoe UI" size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

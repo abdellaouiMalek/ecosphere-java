@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -18,16 +19,16 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.Rating?>
 
-<ScrollPane fx:id="sPane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.EventInfo">
+<ScrollPane fx:id="sPane" prefHeight="696.0" prefWidth="1017.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.EventInfo">
     <content>
         <AnchorPane id="Rating" prefHeight="800.0" prefWidth="1200.0">
             <children>  
-                <Text fx:id="startDateText" layoutX="798.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="startDate">
+                <Text fx:id="startDateText" layoutX="663.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="startDate">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="13.0" />
                     </font>
                 </Text>
-                <Button fx:id="deleteBtn" layoutX="1098.0" layoutY="199.0" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="30.0" prefWidth="70.0" stylesheets="@allevents.css" text="delete">
+                <Button fx:id="deleteBtn" layoutX="921.0" layoutY="165.0" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="30.0" prefWidth="70.0" stylesheets="@allevents.css" text="delete">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="12.0" />
                     </font>
@@ -36,7 +37,7 @@
                   <String fx:value="button2" />
                </styleClass>
                 </Button>
-                <Button fx:id="updateBtn" layoutX="1078.0" layoutY="155.0" mnemonicParsing="false" onAction="#updateEvent" prefHeight="30.0" prefWidth="90.0" stylesheets="@allevents.css" text="Update">
+                <Button fx:id="updateBtn" layoutX="902.0" layoutY="121.0" mnemonicParsing="false" onAction="#updateEvent" prefHeight="30.0" prefWidth="90.0" stylesheets="@allevents.css" text="Update">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="12.0" />
                     </font>
@@ -45,79 +46,79 @@
                   <String fx:value="button2" />
                </styleClass>
                 </Button>
-                <Button fx:id="backBtn" layoutX="1085.0" layoutY="18.0" mnemonicParsing="false" onAction="#goBackToList" prefHeight="40.0" prefWidth="80.0" styleClass="GeneralButton" stylesheets="@allevents.css" text="Return">
+                <Button fx:id="backBtn" layoutX="916.0" layoutY="16.0" mnemonicParsing="false" onAction="#goBackToList" prefHeight="40.0" prefWidth="80.0" styleClass="GeneralButton" stylesheets="@allevents.css" text="Return">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="13.0" />
                     </font>
                 </Button>
-                <ImageView fx:id="afficheIv" fitHeight="355.0" fitWidth="600.0" layoutX="24.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
-                <Text fx:id="titleText" layoutX="719.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title">
+                <ImageView fx:id="afficheIv" fitHeight="308.0" fitWidth="550.0" layoutX="14.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
+                <Text fx:id="titleText" layoutX="571.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="33.0" />
                     </font>
                 </Text>
-                <Text fx:id="catText" layoutX="719.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category">
+                <Text fx:id="catText" layoutX="571.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="17.0" />
                     </font>
                 </Text>
-                <Text layoutX="744.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
+                <Text layoutX="609.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="17.0" />
                     </font>
                 </Text>
-                <Text fx:id="TimeText" layoutX="798.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time">
+                <Text fx:id="TimeText" layoutX="663.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="13.0" />
                     </font>
                 </Text>
-                <Text fx:id="AddressText" layoutX="823.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
+                <Text fx:id="AddressText" layoutX="688.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="13.0" />
                     </font>
                 </Text>
-                <Text layoutX="745.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:">
+                <Text layoutX="610.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="17.0" />
                     </font>
                 </Text>
-                <Text fx:id="descText" layoutX="45.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="915.642578125">
+                <Text fx:id="descText" layoutX="14.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="915.642578125">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="17.0" />
                     </font>
                 </Text>
-                <Text layoutX="721.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organized by:">
+                <Text layoutX="607.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organized by:">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="17.0" />
                     </font>
                 </Text>
-                <Text fx:id="hostNameText" layoutX="827.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="hostName">
+                <Text fx:id="hostNameText" layoutX="713.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="hostName">
                     <font>
                         <Font name="Leelawadee UI Semilight" size="13.0" />
                     </font>
                 </Text>
-            <Button fx:id="intrestedid" layoutX="903.0" layoutY="349.0" mnemonicParsing="false" onAction="#intrested" prefHeight="38.0" prefWidth="126.0" styleClass="button2" stylesheets="@allevents.css" text=" ☆ I'm interested">
+            <Button fx:id="intrestedid" layoutX="824.0" layoutY="320.0" mnemonicParsing="false" onAction="#intrested" prefHeight="38.0" prefWidth="126.0" styleClass="button2" stylesheets="@allevents.css" text=" ☆ I'm interested">
                <font>
                   <Font name="Leelawadee UI Semilight" size="12.0" />
                </font>
             </Button>
-            <Text layoutX="744.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:">
+            <Text layoutX="609.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:">
                <font>
                   <Font name="Leelawadee UI Semilight" size="17.0" />
                </font>
             </Text>
-            <Text layoutX="745.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:">
+            <Text layoutX="610.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:">
                <font>
                   <Font name="Leelawadee UI Semilight" size="17.0" />
                </font>
             </Text>
-            <Text fx:id="LocationText" layoutX="823.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="location">
+            <Text fx:id="LocationText" layoutX="688.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="location">
                <font>
                   <Font name="Leelawadee UI Semilight" size="13.0" />
                </font>
             </Text>
-            <Button fx:id="nbinterested" layoutX="1028.0" layoutY="349.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="43.0" text="0" />
-            <HBox layoutX="134.0" layoutY="539.0" prefHeight="190.0" prefWidth="943.0" styleClass="hbox-rating">
+            <Button fx:id="nbinterested" layoutX="949.0" layoutY="320.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="43.0" text="0" />
+            <HBox layoutX="94.0" layoutY="510.0" prefHeight="143.0" prefWidth="903.0" styleClass="hbox-rating">
                <children>
                   <VBox alignment="CENTER" prefHeight="190.0" prefWidth="397.0">
                      <children>
@@ -206,19 +207,32 @@
                   </VBox>
                </children>
             </HBox>
-            <ImageView fitHeight="27.0" fitWidth="29.0" layoutX="704.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="27.0" fitWidth="29.0" layoutX="569.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@53.png" />
+                  <Image url="@deadline.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="27.0" fitWidth="29.0" layoutX="705.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="29.0" layoutX="570.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@layers.png" />
+                  <Image url="@on-time.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="27.0" fitWidth="29.0" layoutX="705.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="27.0" fitWidth="29.0" layoutX="570.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@2340040-200.png" />
+                  <Image url="@map.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="27.0" fitWidth="29.0" layoutX="570.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@address.png" />
+               </image>
+            </ImageView>
+            <Separator layoutX="563.0" layoutY="205.0" prefHeight="3.0" prefWidth="347.0" />
+            <Separator layoutX="563.0" layoutY="235.0" prefHeight="3.0" prefWidth="347.0" />
+            <Separator layoutX="563.0" layoutY="267.0" prefHeight="3.0" prefWidth="347.0" />
+            <ImageView fitHeight="27.0" fitWidth="29.0" layoutX="570.0" layoutY="321.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@user.png" />
                </image>
             </ImageView>
             </children>

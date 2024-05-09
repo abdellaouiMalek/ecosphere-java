@@ -119,7 +119,7 @@ public class PostServices implements IService2<Post> {
             return post;
         }
     public static boolean containsBadwords(String text) {
-        List<String> badWords = Arrays.asList("debile", "malin", "merde", "idiot");
+        List<String> badWords = Arrays.asList("debile", "malin", "merde", "idiot","hate","black","noir");
         for (String word : badWords) {
             if (text.toLowerCase().contains(word.toLowerCase())) {
                 return true;
