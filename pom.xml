@@ -84,11 +84,6 @@
         </dependency>
 
         <dependency>
-        <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>17.0.6</version>
-        </dependency>
-        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>23-ea+3</version>
@@ -103,12 +98,17 @@
             <artifactId>stripe-java</artifactId>
             <version>20.126.0</version>
         </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
             <version>22.0.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>17</version> <!-- Adjust version number as needed -->
+        </dependency>
         <dependency>
             <groupId>com.mailersend</groupId>
             <artifactId>java-sdk</artifactId>
@@ -131,16 +131,6 @@
             <version>9.0.10</version>
         </dependency>
 
-        <dependency>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-fxml</artifactId>
-        <version>17.0.6</version>
-    </dependency>
-    <dependency>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-controls</artifactId>
-        <version>17.0.6</version>
-    </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>

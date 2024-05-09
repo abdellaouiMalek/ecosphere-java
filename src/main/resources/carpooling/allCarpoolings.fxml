@@ -67,7 +67,7 @@
                     <items>
                       <MenuItem mnemonicParsing="false" text="Profile settings" />
                       <MenuItem fx:id="carpoolingItem" mnemonicParsing="false" onAction="#navigateToMyCarpoolings" text="My carpoolings" />
-                        <MenuItem fx:id="reservationItem" mnemonicParsing="false" text="My reservations" />
+                        <MenuItem fx:id="reservationItem" mnemonicParsing="false" text="My reservations" onAction="#navigateToReservation" />
                         <MenuItem fx:id="loginItem" mnemonicParsing="false" onAction="#navigateToLogin" text="Login" />
                     </items>
                      <HBox.margin>

@@ -32,7 +32,17 @@ public class Carpooling {
         this.price = price;
     }
 
-    public Carpooling(int id, int userID, String departure, String destination, Date departureDate, Date arrivalDate, Time time, double price,int seat) {
+    public Carpooling(int userID, String departure, String destination, Date departureDate, Time time, double price ,int seat) {
+        this.userID = userID;
+        this.seat = seat;
+        this.departure = departure;
+        this.destination = destination;
+        this.departureDate = departureDate;
+        this.time = time;
+        this.price = price;
+    }
+
+    public Carpooling(int id, int userID, String departure, String destination, Date departureDate, Date arrivalDate, Time time, double price, int seat) {
         this.id = id;
         this.userID = userID;
         this.departure = departure;

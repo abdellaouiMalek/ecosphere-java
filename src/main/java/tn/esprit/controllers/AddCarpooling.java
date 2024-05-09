@@ -42,8 +42,6 @@ public class AddCarpooling {
     @FXML
     private DatePicker departureDate;
 
-    @FXML
-    private DatePicker arrivalDate;
 
     @FXML
     private TextField price;
@@ -71,14 +69,12 @@ public class AddCarpooling {
             try {
 
                 LocalDate departureDateValue = departureDate.getValue();
-                LocalDate arrivalDateValue = arrivalDate.getValue();
                 Date departureDate = java.sql.Date.valueOf(departureDateValue);
-                Date arrivalDate = java.sql.Date.valueOf(arrivalDateValue);
                 Time timeValue = new Time(timeFormat.parse(time.getText()).getTime());
                 double priceValue = Double.parseDouble(price.getText());
                 int seatValue = Integer.parseInt(seat.getText());
 
-                Carpooling carpooling = new Carpooling(loggedId,departureValue, destinationValue, departureDate, arrivalDate, timeValue, priceValue,seatValue);
+                Carpooling carpooling = new Carpooling(loggedId,departureValue, destinationValue, departureDate, timeValue, priceValue,seatValue);
 
                 carpoolingService.add(carpooling);
 

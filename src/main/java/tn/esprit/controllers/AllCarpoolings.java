@@ -225,7 +225,13 @@ public class AllCarpoolings {
         Scene currentScene = menuItem.getParentPopup().getOwnerWindow().getScene();
         currentScene.setRoot(root);
     }
-
+    @FXML
+    void navigateToReservation(ActionEvent event) throws IOException {
+        MenuItem menuItem = (MenuItem) event.getSource();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/carpooling/myReservations.fxml")));
+        Scene currentScene = menuItem.getParentPopup().getOwnerWindow().getScene();
+        currentScene.setRoot(root);
+    }
 
 }
 

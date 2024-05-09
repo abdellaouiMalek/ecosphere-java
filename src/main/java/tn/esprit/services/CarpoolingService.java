@@ -19,16 +19,15 @@ public class CarpoolingService implements IService<Carpooling> {
     // Add a new carpooling
     @Override
     public void add(Carpooling carpooling) throws SQLException {
-        String sql = "INSERT INTO carpooling (user_id,departure, destination, departure_date, arrival_date, time, price,seat) VALUES (?,?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO carpooling (user_id,departure, destination, departure_date, time, price,seat) VALUES (?,?, ?, ?, ?, ?, ?)";
         try (PreparedStatement st = cnx.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             st.setInt(1, carpooling.getUserID());
             st.setString(2, carpooling.getDeparture());
             st.setString(3, carpooling.getDestination());
             st.setDate(4, new java.sql.Date(carpooling.getDepartureDate().getTime()));
-            st.setDate(5, new java.sql.Date(carpooling.getArrivalDate().getTime()));
-            st.setTime(6, carpooling.getTime());
-            st.setDouble(7, carpooling.getPrice());
-            st.setInt(8,carpooling.getSeat());
+            st.setTime(5, carpooling.getTime());
+            st.setDouble(6, carpooling.getPrice());
+            st.setInt(7,carpooling.getSeat());
 
             int affectedRows = st.executeUpdate();
             if (affectedRows == 0) {

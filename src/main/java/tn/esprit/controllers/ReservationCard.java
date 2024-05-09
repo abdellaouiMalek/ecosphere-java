@@ -5,7 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Circle;
 import tn.esprit.models.Carpooling;
 import tn.esprit.models.Reservation;
 import tn.esprit.models.User;
@@ -16,39 +19,52 @@ import tn.esprit.services.UserService;
 import tn.esprit.services.WaitlistService;
 import tn.esprit.util.EmailService;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class Reservations {
+public class ReservationCard {
+
     @FXML
-    private ListView<String> reservationsListView;
+    private Label departureR;
+
+    @FXML
+    private Label destinationR;
+
+    @FXML
+    private Label priceR;
+
+    @FXML
+    private Label timeR;
 
     private final ReservationService reservationService = new ReservationService();
     private final EmailService emailService = new EmailService();
     private final UserService userService = new UserService();
     private final CarpoolingService carpoolingService = new CarpoolingService();
+    private int reservationID;
 
-    public void displayReservations(List<Reservation> reservations) {
-        reservationsListView.getItems().clear();
-        for (Reservation reservation : reservations) {
-            String displayText = "Reservation ID: " + reservation.getId() +
-                    ", User ID: " + reservation.getUserID() +
-                    ", Carpooling ID: " + reservation.getCarpoolingID();
-            reservationsListView.getItems().add(displayText);
-        }
+    @FXML
+    void cancel(MouseEvent event) {
+        Reservation reservation = new Reservation(reservationID); // Implement a method to retrieve the reservation associated with this card
+        showCancellationConfirmation(reservation);
     }
 
-    public void initialize() {
-        reservationsListView.setOnMouseClicked(event -> {
-            List<Reservation> clickedReservation = reservationService.getAll(); // Fetch the latest reservations
-            int selectedIndex = reservationsListView.getSelectionModel().getSelectedIndex();
-            Reservation selectedReservation = clickedReservation.get(selectedIndex);
-            if (selectedReservation != null) {
-                showCancellationConfirmation(selectedReservation);
-            }
-        });
+    public void setReservation(Reservation reservation , int reservationID) throws SQLException {
+        int carpoolingID = reservation.getCarpoolingID();
+        this.reservationID = reservationID;
+
+        CarpoolingService carpoolingService = new CarpoolingService();
+        Carpooling carpooling = carpoolingService.getById(carpoolingID);
+        System.out.println("fl service"+carpooling);
+
+        if (carpooling != null) {
+            departureR.setText(carpooling.getDeparture());
+            destinationR.setText( carpooling.getDestination());
+            priceR.setText(String.valueOf(carpooling.getPrice()));
+            timeR.setText(String.valueOf(carpooling.getTime()));
+        }
     }
 
     private void showCancellationConfirmation(Reservation reservation) {
@@ -67,7 +83,7 @@ public class Reservations {
             try {
                 reservationService.delete(reservation);
                 showCancellationSuccessMessage();
-                updateReservationsListView();
+               // updateReservationsListView();
                 WaitlistService waitlistService = new WaitlistService();
                 Waitlist firstUser = waitlistService.getFirstUserOnWaitlist(reservation.getCarpoolingID());
                 if (firstUser != null) {
@@ -105,11 +121,5 @@ public class Reservations {
         confirmationAlert.showAndWait();
     }
 
-    private void updateReservationsListView() {
-        List<Reservation> updatedReservations = reservationService.getAll();
-        List<String> reservationStrings = updatedReservations.stream()
-                .map(Reservation::toString)
-                .collect(Collectors.toList());
-        reservationsListView.setItems(FXCollections.observableArrayList(reservationStrings));
-    }
+
 }

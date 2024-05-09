@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import tn.esprit.models.Carpooling;
@@ -42,6 +43,14 @@ public class Search {
     void search(ActionEvent event) throws ParseException {
         CarpoolingSearchService searchService = new CarpoolingSearchService();
         searchService.search(event, departure, destination, departureDate);
+    }
+
+    @FXML
+    private ImageView icon;
+
+    @FXML
+    void navigationBack(MouseEvent event) {
+
     }
 
 

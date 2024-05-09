@@ -17,7 +17,12 @@
     -fx-fill: #366671; /* Set text color */
 }
 
-
+.professional-paragraph {
+    -fx-font-family: "Arial"; /* Change the font family */
+    -fx-font-size: 16px; /* Set the font size */
+    -fx-fill: #333333; /* Set text color */
+    -fx-line-spacing: 0.3em; /* Set line spacing */
+}
 .carpooling-card {
     -fx-background-color: white; /* Set background color */
     -fx-background-radius: 5px; /* Set border radius */
