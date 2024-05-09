@@ -1,4 +1,4 @@
-package controllers;
+package tn.esprit.controllers;
 
 
 import javafx.collections.FXCollections;
@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import tn.esprit.models.Role;
 import tn.esprit.models.User;
 import javafx.event.ActionEvent;
@@ -15,15 +17,22 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import tn.esprit.services.UserService;
 import org.mindrot.jbcrypt.BCrypt;
+import org.apache.batik.transcoder.TranscoderInput;
+import org.apache.batik.transcoder.TranscoderOutput;
+import org.apache.batik.transcoder.Transcoder;
+import org.apache.batik.transcoder.TranscoderException;
+import org.apache.batik.transcoder.image.PNGTranscoder;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import static tn.esprit.services.UserService.emailOfAccountWillVerif;
 
 public class Register implements Initializable {
+
+    @FXML
+    private ImageView ivImageregister;
 
     @FXML
     private Label ctrlfname;
@@ -66,6 +75,7 @@ public class Register implements Initializable {
 
     UserService us = new UserService();
 
+
     @FXML
     void addPhoto(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -73,14 +83,37 @@ public class Register implements Initializable {
         File file = fileChooser.showOpenDialog(new Stage());
         tfphoto.setText(file.toString());
         System.out.println(file.toString());
+    }
+    public void setProfilePicture(String svgImagePath) {
+        try {
+            // Create a PNG transcoder
+            Transcoder transcoder = new PNGTranscoder();
 
+            // Set the input and output for the transcoder
+            TranscoderInput input = new TranscoderInput(new FileInputStream("C:/Users/Abdessalem-Masmoudi/Downloads/logo.svg"));
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            TranscoderOutput output = new TranscoderOutput(outputStream);
+
+            // Perform the transcoding
+            transcoder.transcode(input, output);
+
+            // Create an Image from the transcoded PNG data
+            Image image = new Image(new ByteArrayInputStream(outputStream.toByteArray()));
+
+            // Set the image to the ImageView
+            ivImageregister.setImage(image);
+        } catch (FileNotFoundException ex) {
+            System.out.println("Error loading SVG image: " + ex.getMessage());
+        } catch (TranscoderException ex) {
+            System.out.println("Error transcoding SVG image: " + ex.getMessage());
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Populate the combo box with choices
         ObservableList<String> options = FXCollections.observableArrayList(
-                "ADMIN", "CONSUMER", "VISITOR", "PRODUCTOR");
+                 "CONSUMER", "VISITOR", "PRODUCTOR");
         cmbbrole.setItems(options);
 
         // Set default selection if needed

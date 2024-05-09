@@ -1,4 +1,4 @@
-package controllers;
+package tn.esprit.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,17 +28,17 @@ public class VerificationCode {
 
 
 
-            // nav to home page uncommit this and change the fxml page
-//            try {
-//                // Load Register.fxml using ClassLoader
-//                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Login.fxml")); //change thislogin.fxml to home page after creation
-//                Parent root = loader.load();
-//
-//                // Replace the current scene with the new scene loaded from Register.fxml
-//                verificationCode.getScene().setRoot(root);
-//            } catch (IOException ex) {
-//                System.out.println("Error loading Login.fxml: " + ex.getMessage());
-//            }
+//             nav to home page uncommit this and change the fxml page
+            try {
+                // Load Register.fxml using ClassLoader
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Login.fxml")); //change thislogin.fxml to home page after creation
+                Parent root = loader.load();
+
+                // Replace the current scene with the new scene loaded from Register.fxml
+                verificationCode.getScene().setRoot(root);
+            } catch (IOException ex) {
+                System.out.println("Error loading Login.fxml: " + ex.getMessage());
+            }
         }
 
     }

@@ -11,16 +11,15 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.mail.Session;
-import javax.swing.text.html.HTMLDocument;
-import javax.swing.text.html.HTMLEditorKit;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Element;
+
 public class UserService implements IUserService<User>{
     public static String verificationCodeOfUser = null;
     public static String emailOfAccountWillVerif = null;
@@ -161,17 +160,14 @@ return user;
     @Override
     public void update(User user) {
 
-        String req ="UPDATE `user` SET  `first_name`= ?,`last_name`=? ,`email`=?,`password`=?,`phone_number`=?,`picture`=?,`role`=? WHERE `id`=?";
+        String req ="UPDATE `user` SET  `first_name`= ?,`last_name`=? ,`email`=?,`phone_number`=? WHERE `id`=?";
         try {
             PreparedStatement stm  = cnx.prepareStatement(req);
             stm.setString(1,user.getFirst_name());
             stm.setString(2,user.getLast_name());
             stm.setString(3,user.getEmail());
-            stm.setString(4,user.getPassword());
-            stm.setString(5,user.getPhone_number());
-            stm.setString(6,user.getPicture());
-            stm.setString(7,user.getRole().toString());
-            stm.setInt(8,user.getId());
+            stm.setString(4,user.getPhone_number());
+            stm.setInt(5,user.getId());
             stm.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -189,6 +185,9 @@ return user;
             System.out.println(e.getMessage());        }
 
     }
+
+
+
     public User login(String email, String password) {
         // Validate email and password
         if (!isValidEmail(email) || password.isEmpty()) {

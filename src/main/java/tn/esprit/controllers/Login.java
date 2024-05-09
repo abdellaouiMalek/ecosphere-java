@@ -1,4 +1,4 @@
-package controllers;
+package tn.esprit.controllers;
 
 
 import javafx.event.ActionEvent;
@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import tn.esprit.models.SessionUser;
 import tn.esprit.models.User;
 import tn.esprit.services.UserService;
 
@@ -73,7 +74,7 @@ public class Login {
 
             // Attempt to log in using UserService
             User loginSuccess = us.login(tfmail.getText(),tfpass.getText() );
-            if (loginSuccess.isVerified()) {
+            if (SessionUser.loggedUser != null) {
                 // Display success message
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Login Successful");
@@ -82,7 +83,16 @@ public class Login {
                 alert.showAndWait();
 
                 System.out.println("Login successful!");
-                // TODO: Navigate to another view or perform actions after successful login
+
+                    System.out.println("test");
+                    // Load Register.fxml using ClassLoader
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Profile.fxml"));
+                    Parent root = loader.load();
+
+                    // Replace the current scene with the new scene loaded from Register.fxml
+                    createacc.getScene().setRoot(root);
+
+
             }
             if (!loginSuccess.isVerified()){
                 // TODO: Navigate to verification  view
