@@ -24,10 +24,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -54,6 +51,13 @@ public class AllCarpoolings {
 
     @FXML
     private RadioButton sortpriceButton;
+    @FXML
+    private MenuItem loginItem;
+
+    @FXML
+    private MenuItem reservationItem;
+    @FXML
+    private MenuItem carpoolingItem;
     List<Carpooling> searchResults;
 
     public void displaySearchResults(List<Carpooling> searchResults) {
@@ -166,6 +170,18 @@ public class AllCarpoolings {
   }
 
     @FXML
+    private void initialize() {
+        updateMenuItemsVisibility();
+    }
+    private void updateMenuItemsVisibility() {
+        boolean isLoggedIn = checkLoginStatus(SessionUser.getLoggedUser());
+        reservationItem.setVisible(isLoggedIn);
+        carpoolingItem.setVisible(isLoggedIn);
+        loginItem.setVisible(!isLoggedIn);
+    }
+
+
+    @FXML
     void addNavigation(MouseEvent event) throws IOException {
         User loggedUser = SessionUser.getLoggedUser();
         if (checkLoginStatus(loggedUser)) {
@@ -194,7 +210,21 @@ public class AllCarpoolings {
             }
         }
     }
+    @FXML
+    void navigateToMyCarpoolings(ActionEvent event) throws IOException {
+        MenuItem menuItem = (MenuItem) event.getSource();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/carpooling/myCarpooling.fxml")));
+        Scene currentScene = menuItem.getParentPopup().getOwnerWindow().getScene();
+        currentScene.setRoot(root);
+    }
 
+    @FXML
+    void navigateToLogin(ActionEvent event) throws IOException {
+        MenuItem menuItem = (MenuItem) event.getSource();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/login.fxml")));
+        Scene currentScene = menuItem.getParentPopup().getOwnerWindow().getScene();
+        currentScene.setRoot(root);
+    }
 
 
 }

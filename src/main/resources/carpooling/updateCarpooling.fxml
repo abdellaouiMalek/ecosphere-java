@@ -4,117 +4,159 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 
 <AnchorPane prefHeight="696.0" prefWidth="1017.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.UpdateCarpooling">
     <children>
-        <VBox layoutX="201.0" layoutY="55.0" prefHeight="426.0" prefWidth="235.0">
+        <HBox prefHeight="70.0" prefWidth="1017.0" styleClass="hbox-background" stylesheets="@../style.css">
             <children>
-                <StackPane prefHeight="54.0" prefWidth="200.0">
-                    <children>
-                        <TextField fx:id="departure" promptText="Please enter the departure">
-                            <StackPane.margin>
-                                <Insets bottom="20.0" top="10.0" />
-                            </StackPane.margin>
-                        </TextField>
-                        <Label fx:id="departureLabel" styleClass="prompt-text" text="Departure" StackPane.alignment="TOP_LEFT">
-                            <padding>
-                                <Insets left="5" top="-10" />
-                            </padding>
-                        </Label>         </children>
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin>
-                </StackPane>
-                <StackPane layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="200.0">
-                    <children>
-                        <Label fx:id="departureLabel1" styleClass="prompt-text" text="Destination" StackPane.alignment="TOP_LEFT">
-                            <padding>
-                                <Insets left="5" top="-10" />
-                            </padding>
-                        </Label>
-                        <TextField fx:id="destination" promptText="Please enter the destination">
-                            <StackPane.margin>
-                                <Insets bottom="20.0" top="10.0" />
-                            </StackPane.margin>
-                        </TextField>
-                    </children>
-                </StackPane>
-                <StackPane layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="200.0">
-                    <children>
-                        <Label fx:id="departureLabel2" styleClass="prompt-text" text="Departure Date" StackPane.alignment="TOP_LEFT">
-                            <padding>
-                                <Insets left="5" top="-10" />
-                            </padding>
-                        </Label>
-                  <DatePicker fx:id="departureDate" prefHeight="30.0" prefWidth="222.0" promptText="Please enter the departure date" styleClass="text-field" stylesheets="@../style.css">
-                     <StackPane.margin>
-                        <Insets bottom="20.0" top="10.0" />
-                     </StackPane.margin>
-                  </DatePicker>
-                    </children>
-                </StackPane>
-                <StackPane layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="200.0">
-                    <children>
-                        <Label fx:id="departureLabel3" styleClass="prompt-text" text="Arrival Date" StackPane.alignment="TOP_LEFT">
-                            <padding>
-                                <Insets left="5" top="-10" />
-                            </padding>
-                        </Label>
-                  <DatePicker fx:id="arrivalDate" prefHeight="30.0" prefWidth="220.0" promptText="please enter the arrival date" styleClass="text-field">
-                     <StackPane.margin>
-                        <Insets bottom="20.0" top="10.0" />
-                     </StackPane.margin>
-                  </DatePicker>
-                    </children>
-                </StackPane>
-                <StackPane layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="200.0">
-                    <children>
-                        <Label fx:id="departureLabel4" styleClass="prompt-text" text="Time" StackPane.alignment="TOP_LEFT">
-                            <padding>
-                                <Insets left="5" top="-10" />
-                            </padding>
-                        </Label>
-                        <TextField fx:id="time" promptText="Please enter the time">
-                            <StackPane.margin>
-                                <Insets bottom="20.0" top="10.0" />
-                            </StackPane.margin>
-                        </TextField>
-                    </children>
-                </StackPane>
-                <StackPane layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="200.0">
-                    <children>
-                        <Label fx:id="departureLabel5" styleClass="prompt-text" text="Price" StackPane.alignment="TOP_LEFT">
-                            <padding>
-                                <Insets left="5" top="-10" />
-                            </padding>
-                        </Label>
-                        <TextField fx:id="price" promptText="Please enter the price">
-                            <StackPane.margin>
-                                <Insets bottom="20.0" top="10.0" />
-                            </StackPane.margin>
-                        </TextField>
-                    </children>
-                </StackPane>
-                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#update" prefHeight="41.0" prefWidth="204.0" text="Update your carpooling">
-                    <VBox.margin>
-                        <Insets bottom="20.0" left="15.0" />
-                    </VBox.margin>
-                </Button>
+                <ImageView fx:id="icon" fitHeight="25.0" fitWidth="26.0" onMouseClicked="#navigationBack" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@back.png" />
+                    </image>
+                    <HBox.margin>
+                        <Insets left="10.0" top="25.0" />
+                    </HBox.margin>
+                </ImageView>
+                <ImageView fitHeight="70.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@water-drop.png" />
+                    </image>
+                    <HBox.margin>
+                        <Insets left="20.0" />
+                    </HBox.margin>
+                </ImageView>
+                <ImageView fitHeight="41.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                    <HBox.margin>
+                        <Insets left="800.0" right="10.0" top="25.0" />
+                    </HBox.margin>
+                    <image>
+                        <Image url="@user.png" />
+                    </image>
+                </ImageView>
+                <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="13.0">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Profile settings" />
+                        <MenuItem mnemonicParsing="false" text="My carpoolings" />
+                        <MenuItem mnemonicParsing="false" text="My reservations" />
+                    </items>
+                    <HBox.margin>
+                        <Insets right="20.0" top="28.0" />
+                    </HBox.margin>
+                </MenuButton>
             </children>
-        </VBox>
-      <HBox layoutX="48.0" layoutY="14.0" prefHeight="30.0" prefWidth="387.0" spacing="5.0" />
-      <ImageView fx:id="icon" fitHeight="24.0" fitWidth="21.0" layoutX="14.0" layoutY="44.0" onMouseClicked="#navigationBack" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@back.png" />
-         </image>
-      </ImageView>
-      <TextField fx:id="seat" layoutX="445.0" layoutY="165.0" />
+        </HBox>
+      <VBox layoutX="161.0" layoutY="43.0" prefHeight="580.0" prefWidth="714.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <DatePicker fx:id="departureDate" prefHeight="30.0" prefWidth="222.0" promptText="Please enter the departure date" styleClass="text-field" stylesheets="@../style.css">
+               <VBox.margin>
+                  <Insets bottom="20.0" left="200.0" />
+               </VBox.margin>
+            </DatePicker>
+            <HBox prefHeight="170.0" prefWidth="714.0">
+               <children>
+                        <TextField fx:id="departure" prefHeight="30.0" prefWidth="164.0" promptText="Please enter the departure">
+                     <HBox.margin>
+                        <Insets left="80.0" right="20.0" top="30.0" />
+                     </HBox.margin>
+                        </TextField>
+                  <ImageView fitHeight="214.0" fitWidth="174.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@periple.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ImageView>
+                        <TextField fx:id="destination" prefHeight="30.0" prefWidth="175.0" promptText="Please enter the destination">
+                     <HBox.margin>
+                        <Insets left="20.0" top="130.0" />
+                     </HBox.margin>
+                        </TextField>
+               </children>
+            </HBox>
+            <VBox prefHeight="94.0" prefWidth="714.0">
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+               <children>
+                  <Line endX="434.9999694824219" endY="-1.4681815810035914E-4" startX="-100.0" stroke="#7a7f81" strokeLineCap="ROUND" strokeWidth="4.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="100.0" top="15.0" />
+                     </VBox.margin>
+                  </Line>
+                  <HBox prefHeight="41.0" prefWidth="524.0">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="281.0" text="Total price for 1 passenger">
+                           <HBox.margin>
+                              <Insets top="8.0" />
+                           </HBox.margin>
+                        </Label>
+                              <TextField fx:id="price" prefHeight="30.0" prefWidth="199.0" promptText="Please enter the price">
+                           <HBox.margin>
+                              <Insets left="180.0" top="5.0" />
+                           </HBox.margin>
+                              </TextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="110.0" right="80.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Line endX="434.9999694824219" endY="-1.4681815810035914E-4" layoutX="212.0" layoutY="27.0" startX="-100.0" stroke="#7a7f81" strokeLineCap="ROUND" strokeWidth="4.0">
+                     <VBox.margin>
+                        <Insets left="100.0" />
+                     </VBox.margin>
+                  </Line>
+               </children>
+            </VBox>
+            <HBox prefHeight="49.0" prefWidth="714.0">
+               <children>
+                  <Label fx:id="username" prefHeight="18.0" prefWidth="150.0" text="username">
+                     <HBox.margin>
+                        <Insets left="110.0" top="25.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ImageView fx:id="userPic" fitHeight="70.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="300.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox prefHeight="49.0" prefWidth="714.0">
+               <children>
+                  <ImageView fitHeight="46.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@train.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="320.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <TextField fx:id="seat" promptText="How many passenger">
+                     <HBox.margin>
+                        <Insets left="20.0" top="9.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="402.0" spacing="20.0">
+               <children>
+                      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#update" prefHeight="41.0" prefWidth="204.0" text="Update your carpooling" />
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
     </children>
 </AnchorPane>

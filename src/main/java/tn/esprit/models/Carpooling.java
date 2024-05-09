@@ -32,6 +32,17 @@ public class Carpooling {
         this.price = price;
     }
 
+    public Carpooling(int id, int userID, String departure, String destination, Date departureDate, Date arrivalDate, Time time, double price,int seat) {
+        this.id = id;
+        this.userID = userID;
+        this.departure = departure;
+        this.destination = destination;
+        this.departureDate = departureDate;
+        this.arrivalDate = arrivalDate;
+        this.time = time;
+        this.price = price;
+        this.seat = seat;
+    }
 
     public Carpooling(int id) {
         this.id = id;

@@ -47,12 +47,19 @@ public class CarpoolingService implements IService<Carpooling> {
 
     // update an existing carpooling
     @Override
-    public void update(Carpooling carpooling)  {
-        String req = "UPDATE `carpooling` SET departure_date = ?, arrival_date = ?, departure = ?, destination = ?, price = ?, time = ? , seat = ? WHERE id = ?";
-        try  {
-            PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setDate(1, new Date(carpooling.getDepartureDate().getTime()));
-            ps.setDate(2, new Date(carpooling.getArrivalDate().getTime()));
+    public void update(Carpooling carpooling) {
+        String req = "UPDATE `carpooling` SET " +
+                "departure_date = IFNULL(?, departure_date), " +
+                "arrival_date = IFNULL(?, arrival_date), " +
+                "departure = IFNULL(?, departure), " +
+                "destination = IFNULL(?, destination), " +
+                "price = IFNULL(?, price), " +
+                "time = IFNULL(?, time), " +
+                "seat = IFNULL(?, seat) " +
+                "WHERE id = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(req)) {
+            ps.setDate(1, carpooling.getDepartureDate() != null ? new Date(carpooling.getDepartureDate().getTime()) : null);
+            ps.setDate(2, carpooling.getArrivalDate() != null ? new Date(carpooling.getArrivalDate().getTime()) : null);
             ps.setString(3, carpooling.getDeparture());
             ps.setString(4, carpooling.getDestination());
             ps.setDouble(5, carpooling.getPrice());
@@ -64,6 +71,7 @@ public class CarpoolingService implements IService<Carpooling> {
             throw new RuntimeException(e);
         }
     }
+
     // Delete an existing carpooling
     @Override
     public void delete(Carpooling carpooling) throws SQLException {
@@ -89,7 +97,7 @@ public class CarpoolingService implements IService<Carpooling> {
                 carpooling.setDestination(result.getString("destination"));
                 carpooling.setPrice(result.getDouble("price"));
                 carpooling.setTime(result.getTime("time"));
-                carpooling.setSeat(result.getInt("seats number"));
+                carpooling.setSeat(result.getInt("seat"));
                 carpoolings.add(carpooling);
             }
         }catch (SQLException e) {
@@ -146,16 +154,17 @@ public class CarpoolingService implements IService<Carpooling> {
             ps.setInt(1, id);
             ResultSet resultSet = ps.executeQuery();
             if (resultSet.next()) {
-                Carpooling carpooling = new Carpooling();
-                carpooling.setId(resultSet.getInt("id"));
-                carpooling.setDeparture(resultSet.getString("departure"));
-                carpooling.setDestination(resultSet.getString("destination"));
-                carpooling.setDepartureDate(resultSet.getDate("departure_date"));
-                carpooling.setArrivalDate(resultSet.getDate("arrival_date"));
-                carpooling.setTime(resultSet.getTime("time"));
-                carpooling.setPrice(resultSet.getDouble("price"));
-                carpooling.setSeat(resultSet.getInt("seat"));
-                return carpooling;
+                return new Carpooling(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("user_id"),
+                        resultSet.getString("departure"),
+                        resultSet.getString("destination"),
+                        resultSet.getDate("departure_date"),
+                        resultSet.getDate("arrival_date"),
+                        resultSet.getTime("time"),
+                        resultSet.getDouble("price"),
+                        resultSet.getInt("seat")
+                );
             }
         }
         return null;
@@ -171,5 +180,28 @@ public class CarpoolingService implements IService<Carpooling> {
             }
         }
         return 0;
+    }
+
+    public List<Carpooling> getCarpoolingsByUserId(int userId) throws SQLException {
+        List<Carpooling> carpoolings = new ArrayList<>();
+        String req = "SELECT * FROM carpooling WHERE user_id = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(req)) {
+            ps.setInt(1, userId);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                Carpooling carpooling = new Carpooling();
+                carpooling.setId(resultSet.getInt("id"));
+                carpooling.setUserID(resultSet.getInt("user_id"));
+                carpooling.setDeparture(resultSet.getString("departure"));
+                carpooling.setDestination(resultSet.getString("destination"));
+                carpooling.setDepartureDate(resultSet.getDate("departure_date"));
+                carpooling.setArrivalDate(resultSet.getDate("arrival_date"));
+                carpooling.setTime(resultSet.getTime("time"));
+                carpooling.setPrice(resultSet.getDouble("price"));
+                carpooling.setSeat(resultSet.getInt("seat"));
+                carpoolings.add(carpooling);
+            }
+        }
+        return carpoolings;
     }
 }
