@@ -2,6 +2,7 @@ package tn.esprit.services;
 
 import tn.esprit.interfaces.IService;
 import tn.esprit.models.Carpooling;
+import tn.esprit.models.Comment;
 import tn.esprit.models.EventRating;
 import tn.esprit.util.DBconnection;
 
@@ -81,6 +82,12 @@ public class CarpoolingService implements IService<Carpooling> {
             statement.executeUpdate();
         }
     }
+
+    @Override
+    public void add(Comment comment, int id) {
+
+    }
+
     // get all carpoolings available on the db
     @Override
     public List<Carpooling> getAll()   {

@@ -1,10 +1,7 @@
 package tn.esprit.services;
 
 import tn.esprit.interfaces.IService;
-import tn.esprit.models.Carpooling;
-import tn.esprit.models.EventRating;
-import tn.esprit.models.Reservation;
-import tn.esprit.models.User;
+import tn.esprit.models.*;
 import tn.esprit.util.DBconnection;
 
 import java.sql.*;
@@ -38,6 +35,11 @@ public class ReservationService implements IService<Reservation> {
             statement.setInt(1, reservation.getId());
             statement.executeUpdate();
         }
+    }
+
+    @Override
+    public void add(Comment comment, int id) {
+
     }
 
     @Override

@@ -1,7 +1,8 @@
 package tn.esprit.services;
 
+import tn.esprit.interfaces.IService;
 import tn.esprit.models.Comment;
-import tn.esprit.models.Post;
+import tn.esprit.models.EventRating;
 import tn.esprit.util.DBconnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +14,7 @@ import java.util.List;
 public class CommentServices implements IService<Comment> {
     Connection cnx = DBconnection.getInstance().getCnx();
     @Override
-    public void add(Comment comment ,int id) {
+    public void add(Comment comment, int id) {
         String req = "INSERT INTO `comment`(`contenu`,`idpost`) VALUES (?,?)";
         try {
             PreparedStatement stm = cnx.prepareStatement(req);
@@ -46,6 +47,27 @@ public class CommentServices implements IService<Comment> {
         }
         return comments;
     }
+
+    @Override
+    public List<Comment> search(String searchTerm, String sortBy) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void addEventRating(EventRating eventRating) throws SQLException {
+
+    }
+
+    @Override
+    public double calculateAverageRating(int eventId) throws SQLException {
+        return 0;
+    }
+
+    @Override
+    public void add(Comment comment) throws SQLException {
+
+    }
+
     @Override
     public void update(Comment comment) {
         String req = "UPDATE comment SET contenu = ? WHERE id = ?";
