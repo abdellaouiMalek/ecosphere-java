@@ -90,6 +90,8 @@ public class HistoryController  {
     private final ServiceHistory ps = new ServiceHistory();
     private PreparedStatement prepare;
     private ResultSet result;
+
+
     public void initialize( Object object) {
         this.object=object;
 

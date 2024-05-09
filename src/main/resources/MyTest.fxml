@@ -154,6 +154,7 @@
                                              </font>
                                           </Button>
                                           <ImageView fx:id="sharinghub_image" fitHeight="180.0" fitWidth="171.0" layoutX="638.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Button fx:id="paymentBtn" layoutX="565.0" layoutY="122.0" mnemonicParsing="false" onAction="#paymentBtnClicked" styleClass="btn" stylesheets="@testFromDesign.css" text="\$" />
                                        </children>
                                     </AnchorPane>
                                  </children>

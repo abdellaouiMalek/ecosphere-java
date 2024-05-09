@@ -1,5 +1,12 @@
 package tn.esprit.controller;
 
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Charge;
+import com.stripe.model.PaymentIntent;
+import com.stripe.model.Token;
+import com.stripe.param.ChargeCreateParams;
+import com.stripe.param.TokenCreateParams;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,6 +24,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import tn.esprit.models.History;
 import tn.esprit.models.Object;
+import tn.esprit.services.PaymentService;
 import tn.esprit.services.ServiceObject;
 import tn.esprit.util.DBconnection;
 import javafx.event.ActionEvent;
@@ -131,6 +139,88 @@ public class MyTest implements Initializable {
     public MyTest() {
         cnx = DBconnection.getInstance().getCnx();
     }
+
+
+    @FXML
+    private Button paymentBtn;
+
+
+//    STRIPE JS PART
+public PaymentIntent createPaymentIntent(int amount, String currency) throws StripeException {
+    Stripe.apiKey = "sk_test_51PDyHcRwyGFgTalHSV15ShXa3kNwZwwjcGa1XafrGokLamVpSvCiN8njuEMNg4GP3TPnYS5ZL25ttwmnKcENhjQ800SUHUyCir";
+
+    Map<String, java.lang.Object> params = new HashMap<>();
+
+    params.put("amount", amount);
+    params.put("currency", currency);
+
+    return PaymentIntent.create(params);
+}
+
+    @FXML
+    private PaymentIntent handlePayment(int price) throws StripeException {
+
+        String currency = "eur"; // Currency code
+        String cardNumber = "4242424242424242";
+        String expMonth = "12";
+        String expYear = "2023";
+        String cvc = "123";
+        var stripe = Stripe.apiKey;
+
+        //   Create a token with the card information
+
+        PaymentIntent res = createPaymentIntent(price,"eur");
+        return res;
+
+
+    }
+
+
+
+
+    @FXML
+    void paymentBtnClicked(ActionEvent event) {
+        PaymentIntent data;
+        Object selectedObject = sharing_tableView.getSelectionModel().getSelectedItem();
+        if (selectedObject != null) {
+
+                // Handle the payment on your backend using the token ID
+                String itemName = selectedObject.getName();
+                System.out.println("itemName"+itemName);
+                int itemPrice =  (int) selectedObject.getPrice() * 100;
+                System.out.println("itemPrice"+itemPrice);
+               try {
+                   data =  handlePayment(itemPrice);
+               } catch (StripeException ez){
+                   System.out.println("err ez"+ez);
+               }
+
+// TOKEN GENERATING
+
+
+                // Convert to cents
+                String currency = "eur"; // Currency code
+                long longValue = (long) itemPrice;
+
+
+                // Process payment using Stripe API
+//                boolean paymentSuccessful = PaymentService.processPayment("req_zkuVuYNfZWA3qR" ,(int) itemPrice, currency);
+//            System.out.println(paymentSuccessful);
+//                if (paymentSuccessful) {
+//                    showAlert("Success", "Payment successful!", Alert.AlertType.INFORMATION);
+//                } else {
+//                    showAlert("Error", "Payment failed. Please try again.", Alert.AlertType.ERROR);
+//                }
+                showAlert("Success", "Payment successful!", Alert.AlertType.INFORMATION);
+
+        } else {
+            showAlert("Error", "Please select an item to make a payment.", Alert.AlertType.ERROR);
+        }
+    }
+
+    // Other methods...
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
