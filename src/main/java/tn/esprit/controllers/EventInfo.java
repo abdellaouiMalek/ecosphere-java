@@ -138,12 +138,8 @@ public class EventInfo implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sPane.setFitToWidth(true);
-
-
         updateInterestButton();
         initializeRatings(eventId);
-
-
 
     }
 
@@ -219,44 +215,55 @@ public class EventInfo implements Initializable {
     @FXML
     void deleteEvent(ActionEvent event) {
         try {
-            // Call the EventService to delete the eventInfoStore
-            es.delete(eventInfoStore);
+            // Check if the logged-in user is the owner of the event
+            User loggedUser = SessionUser.getLoggedUser();
+            if (loggedUser != null && loggedUser.getId() == eventInfoStore.getUserId()) {
+                // Logged-in user is the owner, proceed with deletion
+                es.delete(eventInfoStore);
 
-            // Load the AllEvents.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AllEvents.fxml"));
-            Parent root = loader.load();
+                // Load the AllEvents.fxml file
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AllEvents.fxml"));
+                Parent root = loader.load();
 
-            // Get the current stage and set the scene with the new root
-            Stage stage = (Stage) deleteBtn.getScene().getWindow();
-            stage.setScene(new Scene(root));
+                // Get the current stage and set the scene with the new root
+                Stage stage = (Stage) deleteBtn.getScene().getWindow();
+                stage.setScene(new Scene(root));
+            } else {
+                // User is not the owner, show an error message or handle as needed
+                System.out.println("Error: User is not authorized to delete this event.");
+            }
         } catch (SQLException | IOException ex) {
             System.out.println("Error deleting event: " + ex.getMessage());
         }
     }
 
     @FXML
-    void updateEvent(ActionEvent event) throws IOException {
-
+    void updateEvent(ActionEvent event) {
         try {
-            // Load the UpdateEvent.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UpdateEvent.fxml"));
-            Parent root = loader.load();
+            // Check if the logged-in user is the owner of the event
+            User loggedUser = SessionUser.getLoggedUser();
+            if (loggedUser != null && loggedUser.getId() == eventInfoStore.getUserId()) {
+                // Logged-in user is the owner, proceed to update
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UpdateEvent.fxml"));
+                Parent root = loader.load();
 
-            // Access the controller of the UpdateEvent view
-            UpdateEvent controller = loader.getController();
+                // Access the controller of the UpdateEvent view
+                UpdateEvent controller = loader.getController();
+                controller.setSelectedEvent(eventInfoStore);
 
-            controller.setSelectedEvent(eventInfoStore);
-
-            // Set up the stage to display the UpdateEvent scene
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-
+                // Set up the stage to display the UpdateEvent scene
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } else {
+                // User is not the owner, show an error message or handle as needed
+                System.out.println("Error: User is not authorized to update this event.");
+            }
         } catch (IOException ex) {
             System.out.println("Error loading UpdateEvent.fxml: " + ex.getMessage());
         }
     }
+
 
     @FXML
     void submitRating(ActionEvent event) {
