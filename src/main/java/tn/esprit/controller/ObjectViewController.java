@@ -3,6 +3,7 @@ package tn.esprit.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -52,14 +53,28 @@ public class ObjectViewController {
     private HBox createObjectCard(Object object) {
         HBox card = new HBox();
         card.getStyleClass().add("card"); // Add CSS class for styling
-        card.setSpacing(10); // Add spacing between elements
+        card.setSpacing(20); // Add spacing between elements
 
         // Create labels to display object information
         Label nameLabel = new Label("Name: " + object.getName());
+        nameLabel.getStyleClass().add("card-label"); // Add CSS class for label styling
+        nameLabel.setPadding(new Insets(0, 0, 5, 0)); // Add bottom padding to create space
+
         Label typeLabel = new Label("Type: " + object.getType());
+        typeLabel.getStyleClass().add("card-label");
+        typeLabel.setPadding(new Insets(0, 0, 5, 0));
+
         Label descriptionLabel = new Label("Description: " + object.getDescription());
+        descriptionLabel.getStyleClass().add("card-label");
+        descriptionLabel.setPadding(new Insets(0, 0, 5, 0));
+
         Label ageLabel = new Label("Age: " + object.getAge());
+        ageLabel.getStyleClass().add("card-label");
+        ageLabel.setPadding(new Insets(0, 0, 5, 0));
+
         Label priceLabel = new Label("Price: " + object.getPrice());
+        priceLabel.getStyleClass().add("card-label");
+        priceLabel.setPadding(new Insets(0, 0, 5, 0));
 
         // Add labels to the card layout
         VBox labelsContainer = new VBox(); // VBox to hold labels vertically
@@ -71,6 +86,7 @@ public class ObjectViewController {
 
         return card;
     }
+
 
 
 

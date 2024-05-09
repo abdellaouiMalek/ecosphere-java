@@ -86,13 +86,23 @@ logout:hover{
 
 .card {
     -fx-padding: 10px;
-    -fx-border-color: black;
+    -fx-border-color: #0cc49c;
     -fx-border-width: 1px;
+    -fx-font-family: "Century Gothic";
+    -fx-font-weight: bold;
+    -fx-background-color: white; /* Background color of the card */
+    -fx-background-radius: 5px; /* Rounded corners for the card */
+    -fx-border-radius: 5px; /* Rounded corners for the border */
 }
 
 .card.selected {
     -fx-background-color: lightblue;
 }
+.card-label {
+    -fx-font-family: "Century Gothic";
+    -fx-font-weight: bold;
+}
+
 
 
 .Pane_11{
