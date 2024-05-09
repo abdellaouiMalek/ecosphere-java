@@ -1,6 +1,7 @@
 package tn.esprit.services;
 
 import tn.esprit.interfaces.IService;
+import tn.esprit.models.Comment;
 import tn.esprit.models.EventRating;
 import tn.esprit.models.Waitlist;
 import tn.esprit.util.DBconnection;
@@ -35,6 +36,11 @@ public class WaitlistService implements IService<Waitlist> {
 
     @Override
     public void delete(Waitlist waitlist) throws SQLException {
+
+    }
+
+    @Override
+    public void add(Comment comment, int id) {
 
     }
 

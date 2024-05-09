@@ -1,5 +1,6 @@
 package tn.esprit.interfaces;
 
+import tn.esprit.models.Comment;
 import tn.esprit.models.EventRating;
 
 import java.sql.SQLException;
@@ -13,7 +14,9 @@ public interface IService<T> {
 
         void delete(T t) throws SQLException;
 
-        List<T> getAll();
+    void add(Comment comment, int id);
+
+    List<T> getAll();
 
 
     List<T> search(String searchTerm, String sortBy) throws SQLException;

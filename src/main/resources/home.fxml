@@ -174,7 +174,7 @@
                               <Insets left="30.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="42.0" prefWidth="189.0" text="Available Products">
+                        <Label prefHeight="42.0" prefWidth="189.0" text="Available Products" onMouseClicked="#sharinghub">
                            <font>
                               <Font name="Berlin Sans FB" size="18.0" />
                            </font>

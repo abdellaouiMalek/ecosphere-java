@@ -11,10 +11,10 @@
 <AnchorPane prefHeight="696.0" prefWidth="1017.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.SingleEvent">
 
     <children>
-        <HBox prefHeight="114.0" prefWidth="1243.0">
+        <HBox prefHeight="114.0" prefWidth="1017.0">
             <children>
                 <ImageView fx:id="afficheIv" fitHeight="114.0" fitWidth="202.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER" />
-                <Pane fx:id="titlePane" prefHeight="114.0" prefWidth="340.0">
+                <Pane fx:id="titlePane" prefHeight="114.0" prefWidth="261.0">
                     <children>
                         <Text fx:id="titleText" layoutX="18.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title">
                             <font>
@@ -29,36 +29,36 @@
                         </Text>
                     </children>
                 </Pane>
-                <Pane maxWidth="171.0" prefHeight="114.0" prefWidth="171.0">
+                <Pane maxWidth="171.0" prefHeight="114.0" prefWidth="119.0">
                     <children>
-                        <Text fx:id="startDateText" layoutX="33.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="start Date">
+                        <Text fx:id="startDateText" layoutX="26.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="start Date">
                             <font>
                                 <Font name="Leelawadee UI" size="12.0" />
                             </font></Text>
-                        <Text layoutX="33.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+                        <Text layoutX="26.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
                             <font>
                                 <Font name="Leelawadee UI Semilight" size="12.0" />
                             </font>
                         </Text>
                     </children>
                 </Pane>
-                <Pane prefHeight="114.0" prefWidth="268.0">
+                <Pane prefHeight="114.0" prefWidth="240.0">
                     <children>
-                        <Text layoutX="77.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+                        <Text layoutX="10.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
                             <font>
                                 <Font name="Leelawadee UI Semilight" size="12.0" />
                             </font>
                         </Text>
-                        <Text fx:id="locText" layoutX="77.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="location">
+                        <Text fx:id="locText" layoutX="10.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="location">
                             <font>
                                 <Font name="Leelawadee UI" size="12.0" />
                             </font>
                         </Text>
                     </children>
                 </Pane>
-                <Pane prefHeight="114.0" prefWidth="309.0">
+                <Pane prefHeight="114.0" prefWidth="223.0">
                <children>
-                        <Button fx:id="moreInfoBtn" layoutX="125.0" layoutY="29.0" mnemonicParsing="false" onAction="#showMoreInfo" prefHeight="52.0" prefWidth="110.0" styleClass="GeneralButton" text="More infos">
+                        <Button fx:id="moreInfoBtn" layoutX="47.0" layoutY="29.0" mnemonicParsing="false" onAction="#showMoreInfo" prefHeight="52.0" prefWidth="110.0" styleClass="GeneralButton" text="More infos">
                             <font>
                                 <Font name="Leelawadee UI Semilight" size="17.0" />
                             </font>

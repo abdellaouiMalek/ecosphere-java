@@ -1,10 +1,7 @@
 package tn.esprit.services;
 
 import tn.esprit.interfaces.IService;
-import tn.esprit.models.Category;
-import tn.esprit.models.Event;
-import tn.esprit.models.EventRating;
-import tn.esprit.models.EventRegistrations;
+import tn.esprit.models.*;
 import tn.esprit.util.DBconnection;
 
 import java.sql.*;
@@ -85,6 +82,11 @@ public class EventService implements IService<Event> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void add(Comment comment, int id) {
+
     }
 
     private Category getCategoryById(int categoryId) throws SQLException {

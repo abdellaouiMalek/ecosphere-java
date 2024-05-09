@@ -1,0 +1,31 @@
+#AnchorPane {
+    -fx-background-color: #f9f9f9; /* Couleur de fond */
+}
+
+Label {
+
+    -fx-text-fill: #333; /* Couleur du texte */
+    -fx-font-weight: bold; /* Police en gras */
+}
+
+WebView {
+    -fx-border-color: #ccc; /* Couleur de la bordure */
+
+}
+
+Button {
+    -fx-background-color: #4CAF50; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 18px; /* Taille de la police */
+    -fx-padding: 10px 20px; /* Marge interne */
+    -fx-border-radius: 5px; /* Rayon des coins */
+    -fx-border-color: #388E3C; /* Couleur de la bordure */
+}
+
+Button:hover {
+    -fx-background-color: #45a049; /* Couleur de fond au survol */
+}
+
+Button:pressed {
+    -fx-background-color: #388E3C; /* Couleur de fond lorsque pressé */
+}

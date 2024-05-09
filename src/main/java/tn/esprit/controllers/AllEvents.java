@@ -3,6 +3,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -10,6 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import tn.esprit.models.Event;
+import tn.esprit.models.SessionUser;
+import tn.esprit.models.User;
 import tn.esprit.services.EventService;
 
 
@@ -20,6 +23,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -119,15 +123,50 @@ public class AllEvents implements Initializable  {
 
     @FXML
     private void addEventRedirect(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddEvent.fxml"));
-            Parent root = loader.load();
-            // Get the current scene and replace its root with the new root
-            eventListGP.getScene().setRoot(root);
-        } catch (IOException ex) {
-            System.out.println("Error loading AddEvent.fxml: " + ex.getMessage());
+        User loggedUser = SessionUser.getLoggedUser();
+        if (checkLoginStatus(loggedUser)) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddEvent.fxml"));
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                System.out.println("Error loading AddEvent.fxml: " + ex.getMessage());
+            }
+        } else {
+            // User is not logged in, show login prompt
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Login Required");
+            alert.setHeaderText(null);
+            alert.setContentText("Please log in to add a new event.");
+
+            ButtonType loginButton = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
+            alert.getButtonTypes().setAll(loginButton, ButtonType.CANCEL);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == loginButton) {
+                // User clicked Login, navigate to the login screen
+                try {
+                    FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/login.fxml"));
+                    Parent loginRoot = loginLoader.load();
+
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(new Scene(loginRoot));
+                    stage.show();
+                } catch (IOException ex) {
+                    System.out.println("Error loading login.fxml: " + ex.getMessage());
+                }
+            }
         }
     }
+
+    private boolean checkLoginStatus(User user) {
+        return user != null; // Check if the user is logged in (replace this with your own logic)
+    }
+
 
     private void searchSort(String searchTerm, String sortBy){
         try {
