@@ -17,7 +17,7 @@ public class MainFX extends Application {
             // Définir votre clé API Stripe ici
             Stripe.apiKey = "sk_test_51PDyHcRwyGFgTalHSV15ShXa3kNwZwwjcGa1XafrGokLamVpSvCiN8njuEMNg4GP3TPnYS5ZL25ttwmnKcENhjQ800SUHUyCir";
             // Charger la vue FXML depuis le fichier MyTest.fxml
-            Parent root = FXMLLoader.load(getClass().getResource("/MyTest.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ObjectView.fxml"));
 
             // Créer une scène avec la racine chargée depuis le FXML
             Scene scene = new Scene(root);

@@ -30,6 +30,7 @@ import tn.esprit.util.DBconnection;
 import javafx.event.ActionEvent;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.*;
@@ -217,6 +218,23 @@ public PaymentIntent createPaymentIntent(int amount, String currency) throws Str
             showAlert("Error", "Please select an item to make a payment.", Alert.AlertType.ERROR);
         }
     }
+
+    @FXML
+    void pannierBtn(ActionEvent event) {
+        // Get the source node (the button)
+        Node source = (Node) event.getSource();
+        // Get the scene containing the button
+        Scene scene = source.getScene();
+        // Change the root node of the scene to ObjectView.fxml
+        try {
+            Parent objectViewParent = FXMLLoader.load(getClass().getResource("/ObjectView.fxml"));
+            scene.setRoot(objectViewParent);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception
+        }
+    }
+
 
     // Other methods...
 
