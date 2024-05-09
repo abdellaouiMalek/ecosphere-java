@@ -81,11 +81,20 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>23-ea+3</version>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>17.0.6</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>23-ea+3</version>
+            <version>17.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>20.126.0</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -137,6 +146,15 @@
         </dependency>
 
 
+            <version>17</version> <!-- Adjust version number as needed -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.5.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -151,5 +169,3 @@
         </plugins>
     </build>
 
-
-</project>
