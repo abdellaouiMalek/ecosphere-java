@@ -5,18 +5,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="696.0" prefWidth="1017.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AddEvent">
+<AnchorPane prefHeight="696.0" prefWidth="1017.0" stylesheets="@allevents.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AddEvent">
 
     <children>
         <TextField fx:id="titleid" layoutX="125.0" layoutY="197.0" prefHeight="27.0" prefWidth="338.0" promptText="Title" />
         <TextArea fx:id="descid" layoutX="125.0" layoutY="501.0" prefHeight="112.0" prefWidth="338.0" promptText="Description" />
         <DatePicker fx:id="startDateDp" layoutX="569.0" layoutY="198.0" prefHeight="21.0" prefWidth="338.0" promptText="Date" />
-        <Button fx:id="uploadImgBtn" layoutX="571.0" layoutY="583.0" mnemonicParsing="false" onAction="#onUploadButtonClick" prefHeight="30.0" prefWidth="150.0" styleClass="GeneralButton" text="Import image" />
-        <Button fx:id="addBtn" layoutX="954.0" layoutY="801.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="40.0" prefWidth="100.0" styleClass="GeneralButton" text="Add event">
+        <Button fx:id="uploadImgBtn" layoutX="571.0" layoutY="583.0" mnemonicParsing="false" onAction="#onUploadButtonClick" prefHeight="30.0" prefWidth="150.0" text="Import image" />
+        <Button fx:id="addBtn" layoutX="893.0" layoutY="639.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="40.0" prefWidth="100.0" styleClass="button2" stylesheets="@allevents.css" text="Add event">
             <font>
                 <Font name="Leelawadee UI Semilight" size="15.0" />
             </font></Button>
-        <Button fx:id="eventListBtn" layoutX="878.0" layoutY="32.0" mnemonicParsing="false" onAction="#goToAllEvents" prefHeight="40.0" prefWidth="80.0" styleClass="GeneralButton" text="Return">
+        <Button fx:id="eventListBtn" layoutX="878.0" layoutY="32.0" mnemonicParsing="false" onAction="#goToAllEvents" prefHeight="40.0" prefWidth="80.0" stylesheets="@allevents.css" text="Return">
             <font>
                 <Font name="Leelawadee UI Semilight" size="13.0" />
             </font></Button>

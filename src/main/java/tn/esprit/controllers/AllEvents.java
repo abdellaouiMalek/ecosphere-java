@@ -93,7 +93,7 @@ public class AllEvents implements Initializable  {
             }
             //Tri criterias:
             sortBoxCB.setValue("None");
-            sortBoxCB.getItems().addAll("event name", "category", "Start Date");
+            sortBoxCB.getItems().addAll("event name", "Start Date");
             sortBoxCB.setOnAction(event -> {
                 sortCriteria = sortBoxCB.getValue();
             });

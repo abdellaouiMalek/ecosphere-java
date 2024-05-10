@@ -80,7 +80,7 @@ public class Register implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Populate the combo box with choices
         ObservableList<String> options = FXCollections.observableArrayList(
-                "ADMIN", "CONSUMER", "VISITOR", "PRODUCTOR");
+                 "CONSUMER", "VISITOR", "PRODUCTOR");
         cmbbrole.setItems(options);
 
         // Set default selection if needed

@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tn.esprit.models.Post;
@@ -16,9 +17,13 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+
 public class Listedesposts implements Initializable {
     @FXML
     private VBox postContainer;
+
+    @FXML
+    private Button gohome;
     @FXML
     private void ajouterP(ActionEvent event) {
         try {
@@ -46,5 +51,22 @@ public class Listedesposts implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void gohome(ActionEvent event) {
+        try {
+            // Load the AllEvents.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/home.fxml"));
+            Parent root = loader.load();
+
+            // Set up the stage
+            Stage stage = (Stage) gohome.getScene().getWindow();
+            stage.setScene(new Scene(root));
+
+        } catch (IOException ex) {
+            System.out.println("Error loading home.fxml: " + ex.getMessage());
+        }
+
     }
 }
