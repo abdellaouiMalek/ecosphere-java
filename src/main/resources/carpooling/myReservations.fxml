@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="590.0" prefWidth="1014.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.MyReservations">
    <children>
-      <HBox layoutX="10.0" layoutY="10.0" prefHeight="70.0" prefWidth="839.0" styleClass="hbox-background" stylesheets="@../style.css">
+      <HBox layoutX="-2.0" layoutY="-2.0" prefHeight="82.0" prefWidth="1014.0" styleClass="hbox-background" stylesheets="@../style.css">
          <children>
             <ImageView fx:id="icon" fitHeight="25.0" fitWidth="26.0" onMouseClicked="#navigationBack" pickOnBounds="true" preserveRatio="true">
                <image>

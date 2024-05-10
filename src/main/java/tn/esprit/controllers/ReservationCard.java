@@ -47,7 +47,7 @@ public class ReservationCard {
 
     @FXML
     void cancel(MouseEvent event) {
-        Reservation reservation = new Reservation(reservationID); // Implement a method to retrieve the reservation associated with this card
+        Reservation reservation = new Reservation(reservationID);
         showCancellationConfirmation(reservation);
     }
 
@@ -80,12 +80,14 @@ public class ReservationCard {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == yesButton) {
+            System.out.println("dkhal le if");
             try {
                 reservationService.delete(reservation);
                 showCancellationSuccessMessage();
                // updateReservationsListView();
                 WaitlistService waitlistService = new WaitlistService();
                 Waitlist firstUser = waitlistService.getFirstUserOnWaitlist(reservation.getCarpoolingID());
+                System.out.println(firstUser);
                 if (firstUser != null) {
                     System.out.println("First user on waitlist: " + firstUser.getUserID());
                     int id = firstUser.getUserID();

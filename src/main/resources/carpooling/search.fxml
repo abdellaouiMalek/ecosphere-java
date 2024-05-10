@@ -46,8 +46,8 @@
             <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="13.0">
                <items>
                   <MenuItem mnemonicParsing="false" text="Profile settings" />
-                  <MenuItem mnemonicParsing="false" text="My carpoolings" />
-                  <MenuItem mnemonicParsing="false" text="My reservations" />
+                  <MenuItem mnemonicParsing="false" onAction="#navigateToCarpoolings" text="My carpoolings" />
+                  <MenuItem mnemonicParsing="false" onAction="#navigateToReservation" text="My reservations" />
                </items>
                <HBox.margin>
                   <Insets right="20.0" top="28.0" />

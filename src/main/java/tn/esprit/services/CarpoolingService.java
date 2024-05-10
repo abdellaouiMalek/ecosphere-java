@@ -128,13 +128,13 @@ public class CarpoolingService implements IService<Carpooling> {
     }
 
     // search for a carpooling
-    public List<Carpooling> search(String departure, String destination, Date arrivalDate) throws SQLException {
+    public List<Carpooling> search(String departure, String destination, Date departureDate) throws SQLException {
         List<Carpooling> carpoolings = new ArrayList<>();
-        String req = "SELECT * FROM carpooling WHERE departure = ? AND destination = ? AND arrival_date = ?";
+        String req = "SELECT * FROM carpooling WHERE departure = ? AND destination = ? AND departure_date = ?";
         try (PreparedStatement ps = cnx.prepareStatement(req)) {
             ps.setString(1, departure);
             ps.setString(2, destination);
-            ps.setDate(3, arrivalDate);
+            ps.setDate(3, departureDate);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 Carpooling carpooling = new Carpooling();

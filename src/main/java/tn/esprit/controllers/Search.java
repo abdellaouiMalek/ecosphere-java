@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Search {
     @FXML
@@ -49,11 +50,21 @@ public class Search {
     private ImageView icon;
 
     @FXML
-    void navigationBack(MouseEvent event) {
-
+    void navigationBack(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/home.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
-
+    @FXML
+    void navigateToCarpoolings(ActionEvent event) throws IOException {
+        MenuItem menuItem = (MenuItem) event.getSource();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/carpooling/myCarpooling.fxml")));
+        Scene currentScene = menuItem.getParentPopup().getOwnerWindow().getScene();
+        currentScene.setRoot(root);
+    }
 
     @FXML
     void waitlistNavigation(ActionEvent event) throws IOException {
@@ -77,5 +88,12 @@ public class Search {
         stage.setScene(new Scene(root));
         stage.show();
     }
+
+    public void navigateToReservation(ActionEvent actionEvent) throws IOException {
+        MenuItem menuItem = (MenuItem) actionEvent.getSource();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/carpooling/myReservations.fxml")));
+        Scene currentScene = menuItem.getParentPopup().getOwnerWindow().getScene();
+        currentScene.setRoot(root);
     }
+}
 

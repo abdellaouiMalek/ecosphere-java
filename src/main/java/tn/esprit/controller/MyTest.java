@@ -1,12 +1,9 @@
 package tn.esprit.controller;
 
+
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
-import com.stripe.model.Charge;
 import com.stripe.model.PaymentIntent;
-import com.stripe.model.Token;
-import com.stripe.param.ChargeCreateParams;
-import com.stripe.param.TokenCreateParams;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

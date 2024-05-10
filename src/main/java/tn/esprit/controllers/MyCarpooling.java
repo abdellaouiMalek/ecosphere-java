@@ -1,6 +1,6 @@
 package tn.esprit.controllers;
 
-import com.jfoenix.controls.JFXRadioButton;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +14,7 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import tn.esprit.models.Carpooling;
 import tn.esprit.models.SessionUser;
+import tn.esprit.models.User;
 import tn.esprit.services.CarpoolingSearchService;
 import tn.esprit.services.CarpoolingService;
 
@@ -22,6 +23,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class MyCarpooling {
@@ -62,10 +64,38 @@ public class MyCarpooling {
 
 
     private CarpoolingService carpoolingService;
+    private boolean checkLoginStatus(User user) {
+        return user != null && user.getId() != 0;
+    }
 
     @FXML
-    void addNavigation(MouseEvent event) {
+    void addNavigation(MouseEvent event) throws IOException {
+        User loggedUser = SessionUser.getLoggedUser();
+        if (checkLoginStatus(loggedUser)) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/carpooling/addDeparture.fxml"));
+            Parent root = loader.load();
 
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Login Required");
+            alert.setHeaderText(null);
+            alert.setContentText("Please log in to add a new carpooling.");
+
+            ButtonType loginButton = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
+            alert.getButtonTypes().setAll(loginButton, ButtonType.CANCEL);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == loginButton) {
+                FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/login.fxml"));
+                Parent loginRoot = loginLoader.load();
+
+                Scene currentScene = ((Node) event.getSource()).getScene();
+                currentScene.setRoot(loginRoot);
+            }
+        }
     }
 
     @FXML
