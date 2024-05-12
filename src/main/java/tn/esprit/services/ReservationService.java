@@ -30,6 +30,25 @@ public class ReservationService {
         }
         return userReservations;
     }
+
+    public Reservation getById(int reservationId) throws SQLException {
+        String sql = "SELECT * FROM reservation WHERE id = ?";
+        try (PreparedStatement statement = cnx.prepareStatement(sql)) {
+            statement.setInt(1, reservationId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    Reservation reservation = new Reservation();
+                    reservation.setId(resultSet.getInt("id"));
+                    reservation.setUserID(resultSet.getInt("user_id"));
+                    reservation.setCarpoolingID(resultSet.getInt("carpooling_id"));
+                    return reservation;
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
+
     // Add a new reservation
     public void add(Reservation reservation) throws SQLException {
         String sql = "INSERT INTO reservation (user_id, carpooling_id) VALUES (?, ?)";

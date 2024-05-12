@@ -5,15 +5,14 @@ import org.mindrot.jbcrypt.BCrypt;
 import tn.esprit.models.Role;
 import tn.esprit.models.SessionUser;
 import tn.esprit.models.User;
+import tn.esprit.models.Waitlist;
 import tn.esprit.util.DBconnection;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.mail.Session;
@@ -31,6 +30,85 @@ public class UserService implements IUserService<User>{
         cnx = DBconnection.getInstance().getCnx();
     }
 
+    public void addInAppNotification(int id, int carpoolingID,String message) {
+        String sql = "INSERT INTO notifications (user_id, carpooling_id , message, timestamp) VALUES (?, ?, ?, ?)";
+        try {
+            PreparedStatement pstmt = cnx.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            pstmt.setInt(2, carpoolingID);
+            pstmt.setString(3, message);
+            pstmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+            pstmt.executeUpdate();
+            System.out.println("In-app notification added successfully for user: " + id);
+        } catch (SQLException e) {
+            System.out.println("Error adding in-app notification: " + e.getMessage());
+        }
+    }
+
+    public List<String> getInAppNotifications(User user) {
+        List<String> notifications = new ArrayList<>();
+        String sql = "SELECT message FROM notifications WHERE user_id = ?";
+        try {
+            PreparedStatement pstmt = cnx.prepareStatement(sql);
+            pstmt.setInt(1, user.getId());
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                notifications.add(rs.getString("message"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching in-app notifications: " + e.getMessage());
+        }
+        return notifications;
+    }
+
+
+    public boolean checkPendingNotifications(User user) {
+        List<String> notifications = getInAppNotifications(user);
+        return !notifications.isEmpty(); // Return true if there are notifications, false otherwise
+    }
+    public void deleteNotification(int userId, int carpoolingId) {
+        String sql = "DELETE FROM notifications WHERE user_id = ? AND carpooling_id = ?";
+        try {
+            PreparedStatement pstmt = cnx.prepareStatement(sql);
+            pstmt.setInt(1, userId);
+            pstmt.setInt(2, carpoolingId);
+            pstmt.executeUpdate();
+            System.out.println("Notification deleted for user: " + userId + ", carpooling: " + carpoolingId);
+        } catch (SQLException e) {
+            System.out.println("Error deleting notification: " + e.getMessage());
+        }
+    }
+
+    public void deleteWaitlist(int carpoolingId, int userId) {
+        String sql = "DELETE FROM waitlist WHERE carpooling_id = ? AND user_id = ?";
+        try {
+            PreparedStatement pstmt = cnx.prepareStatement(sql);
+            pstmt.setInt(1, carpoolingId);
+            pstmt.setInt(2, userId);
+            pstmt.executeUpdate();
+            System.out.println("Waitlist deleted for user: " + userId + ", carpooling: " + carpoolingId);
+        } catch (SQLException e) {
+            System.out.println("Error deleting waitlist: " + e.getMessage());
+        }
+    }
+
+    public int getByUserId(int userId) {
+        int carpoolingId = -1; // Default value indicating no carpooling found
+
+        String sql = "SELECT carpooling_id FROM notifications WHERE user_id = ?";
+        try {
+            PreparedStatement pstmt = cnx.prepareStatement(sql);
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                carpoolingId = rs.getInt("carpooling_id");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching carpooling ID from notifications: " + e.getMessage());
+        }
+
+        return carpoolingId;
+    }
 
     @Override
     public void add(User user) {

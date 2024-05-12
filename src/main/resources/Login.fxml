@@ -5,35 +5,46 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="512.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Login">
+<AnchorPane prefHeight="696.0" prefWidth="1017.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Login">
    <children>
-      <AnchorPane layoutX="-1.0" layoutY="238.0" prefHeight="200.0" prefWidth="380.0" style="-fx-background-color: #F6E9B2;" />
-      <TextField fx:id="tfmail" accessibleHelp="\@siyahi.tn" layoutX="145.0" layoutY="133.0" prefHeight="26.0" prefWidth="186.0" promptText="example@ecosphere.tn" />
-      <PasswordField fx:id="tfpass" layoutX="145.0" layoutY="200.0" prefHeight="26.0" prefWidth="186.0" promptText="Mot de passe" />
-      <Label layoutX="20.0" layoutY="131.0" prefHeight="30.0" prefWidth="55.0" text="Email:" textAlignment="CENTER">
+      <AnchorPane layoutX="-1.0" layoutY="379.0" prefHeight="315.0" prefWidth="686.0" style="-fx-background-color: #F6E9B2;">
+         <children>
+            <Button fx:id="createacc" layoutX="264.0" layoutY="151.0" mnemonicParsing="false" onAction="#sendToregister" prefHeight="41.0" prefWidth="158.0" text="Create Account" />
+            <Hyperlink fx:id="hlforgotpass" layoutX="150.0" layoutY="97.0" text="Mot de passe oublié?" />
+            <Button fx:id="login_but" contentDisplay="CENTER" layoutX="448.0" layoutY="92.0" mnemonicParsing="false" onAction="#clickLogin" prefHeight="25.0" prefWidth="89.0" text="Login" />
+         </children></AnchorPane>
+      <TextField fx:id="tfmail" accessibleHelp="\@siyahi.tn" layoutX="249.0" layoutY="225.0" prefHeight="26.0" prefWidth="186.0" promptText="example@ecosphere.tn" styleClass="visible-text-field" />
+      <PasswordField fx:id="tfpass" layoutX="249.0" layoutY="294.0" prefHeight="26.0" prefWidth="186.0" promptText="Mot de passe" styleClass="visible-text-field" />
+      <Label layoutX="58.0" layoutY="223.0" prefHeight="30.0" prefWidth="55.0" styleClass="professional-paragraph" text="Email:" textAlignment="CENTER">
          <font>
             <Font name="Calibri Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="pass_label" layoutX="20.0" layoutY="198.0" prefHeight="30.0" prefWidth="122.0" text="Mot de passe:" textAlignment="CENTER">
+      <Label fx:id="pass_label" layoutX="58.0" layoutY="292.0" prefHeight="30.0" prefWidth="122.0" styleClass="professional-paragraph" text="Mot de passe:" textAlignment="CENTER">
          <font>
             <Font name="Calibri Bold" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="login_but" contentDisplay="CENTER" layoutX="234.0" layoutY="290.0" mnemonicParsing="false" onAction="#clickLogin" prefHeight="25.0" prefWidth="89.0" text="Login" />
-      <Hyperlink fx:id="hlforgotpass" layoutX="42.0" layoutY="291.0" text="Mot de passe oublié?" />
-      <Text fill="#64a91b" layoutX="67.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ecosphere" wrappingWidth="196.9078369140625">
+      <Text fill="#64a91b" layoutX="128.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ecosphere" wrappingWidth="196.9078369140625">
          <font>
             <Font name="Ink Free" size="40.0" />
          </font>
       </Text>
-      <Button fx:id="createacc" layoutX="136.0" layoutY="375.0" mnemonicParsing="false" onAction="#sendToregister" prefHeight="26.0" prefWidth="106.0" text="Create Account" />
       <Label fx:id="ctrlEmail" layoutX="145.0" layoutY="171.0" textFill="#e11414" />
       <Label fx:id="ctrlPwd" layoutX="145.0" layoutY="238.0" textFill="#d71515" />
-      <AnchorPane layoutX="351.0" prefHeight="512.0" prefWidth="332.0" style="-fx-background-color: #7ABA78;" />
+      <AnchorPane layoutX="685.0" prefHeight="696.0" prefWidth="332.0" style="-fx-background-color: #7ABA78;">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="86.0" layoutY="264.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/422079871_417559997274203_1275405772308820781_n.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
    </children>
 </AnchorPane>

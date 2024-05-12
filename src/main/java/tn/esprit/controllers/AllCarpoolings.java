@@ -76,7 +76,6 @@ public class AllCarpoolings {
 
                 carpoolingsContainer.getChildren().add(card);
 
-                // Add event handler to navigate to carpooling details screen
                 card.setOnMouseClicked(event -> {
                     int carpoolingId = extractCarpoolingId(carpooling);
                     navigateToCarpoolingDetails(carpoolingId);
