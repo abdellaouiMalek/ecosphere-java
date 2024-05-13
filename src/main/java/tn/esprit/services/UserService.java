@@ -11,7 +11,6 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.sql.*;
-<<<<<<< Updated upstream
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -23,14 +22,12 @@ import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Element;
-=======
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
->>>>>>> Stashed changes
 public class UserService implements IUserService<User>{
     public static String verificationCodeOfUser = null;
     public static String emailOfAccountWillVerif = null;

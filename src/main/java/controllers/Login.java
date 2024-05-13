@@ -66,17 +66,9 @@ public class Login {
 
         try {
             // Attempt to log in using UserService
-<<<<<<< Updated upstream
             User loginSuccess = us.login(tfmail.getText(), tfpass.getText());
-            if (loginSuccess != null) {
-                // Set the logged-in user in the session
-                SessionUser.setLoggedUser(loginSuccess);
-
-=======
-            User loginSuccess = us.login(tfmail.getText(),tfpass.getText() );
             System.out.println(loginSuccess);
             if (SessionUser.loggedUser != null) {
->>>>>>> Stashed changes
                 // Display success message
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Login Successful");
