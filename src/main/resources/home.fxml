@@ -87,26 +87,7 @@
                         <Insets top="10.0" />
                      </padding>
                   </HBox>
-                  <HBox prefHeight="43.0" prefWidth="250.0">
-                     <children>
-                        <ImageView fitHeight="41.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@add-button.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="30.0" top="5.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label prefHeight="42.0" prefWidth="189.0" text="Add Events">
-                           <font>
-                              <Font name="Berlin Sans FB" size="18.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="5.0" left="10.0" top="5.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </HBox>
+
                </children>
             </VBox>
             <Separator prefWidth="200.0" />

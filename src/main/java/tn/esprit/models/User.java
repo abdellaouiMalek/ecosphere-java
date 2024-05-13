@@ -8,11 +8,11 @@ public class User {
     private  String password;
     private  String phone_number;
     private  String picture;
-    private Role role;
+    private String roles;
     private  boolean verified;
     private  int jeton;
 
-    public User(int id, String first_name, String last_name, String email, String password, String phone_number, String picture, Role role, boolean verified,int jeton) {
+    public User(int id, String first_name, String last_name, String email, String password, String phone_number, String picture, String roles, boolean verified,int jeton) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -20,7 +20,7 @@ public class User {
         this.password = password;
         this.phone_number = phone_number;
         this.picture = picture;
-        this.role = role;
+        this.roles = roles;
         this.verified = verified;
         this.jeton = jeton;
     }
@@ -89,12 +89,12 @@ public class User {
         this.picture = picture;
     }
 
-    public Role getRole() {
-        return role;
+    public String getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     public boolean isVerified() {
@@ -123,7 +123,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", phone_number=" + phone_number +
                 ", picture='" + picture + '\'' +
-                ", role=" + role +
+                ", roles=" + roles +
                 '}';
     }
 }

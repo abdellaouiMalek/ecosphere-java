@@ -34,7 +34,6 @@
       <TextField fx:id="tfmail" layoutX="212.0" layoutY="222.0" promptText="exp@ecosphere.com" />
       <TextField fx:id="tfphone" layoutX="212.0" layoutY="264.0" promptText="+216 22222222" />
       <Button layoutX="211.0" layoutY="341.0" mnemonicParsing="false" onAction="#addPhoto" prefHeight="26.0" prefWidth="150.0" text="Import" />
-      <ComboBox fx:id="cmbbrole" layoutX="211.0" layoutY="384.0" onAction="#cbmRole" prefWidth="150.0" />
       <Text layoutX="84.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
       <Text layoutX="82.0" layoutY="401.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role" />
       <Text layoutX="82.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Family Name" />

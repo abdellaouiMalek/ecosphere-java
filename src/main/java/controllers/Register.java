@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import tn.esprit.models.Role;
 import tn.esprit.models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,9 +38,6 @@ public class Register implements Initializable {
 
     @FXML
     private Label ctrlphone;
-
-    @FXML
-    private ComboBox<String> cmbbrole;
 
 
     @FXML
@@ -78,20 +74,10 @@ public class Register implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Populate the combo box with choices
-        ObservableList<String> options = FXCollections.observableArrayList(
-                 "CONSUMER", "VISITOR", "PRODUCTOR");
-        cmbbrole.setItems(options);
 
-        // Set default selection if needed
-        cmbbrole.getSelectionModel().selectFirst(); // Select the first item by default
     }
 
-    @FXML
-    void cbmRole(ActionEvent event) {
-        String selectedValue = cmbbrole.getSelectionModel().getSelectedItem();
-        System.out.println("Selected: " + selectedValue);
-    }
+
 
     private void reset() {
         tfname.setText("");
@@ -161,7 +147,6 @@ public class Register implements Initializable {
             u.setPhone_number(tfphone.getText());
             u.setPassword(hashedPassword); // Store the hashed password
             u.setPicture(tfphoto.getText());
-            u.setRole(Role.valueOf(cmbbrole.getSelectionModel().getSelectedItem()));
 
 
             us.add(u);

@@ -2,13 +2,16 @@ package tn.esprit.services;
 
 
 import org.mindrot.jbcrypt.BCrypt;
-import tn.esprit.models.Role;
 import tn.esprit.models.SessionUser;
 import tn.esprit.models.User;
 import tn.esprit.models.Waitlist;
 import tn.esprit.util.DBconnection;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.sql.*;
+<<<<<<< Updated upstream
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -20,6 +23,14 @@ import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Element;
+=======
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+>>>>>>> Stashed changes
 public class UserService implements IUserService<User>{
     public static String verificationCodeOfUser = null;
     public static String emailOfAccountWillVerif = null;
@@ -113,7 +124,7 @@ public class UserService implements IUserService<User>{
     @Override
     public void add(User user) {
         // cryptage of password
-        String req = "INSERT INTO `user`(`first_name`, `last_name`, `email`, `password`, `phone_number`, `picture`, `role`,`verified`) VALUES (?,?,?,?,?,?,?,?)";
+        String req = "INSERT INTO `user`(`first_name`, `last_name`, `email`, `password`, `phone_number`, `picture`, `roles`,`verified`) VALUES (?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement stm  = cnx.prepareStatement(req);
             stm.setString(1,user.getFirst_name());
@@ -122,7 +133,7 @@ public class UserService implements IUserService<User>{
             stm.setString(4,user.getPassword());
             stm.setString(5,user.getPhone_number());
             stm.setString(6,user.getPicture());
-            stm.setString(7,user.getRole().toString());
+            stm.setString(7,"[\"ROLE_USER\"]");
             stm.setBoolean(8,false);
             accountVerif(user);
             stm.executeUpdate();
@@ -240,8 +251,8 @@ public class UserService implements IUserService<User>{
                 user.setPhone_number(resultSet.getString(6));
                 user.setPicture(resultSet.getString(7));
                 String roleName = resultSet.getString(8);
-                Role role = Role.valueOf(roleName);
-                user.setRole(role);
+                if(user.getRoles().equals("[\"ROLE_USER\"]"))
+                    user.setRoles("Client");
                 users.add(user);
 
             }
@@ -268,8 +279,7 @@ public class UserService implements IUserService<User>{
                 user.setPhone_number(resultSet.getString(6));
                 user.setPicture(resultSet.getString(7));
                 String roleName = resultSet.getString(8);
-                Role role = Role.valueOf(roleName);
-                user.setRole(role);
+
             }
 
 
@@ -294,8 +304,7 @@ return user;
                 user.setPhone_number(resultSet.getString(6));
                 user.setPicture(resultSet.getString(7));
                 String roleName = resultSet.getString(8);
-                Role role = Role.valueOf(roleName);
-                user.setRole(role);
+
             }
 
 
@@ -308,7 +317,7 @@ return user;
     @Override
     public void update(User user) {
 
-        String req ="UPDATE `user` SET  `first_name`= ?,`last_name`=? ,`email`=?,`password`=?,`phone_number`=?,`picture`=?,`role`=? WHERE `id`=?";
+        String req ="UPDATE `user` SET  `first_name`= ?,`last_name`=? ,`email`=?,`password`=?,`phone_number`=?,`picture`=?,`roles`=? WHERE `id`=?";
         try {
             PreparedStatement stm  = cnx.prepareStatement(req);
             stm.setString(1,user.getFirst_name());
@@ -317,7 +326,7 @@ return user;
             stm.setString(4,user.getPassword());
             stm.setString(5,user.getPhone_number());
             stm.setString(6,user.getPicture());
-            stm.setString(7,user.getRole().toString());
+            stm.setString(7,user.getRoles());
             stm.setInt(8,user.getId());
             stm.executeUpdate();
         } catch (SQLException e) {
@@ -376,9 +385,11 @@ return user;
                 user.setPassword(resultSet.getString(5));
                 user.setPhone_number(resultSet.getString(6));
                 user.setPicture(resultSet.getString(7));
-                String roleName = resultSet.getString(8);
-                Role role = Role.valueOf(roleName);
-                user.setRole(role);
+
+                // Retrieve user's role from database
+                String roleName = resultSet.getString("roles");
+                // Assuming roles are stored as a JSON array string (e.g., ["ROLE_ADMIN", "ROLE_USER"])
+                user.setRoles(roleName);
 
                 // Check if password matches
                 boolean passwordMatches = BCrypt.checkpw(password, user.getPassword());
